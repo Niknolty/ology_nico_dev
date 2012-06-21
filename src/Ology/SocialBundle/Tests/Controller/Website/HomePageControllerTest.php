@@ -3,10 +3,9 @@
 namespace Ology\SocialBundle\Tests\Controller\Website;
 
 use Ology\SocialBundle\Controller\Website;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+//use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class HomePageControllerTest extends WebTestCase
-{
+class HomePageControllerTest /*extends WebTestCase*/{
     public function testViewProfile()
     {
         //$x = new MyClass();

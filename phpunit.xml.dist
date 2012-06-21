@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit colors = "true" stopOnFailure = "false" backupGlobals="false" backupStaticAttributes="false" syntaxCheck="false" 
-bootstrap = "app/bootstrap.php.cache">
+>
     
-    <php>
+    <!--<php>
         <server name="KERNEL_DIR" value="/home/ology023/ology_nico_dev/app" />
-    </php>
+    </php>-->
     
     <testsuites>
         <testsuite name="php-demo">
