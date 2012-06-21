@@ -1,0 +1,113 @@
+security:
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+        FOS\UserBundle\Model\UserInterface: sha512
+
+    role_hierarchy:
+        ROLE_USER:        [ROLE_USER]
+        ROLE_EDITOR:      [ROLE_EDITOR]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    factories:
+          - "%kernel.root_dir%/../vendor/bundles/FOS/FacebookBundle/Resources/config/security_factories.xml"
+          - "%kernel.root_dir%/../vendor/bundles/FOS/TwitterBundle/Resources/config/security_factories.xml"
+
+    providers:
+        my_fos_facebook_provider:
+          id: my.facebook.user
+        my_fos_twitter_provider:
+          id: my.twitter.user
+        fos_userbundle:
+          id: fos_user.user_manager
+
+    firewalls:
+        main:
+            pattern: ^/
+            form_login:
+                provider:   fos_userbundle
+                login_path: /splash
+                check_path: /login_check
+                default_target_path: /login/redirect
+            fos_facebook:
+                app_url:    "http://apps.facebook.com/appName/ology_dev"
+                server_url: "http://ology4.com"
+                login_path: /splash
+                check_path: /facebook/check
+                provider:   my_fos_facebook_provider
+                default_target_path: /facebook/redirect
+            fos_twitter:
+                login_path: /splash
+                check_path: /twitter/check
+                provider:   my_fos_twitter_provider
+                default_target_path: /twitter/redirect
+            anonymous: true
+            logout:
+                path: /logout
+                handlers: ["fos_facebook.logout_handler"]
+                target: /splash
+
+                #app_url: "http://www.facebook.com/apps/application.php?id=227147837348982"
+
+            remember_me:
+                key:      qwertyremember
+                lifetime: 2592000
+                path:     /
+                domain:   ~
+
+        #dev:
+           # pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            #security: false
+
+        #login:
+          #  pattern:  ^/demo/secured/login$
+            #security: false
+
+        #secured_area:
+          #  pattern:    ^/demo/secured/
+            #form_login:
+              #  check_path: /demo/secured/login_check
+                #login_path: /demo/secured/login
+            #logout:
+              #  path:   /demo/secured/logout
+                #target: /demo/
+            #anonymous: ~
+            #http_basic:
+            #    realm: "Secured Demo Area"
+
+    access_control:
+        # Anonymous users need access to these paths
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/adm/post/publish$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/adm/cache/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/adm/mail/missyou$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        
+        # Editors
+        #- { path: ^/editors, role: ROLE_EDITOR }
+        
+        # Admin only (put the more restrictive first)
+        - { path: ^/admhome, role: ROLE_SUPER_ADMIN }
+        - { path: ^/adm, role: ROLE_SUPER_ADMIN }
+        - { path: ^/editors, role: ROLE_EDITOR }
+        - { path: ^/stats, role: ROLE_SUPER_ADMIN }
+        #- { path: /stats$, role: ROLE_SUPER_ADMIN }
+        # Secured sections of the site
+        - { path: /inbox, role: ROLE_USER }
+        - { path: /message, role: ROLE_USER }
+        - { path: /invite, role: ROLE_USER }
+        - { path: /settings, role: ROLE_USER }
+        - { path: /settings/fblikes, role: ROLE_USER }
+        - { path: /invite/, role: ROLE_USER }
+        - { path: /onboarding/, role: ROLE_USER }
+        # Secured function
+        - { path: /delete$, role: ROLE_USER }
+        - { path: /create$, role: ROLE_USER }
+        - { path: /form$, role: ROLE_USER }
+        - { path: /update$, role: ROLE_USER }
+        - { path: /leave, role: ROLE_USER }
+
+
+
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        #- { path: ^/_internal, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
+

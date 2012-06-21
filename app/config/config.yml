@@ -1,0 +1,239 @@
+imports:
+    - { resource: parameters.ini }
+    - { resource: security.yml }
+    - { resource: "@OlogySocialBundle/Resources/config/config.yml"}
+    
+knp_zend_cache:
+    templates:
+        estrisa_twig_image_tag:
+            frontend:
+                name: Core
+                options:
+                    lifetime: 2592000
+                    automatic_serialization: true
+            backend:
+                name: File
+                options:
+                    cache_dir: %kernel.root_dir%/cache/%kernel.environment%
+    
+parameters:
+    security.encoder.digest.class: Ology\SocialBundle\Security\MessageDigestPasswordEncoder
+    mymailer:
+     confirmation.template: %fos_user.registration.confirmation.template%
+     resetting.template:    %fos_user.resetting.email.template%
+     from_email:
+        confirmation: %fos_user.registration.confirmation.from_email%
+        resetting: %fos_user.resetting.email.from_email%
+    kernel.listener.ology.login.class: Ology\UserBundle\Listener\SecurityListener
+
+framework:
+    #esi:             ~
+    translator:      ~
+    secret:          %secret%
+    charset:         UTF-8
+    router:          { resource: "%kernel.root_dir%/config/routing.yml" }
+    form:            true
+    csrf_protection: true
+    validation:      { enable_annotations: true }
+    templating:      { engines: ['twig'], assets_base_urls: "%assets_base_urls%%s3_bucket%" } #assets_version: SomeVersionScheme
+    session:
+      storage_id:     snc_redis.session
+      default_locale: %locale%
+      lifetime:       604800
+      auto_start:     true
+
+
+# Twig Configuration
+twig:
+    debug:              %kernel.debug%
+    strict_variables:   %kernel.debug%
+    
+# Assetic Configuration
+assetic:
+    debug:              %kernel.debug%
+    use_controller:     false
+    read_from:          %kernel.root_dir%/../web
+    filters:
+        cssrewrite: ~
+        # closure:
+        #     jar: %kernel.root_dir%/java/compiler.jar
+        # yui_css:
+        #     jar: %kernel.root_dir%/java/yuicompressor-2.4.2.jar
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   %database_driver%
+        host:     %database_host%
+        port:     %database_port%
+        dbname:   %database_name%
+        user:     %database_user%
+        password: %database_password%
+        charset:  UTF8
+
+    orm:
+        auto_generate_proxy_classes:  %kernel.debug%
+        auto_mapping:                 true
+        metadata_cache_driver: apc
+        result_cache_driver: apc
+        query_cache_driver: apc
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: %mailer_transport%
+    host:      %mailer_host%
+    username:  %mailer_user%
+    password:  %mailer_password%
+    port:      %mailer_port%
+    spool:
+      type: file
+      path: %mail_folder%
+
+jms_security_extra:
+    secure_controllers:  true
+    secure_all_services: false
+
+# Login Configuration (Facebook, Twitter, ...)
+services:
+    my.facebook.user:
+        class: Ology\SocialBundle\Security\User\Provider\FacebookProvider
+        arguments:
+            facebook:     "@fos_facebook.api"
+            userManager:  "@fos_user.user_manager"
+            validator:    "@validator"
+            cache:        "@social.dao.cache"
+            userDao:      "@social.dao.user"
+    my.twitter.user:
+        class: Ology\SocialBundle\Security\User\Provider\TwitterProvider
+        arguments:
+            twitter_oauth: "@fos_twitter.api"
+            userManager:   "@fos_user.user_manager"
+            validator:     "@validator"
+            session:       "@session"
+            userDao:       "@social.dao.user"
+    kernel.listener.ology.login:
+        class: %kernel.listener.ology.login.class%
+        scope: request
+        arguments: ["@router", "@security.context", "@request","@session"]
+        tags:
+            - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
+            - { name: kernel.event_listener, event: security.interactive_login, method: onSecurityInteractiveLogin }
+    memcache:
+        class: Memcache
+        calls:
+             - [ addServer, [%memcached_host%, %memcached_port%]]
+
+fos_facebook:
+    file:         %kernel.root_dir%/../vendor/facebook/src/base_facebook.php
+    alias:        facebook
+    app_id:       %facebookappif%
+    secret:       %facebooksecret%
+    cookie:       true
+    permissions:  [email, user_birthday, user_location, publish_stream]
+
+fos_twitter:
+    file:             %kernel.root_dir%/../vendor/TwitterOAuth/twitteroauth/twitteroauth.php
+    consumer_key:     %twitter_key%
+    consumer_secret:  %twitter_secret%
+    callback_url:     %server_url%twitter/check
+
+fos_user:
+    db_driver:        orm
+    firewall_name:    main
+    user_class:       Ology\SocialBundle\Entity\User
+    registration:
+        form:
+          handler:    ology_user.form.handler.registration
+          type:       ology_user_registration
+    from_email:
+        address:      my@ology.com
+        sender_name:  Ology Admin
+    service:
+        mailer:       ology.mailer
+    resetting:
+        token_ttl:    86400
+        email:
+            from_email: # Use this node only if you don't want the global email address for the resetting email
+                address:        my@ology.com
+                sender_name:    Ology Admin
+            template:   OlogyUserBundle:Resetting:email.txt.twig
+        form:
+            type:               ology_user_resetting
+            handler:            fos_user.resetting.form.handler.default
+            name:               fos_user_resetting_form
+            validation_groups:  [ResetPassword]
+
+
+foq_elastica:
+    clients:
+        search1:
+          host: %elasticsearch-server%
+          port: %elasticsearch-port%
+          
+    default_client: search1
+
+    indexes:
+        website:
+            client: search1
+            settings:
+                index:
+                    analysis:
+                        analyzer:
+                            ology_analyzer:
+                                type: custom
+                                tokenizer: lowercase
+                                filter: [ology_ngram]
+                        filter:
+                            ology_ngram:
+                                type: "nGram"
+                                min_gram: 3
+                                max_gram: 15
+            types:
+                ology:
+                    mappings:
+                        name: { boost: 10, analyzer: ology_analyzer }
+                        description: { boost: 7, analyzer: ology_analyzer }
+                    persistence:
+                        driver: orm
+                        model: Ology\SocialBundle\Entity\Ology
+                        provider:
+                            batch_size: 10
+                        listener:
+                        finder:
+                user:
+                    mappings:
+                        firstName: { boost: 5, analyzer: ology_analyzer }
+                        lastName: { boost: 5, analyzer: ology_analyzer }
+                        top1: { boost: 3, analyzer: ology_analyzer }
+                        top2: { boost: 3, analyzer: ology_analyzer }
+                        top3: { boost: 3, analyzer: ology_analyzer }
+                    persistence:
+                        driver: orm
+                        model: Ology\SocialBundle\Entity\User
+                        provider:
+                          batch_size: 10
+                        listener:
+                        finder:
+                post:
+                    mappings:
+                        title: { boost: 8, analyzer: ology_analyzer }
+                    persistence:
+                        driver: orm
+                        model: Ology\SocialBundle\Entity\Post
+                        provider:
+                            batch_size: 10
+                        listener:
+                        finder:
+
+cybernox_amazon_web_services:
+    key:                        %aws_key%
+    secret:                     %aws_secret%
+#    account_id:                 %aws_account_id%
+#      canonical_id:               %aws_canonical_id%
+#      canonical_name:             %aws_canonical_name%
+#      mfa_serial:                 %aws_mfa_serial%
+#      cloudfront_keypair_id:      %aws_cloudfront_keypair_id%
+#      cloudfront_private_key_pem: %aws_cloudfront_private_key_pem%
+    default_cache_config:       apc
+    enable_extensions:          false
+    certificate_authority:      false
