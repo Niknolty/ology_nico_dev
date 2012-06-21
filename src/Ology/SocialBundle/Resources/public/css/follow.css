@@ -1,0 +1,112 @@
+/* 
+    Document   : follow
+    Created on : May 25, 2012, 10:26:50 AM
+    Author     : raphael
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.follow-button2 {
+    background: url('../img/follow_button.png') center center no-repeat;
+    cursor:     pointer;
+    height:     42px;
+    width:      132px;
+}
+.following-button {
+    background: url('../img/following_button.png') center center no-repeat;
+    cursor:     pointer;
+    height:     42px;
+    width:      132px;
+}
+.following-button:hover {
+    background: url('../img/unfollow_button.png') center center no-repeat;
+}
+
+#follow-submit {
+    float:      right;
+}
+
+#profile-info #follow-button {
+    float: right;
+}
+#follow-form {
+    margin-left: 190px;
+}
+
+#follow-form h2 {
+    display:    inline-block;
+    margin:     10px auto 0;
+    font-family: EgyptienneURW-Bol;
+}
+
+#follow-form .is-selected {
+    background-image: url('../img/check_box_marked.png');
+    background-repeat: no-repeat;
+    background-size: 20px;
+    cursor:     pointer;
+    padding-left: 25px;
+}
+
+#follow-form .not-selected {
+    background-image: url('../img/check_box_empty.png');
+    background-repeat: no-repeat;
+    background-size: 20px;
+    cursor:     pointer;
+    padding-left: 25px;
+}
+
+.follow-ologies, .follow-stashes {
+    max-height: 109px;
+    margin:     0 0 10px;
+    overflow-y: auto;
+}
+
+#follow-everything {
+    display:    inline-block;
+}
+
+.follow-profile {
+    float: left;
+    margin-right: 15px;
+}
+
+.follow-profile img {
+    display:    block;
+    width:      170px;
+}
+
+.followee-card, .follower-card {
+    border:     6px #CCC solid;
+    display:    inline-block;
+    margin:     5px;
+    padding:    5px;
+    height:     100px;
+    width:      300px;
+}
+
+.follow-card-content {
+    float:      right;
+    width:      200px;
+}
+
+.followee-card img, .follower-card img {
+    max-height: 90px;
+    max-width:  90px;
+    float:      left;
+    padding:    2px;
+}
+.followee-summary, .follower-summary {
+    max-height: 37px;
+    overflow:   hidden;
+}
+#following-page h1, #followers-page h1 {
+    font-family:EgyptienneURW-Med, sans-serif;
+    font-size:  30px;
+    font-weight:normal;
+}
+#close-followees-page, #close-followers-page {
+    margin-left:10px;
+    vertical-align: bottom;
+    height:     22px;
+    width:      22px;
+}

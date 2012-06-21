@@ -1,0 +1,34 @@
+{% extends 'OlogySocialBundle:Stats:base.html.twig' %}
+{% block body %}
+<h1>Comments</h1>
+Average number of comment per type of post
+<h2>General</h2>
+
+<ul>
+    <li>Text posts {{ stats['general']['text']['average'] }}</li>
+    <li>Image posts {{ stats['general']['image']['average'] }}</li>
+    <li>Video posts {{ stats['general']['video']['average'] }}</li>
+    <li>Audio posts {{ stats['general']['audio']['average'] }}</li>
+</ul>
+
+<h2>By categories</h2>
+{% for key, value in stats['labels'] %}
+<h3>{{ key }}</h3>
+<ul>
+    <li>Text posts {{ value['text']['average'] }}</li>
+    <li>Image posts {{ value['image']['average'] }}</li>
+    <li>Video posts {{ value['video']['average'] }}</li>
+    <li>Audio posts {{ value['audio']['average'] }}</li>
+</ul>
+{% endfor %}
+
+<h2>By Ology</h2>
+{% if ologyStats is defined %}
+    Average number of comments: {{ ologyStats }}
+{% else %}
+<form action="{{ path('_stats_comments') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_rest(form) }}
+    <input type="submit" value="OK"/>
+</form>
+{% endif %}
+{% endblock %}

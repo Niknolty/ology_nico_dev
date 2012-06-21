@@ -1,0 +1,24 @@
+{% extends 'OlogySocialBundle:FrontEnd:base.html.twig' %}
+{% block title %}Edit Ology | Ology{% endblock %}
+
+{% block body %}
+{% if loggedIn == true %}
+	<div id='page'>
+            {% include 'OlogySocialBundle:FrontEnd:dock.html.twig' %}
+	</div>
+{% endif %}
+
+<div id="container">
+	<div id="create-ology">
+	<h2>Update Ology</h2>
+		{% include 'OlogySocialBundle:Ology:update.html.twig' with {'form' : ologyForm} %}
+	</div>
+</div>
+{% endblock %}
+
+
+{% block pagescripts %}
+<script type="text/javascript">
+    $("#ologyFormEdit_firstLabel").val({{ category }});
+</script>
+{% endblock %}

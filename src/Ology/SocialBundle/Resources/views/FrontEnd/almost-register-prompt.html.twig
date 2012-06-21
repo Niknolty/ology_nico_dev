@@ -1,0 +1,30 @@
+{% if app.user is empty %}
+<div id="almost-register-prompt-box">
+        <div class="register-prompt-splash">
+            <div id="almost-prompt-title">
+            </div>
+            <div id="almost-prompt-sentence">
+            </div>    
+        </div>
+        <form action="{{ path('fos_user_registration_register') }}" class="form" method="POST" {{ form_enctype(almostForm) }}>
+            {% form_theme almostForm 'OlogySocialBundle:Form:formOlogyTheme.html.twig' %}            
+            {{ form_errors(almostForm) }}
+            {{ form_row(almostForm.email) }}
+            {{ form_row(almostForm.plainPassword) }}
+            {{ form_row(almostForm.firstName) }}
+            {{ form_row(almostForm.lastName) }}
+            {{ form_row(almostForm.termOfService) }} 
+            <div class="terms">
+                <span>Agree to our </span><a href="{{ path("_website_terms") }}" target="_blank" >Terms of Service</a>
+            </div>
+            {{ form_rest(almostForm) }}
+            <div id="finish-button-align">
+                <input type="submit" value="Finish" class="signup-button" />
+            </div>
+        </form>
+        <div id="sign-in-link">
+            <a class="go-on-register-prompt"> or sign in with Facebook or Twitter</a>
+        </div>
+        <span class="almost-register-prompt-close">x</span>
+</div>
+{% endif %}

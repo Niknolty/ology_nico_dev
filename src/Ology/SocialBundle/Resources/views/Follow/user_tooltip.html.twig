@@ -1,0 +1,27 @@
+<div class="user-tooltip">
+    <div class="user-tooltip-left">
+        <a href="{{ path("_website_profile", {'id' : toolTipUser.id}) }}"><img src="{{ asset(user_large_image_path ~ toolTipUser.imageUrl) }}" width="100px" height="100px"/></a>
+    </div>
+    <div class="user-tooltip-right">
+        <a href="{{ path("_website_profile", {'id' : toolTipUser.id}) }}"><span class="user-tooltip-right-name">{{ toolTipUser.firstName }} {{ toolTipUser.lastName }}</span></a>
+        {% if loggedIn and isToolTipUserFollowingYou %}
+            <span class="followsyou">Following you</span><br/>
+        {% endif %}
+            <div class="tt-sum">
+                <div class="tt-sum-part">{{ toolTipUser.summary|truncate(40, false, "") }}{% if toolTipUser.summary|length() > 40%}<span class="tt-display-full-sum">...</span>{% endif %}</div>
+                <div class="tt-sum-full">{{ toolTipUser.summary }}</div>
+            </div>
+        <br/>
+        
+        {% if loggedIn and app.user.id != toolTipUser.id %}
+            {% if isLoggedUserFollowingToolTipUser %}
+                <div class="following-button" id="user-tooltip-follow-button" href="{{ path("_website_unfollow_user_everywhere", {'userId' : toolTipUser.id }) }}"></div>
+            {% else %}
+                <div class="follow-button2" id="user-tooltip-follow-button" href="{{ path("_website_follow_user_everywhere", {'userId' : toolTipUser.id }) }}"></div>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+<div class="user-tooltip-bottom">
+&nbsp;
+</div>

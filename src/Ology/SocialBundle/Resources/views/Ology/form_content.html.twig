@@ -1,0 +1,18 @@
+    <h3>1. Basic Info:</h3>
+
+	Name of Ology
+    {{ form_row(form.name) }}
+
+    <br />Short Description
+    {{ form_row(form.description) }}
+
+    <br />
+	<h3>2. Ology Icon:</h3>
+	<p>Upload any photo (jpg, png or gif) and we'll make it into your Ology's circle icon</p>
+    {{ form_row(form.imageFile) }}
+
+    <br />
+    <h3>3. Categorize Your Ology:</h3>
+	{{ form_row(form.firstLabel) }}
+
+    {{ form_rest(form) }}

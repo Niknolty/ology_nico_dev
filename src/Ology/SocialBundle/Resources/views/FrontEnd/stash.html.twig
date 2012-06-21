@@ -1,0 +1,84 @@
+{% extends 'OlogySocialBundle:FrontEnd:base.html.twig' %}
+{% block title %}{{ stash.name }} | Ology{% endblock %}
+{% block body %}
+
+{% block stylesheets %}
+    <link href="{{ asset('bundles/ologysocial/css/jquery.tagit.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}	
+
+{% if app.user is not empty%}
+<div id='page'>
+    {% include 'OlogySocialBundle:FrontEnd:dock.html.twig' %}
+</div>
+{% endif %}
+
+<div id="stash-delete-confirm">
+    Are you sure you want to remove this post from your stash?<br/><br/>
+    <a href="#"><span id="alert-confirm-button">Yes</span></a>
+    <a href="#"><span id="alert-cancel-button">No</span></a>
+    <input type="hidden" id="hiddenConfirmUrl" value=""/>
+</div>
+    
+<div id="container">
+    <div id="stash-bar">
+        <div id="stashId" stashId="{{ stash.id }}"></div>
+        {% if app.user is not empty %}
+            {% if stash.founder.id == user.id %}
+                <div id="edit-stash"><b> Edit</b></div>
+            {% endif %}
+        {% endif %}
+        <div id="stash-title">
+            <h2 id="editable-title">{{ stash.name }}</h2>
+            <div id="stash-stats">
+                {% for tag in tags %}
+                    {{ tag }}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="founder-section">
+            <a href="{{ path("_website_profile", {'id' : stash.founder.id}) }}">
+                <img src="{{ asset(user_large_image_path ~ stash.founder.imageUrl) }}"   />
+            </a>
+            Stash by<br /> 
+            <a href="{{ path("_website_profile", {'id' : stash.founder.id}) }}">
+                {{stash.founder.firstName}} {{stash.founder.lastName}}
+            </a>
+        </div>
+    </div>
+        
+    <div id="ology-posts-box-ology" style="width: 100%;">
+        <div id="posts-box-main-stash">
+                <div id="posts-box-stash">
+                    {% if postsStashes | length == 0 %}
+                    <div class="post text">
+                        {% if (app.user is empty) or (user.id != stash.founder.id) %}
+                            <p style="font-size: 14px">Awww… {{ stash.founder.firstName}} has not stashed anything in {{ stash.name}} yet.</p>
+                        {% else %}
+                            <p style="font-size: 14px">Congrats on creating a new stash!</p>
+                            <p style="font-size: 14px">You can now stash stuff you like by clicking the ReOlogize button on posts.</p>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                        
+                    {% for postStash in postsStashes %}
+                        {% set post = postStash.post %}
+                        {% if post.isProfessional %}
+                            {% include 'OlogySocialBundle:FrontEnd:pro_post_card.html.twig' with {'post': post, 'unStashable' : unStashable, 'stashId' : stash.id } %}
+                        {% else %}
+                            {% include 'OlogySocialBundle:FrontEnd:post_card.html.twig' with {'post': post, 'unStashable' : unStashable, 'stashId' : stash.id } %}
+                        {% endif %}
+                    {% endfor %}
+                </div>   
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block pagescripts %}
+    <script src="{{ asset('bundles/ologysocial/js/stash.js') }}?ologyv=11" type="text/javascript"></script>
+    <script src="{{ asset('bundles/ologysocial/js/tag-it.js') }}?ologyv=11" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ asset('bundles/ologysocial/js/silver-bullet/homescroll.js') }}?ologyv=11" type="text/javascript"></script>
+    <script src="{{ asset('bundles/ologysocial/js/likes_display.js') }}?ologyv=11" type="text/javascript"></script>
+    <script src="{{ asset('bundles/ologysocial/js/offline_likes.js') }}?ologyv=11" type="text/javascript"></script>
+{% endblock %}

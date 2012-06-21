@@ -1,0 +1,6 @@
+{% extends 'OlogySocialBundle:Email:template.html.twig' %}
+{% block body %}
+Hey {{ recipientName }},
+<a href="{{ websiteUrl }}{{ path("_website_profile", {'id' : followerId}) }}">{{ followerName }}</a> is now following your posts in "<a href="{{ websiteUrl }}{{ path('_website_ology', {'id': ologyId}) }}">{{ ologyName }}</a>" !
+Congrats!
+{% endblock %}

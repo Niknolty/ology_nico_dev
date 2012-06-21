@@ -1,0 +1,30 @@
+<form action="{{ path('_ology_edit', {'id' : ology.id }) }}" method="post" {{ form_enctype(form) }}>
+
+            <h3>1. Basic Info:</h3>
+
+	Name of Ology
+    {{ form_row(form.name) }}
+
+    <br />Short Description
+    {{ form_row(form.description) }}
+
+    <br />
+	<h3>2. Ology Icon:</h3>
+	<div id="update-ology-icon">x
+		<img src="{{ asset(ology_medium_image_path ~ ology.imageUrl) }}"/>
+	</div>
+
+	<div id="update-ology-icon-form"> <span class="update-ology-icon-close">x</span>
+		<p>Upload any photo (jpg, png or gif) and we'll make it into your Ology's circle icon</p>
+	    {{ form_row(form.imageFile) }}
+    </div>
+
+    <br />
+    <h3>3. Categorize your Ology:</h3>
+	{{ form_row(form.firstLabel) }}
+
+    {{ form_rest(form) }}
+
+
+    <input type="submit" value="Update Ology" class="create-ology-button" />
+</form>

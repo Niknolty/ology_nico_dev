@@ -1,0 +1,181 @@
+/* 
+    Document   : reologize
+    Created on : May 2, 2012, 6:11:56 PM
+    Author     : raphael
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* On Cards */
+
+.reologize-card {
+    background-color: #FFFFFF;
+    border:     1px solid #fff;
+    box-shadow: 2px 2px 5px grey;
+    display:    none;
+    position:   absolute;
+    left:       50%;
+    top:        -12px;
+    vertical-align: top;
+    padding:    6px 10px 3px 10px;
+    /* width + padding-left + padding-right / 2 = centered */
+    margin-left:-60px;
+    width:      100px;
+}
+
+.reologize-card:hover, .reologize-post:hover {
+    text-decoration: none;
+}
+
+.reologize-card:active, .reologize-post:active {
+    box-shadow: none;
+    text-decoration: none;
+}
+
+.reologize-card img, .reologize-post img {
+    padding-left:   2px;
+    padding-right:  6px;
+    vertical-align: middle;
+}
+
+#reologize-icon{
+    display:    inline-block;
+    margin-left: 10px;
+    margin-right: 5px;
+    vertical-align: text-bottom;
+}
+
+#reologize-title {
+    display:    inline;
+    padding-left: 10px;
+    vertical-align: text-bottom;
+}
+
+#reologize-form h2 {
+    display:    inline-block;
+    margin:     10px auto 0;
+    font-family: EgyptienneURW-Bol;
+}
+
+#reologize-form .is-selected {
+    background-image: url('../img/check_box_marked.png');
+    background-repeat: no-repeat;
+    background-size: 20px;
+    cursor:     pointer;
+    padding-left: 25px;
+}
+
+#reologize-form .not-selected {
+    background-image: url('../img/check_box_empty.png');
+    background-repeat: no-repeat;
+    background-size: 20px;
+    cursor:     pointer;
+    padding-left: 25px;
+}
+
+.reologize-popup .input-ology input{
+    margin:     10px 0;
+    width:      95%
+}
+
+.reologize-ologies, .reologize-stashes {
+    max-height: 109px;
+    margin:     0 0 10px;
+    overflow-y: auto;
+}
+
+#reologize-submit {
+    float: right;
+}
+
+.success-popup {
+    overflow:   hidden!important;
+}
+
+/* In Posts */
+#reologize-post-button .reologize-card {
+    border-radius: 3px;
+    display:    inline-block;
+    position:   relative;
+    float:      right;
+    padding:    6px 10px 3px 10px;
+    margin:     11px;
+    width:      100px;
+    left:       0;
+    top:        0;
+}
+
+
+#post-sidebar #post-sidebar-infos #reologize-post-button{
+    border-bottom: 1px solid #CCCCCC;
+    height: 60px;
+    margin-left: 10px;
+    width: 200px;
+}
+
+#post-sidebar #post-sidebar-infos #reologize-post-button .reologize-card{
+    display: inline-block;
+    width: 100px;
+    left: -27px;
+}
+
+#reologize-post-button .success-popup {
+    bottom:     18%;
+    top:        auto;
+}
+
+/* ReOlogized by on cards */
+.unreologize{
+    font-size:  9px;
+    height:     30px;
+    margin:     5px;
+    line-height:15px;
+    min-height: 20px;
+}
+.unreologize img {
+    float:      left;
+    vertical-align: middle;
+    padding:    3px 3px 0 0;
+}
+.reologize-text-button, #postbox #posts-box-main #post-box #post-main .post-user .small .unreologize .reologize-text-button,
+#postbox #posts-box-main #post-box .post-user .pro-small .unreologize .reologize-text-button{
+    color:      black;
+    cursor:     pointer;
+    display:    inline-block;
+    height:     30px;
+    font-weight: bold;
+    width:      56px;
+}
+.reologize-text-button a {
+    vertical-align: middle;
+}
+
+.reologize-text{
+    display:    inline-block;
+    float:      right;
+    width:      105px;
+}
+
+#postbox #posts-box-main #post-box #post-main .post-user .small .unreologize .reologize-text a,
+.reologize-text-button, #postbox #posts-box-main #post-box #post-main .post-user .small .unreologize .reologize-text-button a{
+    color:black;
+}
+
+#postbox #posts-box-main #post-box #post-main .post-user .small .unreologize,
+#postbox #posts-box-main #post-box .post-user .pro-small .unreologize{
+    font-size:  9px;
+    height:     30px;
+    margin:     0;
+    line-height:15px;
+    min-height: 20px;
+}
+
+#postbox #posts-box-main #post-box #post-main .post-user .small .unreologize .reologize-text,
+#postbox #posts-box-main #post-box .post-user .pro-small .unreologize .reologize-text{
+    display:    inline-block;
+    vertical-align: middle;
+    width:      105px;
+    float: none;
+}
+
+

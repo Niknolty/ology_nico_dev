@@ -1,0 +1,24 @@
+{% extends 'OlogySocialBundle:Stats:base.html.twig' %}
+{% block body %}
+<h1>Follows</h1>
+
+<h1 style="color:red">/!\ WARNING /!\</h1>
+<span style="color:red">Do NOT click on links every 5mn, this is a heavy computing cost for servers.</span><br />
+<span style="color:red">The page loading takes few minutes, be patient :)</span>
+
+{#
+<h2>Total number of followees : {{ stats['totalFollowees'] }}</h2>
+<h2>Total number of followers : {{ stats['totalFollowers'] }}</h2>
+
+{#<h2><a href={{ path("_stats_followers") }} >Top 15 users's followers</a></h2>#}
+<h2><a href={{ path("_stats_followees") }} >Top 15 users's followees</a></h2>
+
+ {#   
+<h2>Top 15 Stashes</h2>
+<ul>
+{% for stash in stats['topStashes'] %}
+    <li><a href="{{ path("_website_stash", {'id' : stash.id }) }}" >{{ stash.name }}</a> has {{ stash.nbFollowers }} followers</li>
+{% endfor %}
+</ul>
+#}
+{% endblock %}

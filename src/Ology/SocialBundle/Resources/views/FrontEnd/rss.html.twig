@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?><rss version="2.0" xml:base="{{rss_link}}" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>{{rss_title}}</title>
+    <link>{{rss_link}}</link>
+    <description>{{rss_description}}</description>
+    <language>{{rss_language}}</language>
+    <lastBuildDate></lastBuildDate>    
+    <pubDate></pubDate>
+    <copyright></copyright>
+    {% if count_posts %}
+        {% for post in posts %}
+        <item>
+            <title>{{ post.title }}</title>
+            <link>{{post.link}}</link>
+            <description>{{post.description}}</description>
+            {% if post.leadImage %}
+                <leadImage>{{post.leadImage}}</leadImage>
+            {% endif %}
+            {% for category in post.categories %}
+                <category domain="{{category.link}}">{{category.title}}</category>
+            {% endfor %}
+            <pubDate>{{post.pubDate}}</pubDate>
+            <dc:creator>{{post.dc_creator}}</dc:creator>
+            <guid isPermaLink="false">{{post.guid_isPermaLink}}</guid>
+            {% if count_comments[post.id] > 0 %}
+            <comments>
+                {% for comment in comments[post.id] %}
+                    <comment date="{{ comment.date }}" author="{{ comment.user_firstname }} {{ comment.user_lastname }}" avatar="{{ comment.user_avatar }}">
+                        {{ comment.content }}
+                    </comment>
+                {% endfor %}
+            </comments>
+            {% endif %}
+        </item>
+        {% endfor %}
+    {% endif %}    
+ </channel> 
+</rss>

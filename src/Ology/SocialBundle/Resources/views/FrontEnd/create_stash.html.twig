@@ -1,0 +1,12 @@
+<div id="container">
+    <div id="create-stash">
+        <h2>Create A Stash</h2>
+        {% include 'OlogySocialBundle:Stash:create.html.twig' with {'form' : stashForm} %}
+    </div>
+</div>
+
+{% block pagescripts %}
+    <script src="{{ asset('bundles/ologysocial/js/silver-bullet/ology.js') }}?v=11" type="text/javascript"></script>
+    <script src="{{ asset('bundles/ologysocial/js/tag-it.js') }}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ asset('bundles/ologysocial/js/stash.js') }}" type="text/javascript"></script>
+{% endblock %}

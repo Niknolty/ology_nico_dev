@@ -1,0 +1,27 @@
+<div id="followers-page">
+    <h1>Who Follows {{ profileUser.firstname | title }}<button id="close-followees-page"></button></h1>
+    {% for follower in followers %}
+        <div class="follower-card">
+            <a href="{{ path("_website_profile", {'id' : follower.id}) }}">
+                <img src="{{ asset('bundles/ologysocial/up/img/user/user_large/' ~ follower.imageUrl) }}" />
+            </a>
+            <div class="follow-card-content">
+                <a href="{{ path("_website_profile", {'id' : follower.id}) }}">
+                    {{ follower.firstname }} {{ follower.lastname }}
+                </a>
+                <div class="follower-summary">{{ follower.summary }}</div>
+                
+                {% if app.user is not empty and app.user.id != follower.id %}
+                    {% if follower.id in followedUsers %}
+                        <div class="following-button" id="follow-button" href="{{ path("_website_follow_user_popup", {'userId' : follower.id }) }}"/>
+                    {% else %}
+                        <div class="follow-button2" id="follow-button" href="{{ path("_website_follow_user_popup", {'userId' : follower.id }) }}"/>
+                    {% endif %}
+                    <div id="follow-popup"></div>
+                {% endif %}
+                    
+            </div>
+        </div>
+        
+    {% endfor %}
+</div>

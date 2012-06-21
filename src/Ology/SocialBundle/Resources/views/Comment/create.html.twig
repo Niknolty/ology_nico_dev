@@ -1,0 +1,12 @@
+{% if showprompt is defined %}
+<form action="{{ path('_comment_store') }}" method="post" {{ form_enctype(form) }} id="offline-form-comment">
+    {{ form_rest(form) }}
+    <input style="border: 0" type="image" class="comment-button comment-button-prompt" src="{{asset('bundles/ologysocial/img/comment_button_big.png') }}"/>
+</form>    
+
+{% else %}
+<form action="{{ path('_comment_store') }}" method="post" {{ form_enctype(form) }} id="form-comment">
+    {{ form_rest(form) }}
+    <input id="scroll-when-post-comment" style="border: 0" type="image" class="comment-button" src="{{asset('bundles/ologysocial/img/comment_button_big.png') }}"/>
+</form>
+{% endif%}

@@ -1,0 +1,175 @@
+<div id="big-post-sidebar">
+<div id="post-sidebar">
+    <div id="post-sidebar-follow-ology">
+        <a href="{{ path("_website_ology", {'id' : ology.id, 'slug' : ology.slug}) }}">{{ ology.name }}</a><br />
+        <span class="post-sidebar-follow-ology-text">Follow to get the latest!</span><br />
+        {% if loggedIn == false %}
+            <a href="{{ path('_remember_join_offline', {'id': ology.id}) }}" class="sign follow"></a>
+            {% include 'OlogySocialBundle:FrontEnd:register-prompt.html.twig' with {'prompt_action':'3'} %}
+        {% elseif isMember == true %}
+            <a href="{{ path('_ology_leave', {'id': ology.id}) }}" class="unfollow"></a><br/>
+            {% include 'OlogySocialBundle:Tips:follow_unfollow_tip.html.twig' %}
+        {% else %}  
+            <a href="{{ path('_ology_join', {'id': ology.id}) }}" class="follow"></a>
+            {% include 'OlogySocialBundle:Tips:follow_unfollow_tip.html.twig' %}
+        {% endif %}
+    </div>
+        
+        <div id="post-sidebar-infos">
+
+        <div id="sidebar-social_network_share">
+            <span class='st_facebook_large' displayText='Facebook'></span>
+            <span class='st_twitter_large' displayText='Tweet'></span>
+            <span class='st_pinterest_large' displayText='Pinterest'></span><br />
+            <span class='st_tumblr_large' displayText='Tumblr'></span>
+            <span class='st_email_large' displayText='Email'></span>
+            <span class='st_sharethis_large' displayText='ShareThis'></span>
+        </div>    
+            
+        {% if app.user is not empty %}
+        <div id="reologize-post-button">
+            {% include 'OlogySocialBundle:FrontEnd:reologize_button.html.twig' %}
+            {% include 'OlogySocialBundle:Tips:reologize_tip.html.twig' %}
+        </div>
+        {% endif %}
+            
+        <div class="post-likes">
+            {% include 'OlogySocialBundle:Likes:ShowLikesPost.html.twig'%}
+        </div>
+            
+        <div class="list-people-like">
+                {% if nbLove > 0 %}
+                    {% if (firstNameLove == 'ology') and (lastNameLove == 'ology') %}
+                        {% set user_name = 'Anonymous' %}
+                    {% else %}
+                        {% set user_name =  firstNameLove~' '~lastNameLove %} 
+                    {% endif %}
+                {% endif %}    
+                {% if nbLove == 1 %}
+                    {% if user_name == 'Anonymous' %}
+                        <b>{{ user_name }}</b> loves it!
+                    {% else %}
+                        <a href="{{ path("_website_profile", {'id' : UserLoveId}) }}">{{ user_name }}</a> loves it!
+                    {% endif %}
+                {% elseif nbLove == 2 %}
+                        2 people love it!
+                {% elseif nbLove > 2 %}
+                    {% if user_name == 'Anonymous' %}
+                        <b>{{ user_name }}</b> and {{ nbLove - 1}} others <br />love it!
+                    {% else %}
+                        <a href="{{ path("_website_profile", {'id' : UserLoveId}) }}">{{ user_name }}</a> and {{ nbLove - 1}} others <br />love it!
+                    {% endif %}
+                {% endif %}
+
+                {% if nbLove > 0 %}
+                    <div class="love-imgs">
+                    {% set number = '0' %}
+                    {% set url = '' %}
+                    {% for key, tab in UsersIdsLoveTab %}
+                        {% for key2, tab1 in tab %}
+                            {% if key2 == 0 %}
+                                {% set number = tab1 %}
+                            {% else %}
+                                {% set url = tab1 %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if number == 0 %}
+                            <img src="{{ asset('bundles/ologysocial/up/img/user/user_small/' ~ url) }}" class="user-pic">
+                        {% else %}
+                            <a href="{{ path("_website_profile", {'id' : number}) }}"><img src="{{ asset('bundles/ologysocial/up/img/user/user_small/' ~ url) }}" class="user-pic"></a>
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if nbHate > 0 %}
+                    {% if (firstNameHate == 'ology') and (lastNameHate == 'ology') %}
+                        {% set user_name = 'Anonymous' %}
+                    {% else %}
+                            {% set user_name =  firstNameHate~' '~lastNameHate %} 
+                    {% endif %}
+                {% endif %}         
+                {% if nbHate == 1 %}
+                    {% if user_name == 'Anonymous' %}
+                        <b>{{ user_name }}</b> hates it!
+                    {% else %}
+                        <a href="{{ path("_website_profile", {'id' : UserHateId}) }}">{{ user_name }}</a> hates it!
+                    {% endif%}
+                {% elseif nbHate == 2 %}
+                    2 people hate it!
+                {% elseif nbHate > 2 %}
+                    {% if user_name == 'Anonymous' %}
+                        <b>{{ user_name }}</b> and {{ nbHate - 1}} others <br />hate it!
+                    {% else %}
+                        <a href="{{ path("_website_profile", {'id' : UserHateId}) }}">{{ user_name }}</a> and {{ nbHate - 1}} others <br />hate it!
+                    {% endif%}
+                {% endif %}
+
+                {% if nbHate > 0 %}
+                    <div class="hate-imgs">
+                        {% set number = '0' %}
+                    {% set url = '' %}
+                    {% for key, tab in UsersIdsHateTab %}
+                        {% for key2, tab1 in tab %}
+                            {% if key2 == 0 %}
+                                {% set number = tab1 %}
+                            {% else %}
+                                {% set url = tab1 %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if number == 0 %}
+                            <img src="{{ asset('bundles/ologysocial/up/img/user/user_small/' ~ url) }}" class="user-pic">
+                        {% else %}
+                            <a href="{{ path("_website_profile", {'id' : number}) }}"><img src="{{ asset('bundles/ologysocial/up/img/user/user_small/' ~ url) }}" class="user-pic"></a>
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if nbHmm > 0 %}
+                    {% if (firstNameHmm == 'ology') and (lastNameHmm == 'ology') %}
+                        {% set user_name = 'Anonymous' %}
+                    {% else %}
+                            {% set user_name =  firstNameHmm~' '~lastNameHmm %} 
+                    {% endif %}
+                {% endif %}        
+                {% if nbHmm == 1 %}
+                    {% if user_name == 'Anonymous' %}
+                        <b>{{ user_name }}</b> says hmm...
+                    {% else %}
+                        <a href="{{ path("_website_profile", {'id' : UserHmmId}) }}">{{ user_name }}</a> says hmm...
+                    {% endif %}
+                {% elseif nbHmm == 2 %}
+                        2 people say hmm...
+                {% elseif nbHmm > 2 %}
+                    {% if user_name == 'Anonymous' %}
+                        <b>{{ user_name }}</b> and {{ nbHmm - 1}} others <br />say hmm...
+                    {% else %}
+                        <a href="{{ path("_website_profile", {'id' : UserHmmId}) }}">{{ user_name }}</a>  and {{ nbHmm - 1}} others <br />say hmm...
+                    {% endif %}
+                {% endif %}
+
+                {% if nbHmm > 0 %}
+                    <div class="hmm-imgs">
+                        {% set number = '0' %}
+                    {% set url = '' %}
+                    {% for key, tab in UsersIdsHmmTab %}
+                        {% for key2, tab1 in tab %}
+                            {% if key2 == 0 %}
+                                {% set number = tab1 %}
+                            {% else %}
+                                {% set url = tab1 %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if number == 0 %}
+                            <img src="{{ asset('bundles/ologysocial/up/img/user/user_small/' ~ url) }}" class="user-pic">
+                        {% else %}
+                            <a href="{{ path("_website_profile", {'id' : number}) }}"><img src="{{ asset('bundles/ologysocial/up/img/user/user_small/' ~ url) }}" class="user-pic"></a>
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+    </div>
+    </div>
+</div>

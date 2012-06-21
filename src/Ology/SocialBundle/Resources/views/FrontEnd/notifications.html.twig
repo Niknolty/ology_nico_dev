@@ -1,0 +1,36 @@
+{% if loggedIn %}
+    <ul style="font-size: 11px;">
+    {% for notification in notifications %} 
+        <li>
+            <a href="{{ path('_website_profile', {'id' : notification.userId}) }}"><img src="{{ asset(user_small_image_path ~ notification.userImage) }}" width="30px" height="30px" style="float: left; padding-right: 5px;"/></a>
+        {% if notification.typeId == 1 %}
+            <a href="{{ path('_website_profile', {'id' : notification.userId}) }}">{{ notification.userFirstName }}</a> joined your ology <a href="{{ path("_website_ology", {'id' : notification.ologyId, 'slug': notification.ologySlug}) }}">{{ notification.ologyName }}</a>
+        {% endif %}
+        {% if notification.typeId == 3 %}
+            <a href="{{ path('_website_profile', {'id' : notification.userId}) }}">{{ notification.userFirstName }}</a> posted in the ology <a href="{{ path("_website_ology", {'id' : notification.ologyId, 'slug': notification.ologySlug}) }}">{{ notification.ologyName }}</a>
+        {% endif %}
+        {% if notification.typeId == 4 %}
+            <a href="{{ path('_website_profile', {'id' : notification.userId}) }}">{{ notification.userFirstName }}</a> commented on your post <a href="{{ path("_website_post", {'postId' : notification.postId, 'slug': notification.postSlug}) }}">{{ notification.postTitle }}</a> in <a href="{{ path("_website_ology", {'id': notification.ologyId, 'slug': notification.ologySlug}) }}">{{ notification.ologyName }}</a>
+        {% endif %}
+        {% if notification.typeId == 5 %}
+            <a href="{{ path('_website_profile', {'id' : notification.userId}) }}">{{ notification.userFirstName }}</a> also commented on the post <a href="{{ path("_website_post", {'postId' : notification.postId, 'slug': notification.postSlug}) }}">{{ notification.postTitle }}</a> in <a href="{{ path("_website_ology", {'id': notification.ologyId, 'slug': notification.ologySlug}) }}">{{ notification.ologyName }}</a>
+        {% endif %}
+        {% if notification.typeId == 8 %}
+            <a href="{{ path('_website_profile', {'id' : notification.userId}) }}">{{ notification.userFirstName }}</a> follows your stash <a href="{{ path("_website_stash", {'id' : notification.stashId}) }}">{{ notification.stashName }}</a>
+        {% endif %}
+        {% if notification.typeId == 9 %}
+            <a href="{{ path('_website_profile', {'id' : notification.userId}) }}">{{ notification.userFirstName }}</a> follows you in <a href="{{ path("_website_ology", {'id' : notification.ologyId, 'slug': notification.ologySlug}) }}">{{ notification.ologyName }}</a>
+        {% endif %}
+        {% if notification.typeId == 10 %}
+            <a href="{{ path("_website_post", {'postId' : notification.postId, 'slug': notification.postSlug}) }}">{{ notification.postTitle }}</a> has been reologized by <a href="{{ path('_website_profile', {'id' : notification.userId}) }}">{{ notification.userFirstName }}</a> in <a href="{{ path("_website_ology", {'id' : notification.ologyId, 'slug': notification.ologySlug}) }}">{{ notification.ologyName }}</a>
+        {% endif %}
+        {% if notification.typeId == 11 %}
+            <a href="{{ path("_website_post", {'postId' : notification.postId, 'slug': notification.postSlug}) }}">{{ notification.postTitle }}</a> has been reologized by <a href="{{ path('_website_profile', {'id' : notification.userId}) }}">{{ notification.userFirstName }}</a> in <a href="{{ path("_website_stash", {'id' : notification.stashId}) }}">{{ notification.stashName }}</a>
+        {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <a href="{{ path("_website_explore") }}">Looks like nothing new is going on in your ologies.
+    Why don’t you explore and find some new ones to join!</a>
+{% endif %}

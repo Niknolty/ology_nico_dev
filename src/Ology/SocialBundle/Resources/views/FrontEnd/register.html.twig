@@ -1,0 +1,83 @@
+{% extends 'OlogySocialBundle:FrontEnd:base.html.twig' %}
+
+{% block title %}Register | Ology{% endblock %}
+
+{% block body %}
+
+
+ <div id="container">
+        {% for key, message in app.session.getFlashes() %}
+        <div class="{{ key }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+
+ 	<div id="reg-form">
+ 		<h2>Almost there!</h2>
+                <div>
+                    Enter your info and you'll be all set...
+                </div>
+                <div id="signin-container">
+                    {% include 'OlogySocialBundle:FrontEnd:facebook_signin.html.twig' %}
+                    <p id="fb-p">
+                         Don't worry, we'll never be evil with your information
+                     </p>
+                     <p>
+                         - or -
+                     </p>
+                     {% include 'OlogySocialBundle:FrontEnd:twitter_signin.html.twig' %}
+                     <p>
+                         - or -
+                     </p>
+                </div>
+                
+                <form action="{{ path('fos_user_registration_register') }}" class="form" method="POST" {{ form_enctype(form) }}>
+		{% form_theme form 'OlogySocialBundle:Form:formOlogyTheme.html.twig' %}
+                    
+                {{ form_errors(form) }}
+		{{ form_row(form.email) }}
+		
+		{{ form_row(form.plainPassword) }}
+		
+		{{ form_row(form.firstName) }} 
+		
+		{{ form_row(form.lastName) }}
+
+		{{ form_row(form.termOfService) }} 
+                        <div class="terms">
+                            <span>Agree to our </span><a href="{{ path("_website_terms") }}" target="_blank" >Terms of Service</a>
+                        </div>
+                        
+		{{ form_rest(form) }}
+                <div>
+                    <input type="submit" value="Finish" class="signup-button" />
+                </div>
+		</form>
+	</div>
+	<div id="reg-form2">
+		<h2>So what is Ology?</h2>
+		<p>This is where people share their interests and passions with each other.</p>
+		<p>Join thousands of ologists and follow what you love, or start your own ology today!</p>
+		 <iframe width="560" height="315" src="http://www.youtube.com/embed/y2e_1KpZFvo?wmode=transparent" frameborder="0" allowfullscreen></iframe>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block pagescripts %}
+<script type="text/javascript">
+{% if fb_user %}
+    {% if fb_user.email is defined %}
+      $('#fos_user_registration_form_email').val("{{ fb_user.email }}");
+    {% endif %}
+    {% if fb_user.first_name is defined %}
+      $('#fos_user_registration_form_firstName').val("{{ fb_user.first_name }}");
+    {% endif %}
+    {% if fb_user.last_name is defined %}
+      $('#fos_user_registration_form_lastName').val("{{ fb_user.last_name }}");
+    {% endif %}
+{% endif %}
+</script>
+{% endblock %}
+
+

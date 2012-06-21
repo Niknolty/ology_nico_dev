@@ -1,0 +1,16 @@
+{% if loggedIn %}
+<div id='menu'>
+    {% for userOlogy in userOlogies %}
+        {% if userOlogy.stub is defined %}
+            <a href="{{ path('_website_channel', {'stub' : userOlogy.stub}) }}">
+                <img src="{{ asset('bundles/ologysocial/img/channels/' ~ userOlogy.imageLogo) }}" width="50" title="{{ userOlogy.name }}" />
+            </a>
+        {% else %}
+            <a href="{{ path("_website_ology", {'id' : userOlogy.id, 'slug' : userOlogy.slug}) }}">
+                <img src="{{ asset(ology_medium_image_path ~ userOlogy.imageUrl) }}" width="50" title="{{ userOlogy.name }}" />
+            </a>
+        {% endif %}
+    {% endfor %}
+</div>
+{% include 'OlogySocialBundle:Tips:dock_tip.html.twig' %}
+{% endif %}

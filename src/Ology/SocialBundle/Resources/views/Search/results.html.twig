@@ -1,0 +1,49 @@
+<p>Results for research: {{ search }}</p>
+
+{% if users is defined %}
+Users
+<table border="5" width=1000 >
+        {% for user in users %}
+            <tr  height=30px >
+                <td>{{ user.id }}</td>
+                <td>{{ user.firstname }} </td>
+                <td>{{ user.lastname }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.username }}</td>
+            </tr>
+        {% endfor %}
+<table>
+{% endif %}
+
+{% if ologies is defined %}
+Ology
+<table border="5" width=1000 >
+        {% for ology in ologies %}
+            <tr  height=30px >
+                <td>{{ ology.id }}</td>
+                <!-- <td>{ { ol.founder } }</td> -->
+                <td>{{ ology.name }} </td>
+                <td>{{ ology.description }}</td>
+                <td>{{ ology.imageUrl }}</td>
+                <td>{{ ology.creationDate|date('d/m/Y') }}</td>
+                <td>{{ ology.visibility }}</td>
+                <td>{{ ology.readOnly }}</td>
+            </tr>
+        {% endfor %}
+<table>
+{% endif %}
+
+{% if posts is defined %}
+Post
+<table border="5" width=1000 >
+        {% for post in posts %}
+            <tr  height=30px >
+                <td>{{ post.id }}</td>
+                <!-- <td>{ { ol.founder } }</td> -->
+                <td>{{ post.title }} </td>
+                <td>{{ post.textContent }}</td>
+                <td>{{ post.creationDate }}</td>
+            </tr>
+        {% endfor %}
+<table>
+{% endif %}

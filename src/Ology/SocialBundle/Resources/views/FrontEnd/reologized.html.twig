@@ -1,0 +1,22 @@
+{% if post.postLink is not null and post.postLink.containerId != post.firstOlogy.id %}
+    <div class="unreologize">
+        <img src="{{ asset('bundles/ologysocial/img/reologize_icon_gray.jpg') }}">
+        <div class="reologize-text-button">
+        {% if post.canUnreOlogize %}
+            <a href="{{ path("_post_unreologize", {'postId' : post.id, 'ologyId' : post.postLink.containerId, 'userId' : post.postLink.user.id}) }}">
+                <span class="undo-reologize">ReOlogized</span>
+            </a>
+        {% else %}
+            <span>ReOlogized</span>
+        {% endif %}
+        </div>
+        <div class="reologize-text">
+            {% if (inAPost is defined) and (inAPost == true) %}
+                by <a href="{{ path("_website_profile", {'id' : post.postLink.user.id}) }}">{{ post.postLink.user.firstName }}</a><br>
+            {% else %}   
+                by <a href="{{ path("_website_profile", {'id' : post.postLink.user.id}) }}">{{ post.postLink.user.firstName }}</a><br>
+                from <a href="{{ path("_website_ology", {'id' : post.firstOlogy.id, 'slug' : post.firstOlogy.slug}) }}">{{ post.firstOlogy.name | truncate(11, false, "...")    }}</a>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

@@ -1,0 +1,22 @@
+{% extends 'OlogySocialBundle:Stats:base.html.twig' %}
+{% block body %}
+<h1>Welcome to the super ugly stats page \o/</h1>
+(will be made pretty by Vivian pretty soon.)
+<h2>General stats</h2>
+<table>
+    <tr>
+        <td># users</td>
+        <td># ologies </td>
+        <td># posts </td>
+        <td># comments </td>
+    </tr>
+    <tr>
+        <td>{{ generalStats.nbUsers }}</td>
+        <td>{{ generalStats.nbOlogies }}</td>
+        <td>{{ generalStats.nbPosts }}</td>
+        <td>{{ generalStats.nbComments }}</td>
+    </tr>
+</table>
+
+
+{% endblock %}

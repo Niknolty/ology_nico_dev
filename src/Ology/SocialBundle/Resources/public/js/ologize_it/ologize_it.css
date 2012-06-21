@@ -1,0 +1,274 @@
+body{
+    color: #3B3B3B;
+    font-family: Verdana,Tahoma,Helvetica,Sans-Serif;
+    font-size: 14px;
+    line-height: 1.5em;
+    background-color: #222222;
+    border-top: 4px solid #DBFA78;
+    padding: 0;
+    margin: 0;
+}
+textarea, input, select, option, div, a, span{
+    font-family: Verdana,Tahoma,Helvetica,Sans-Serif;
+    font-size: 12px;
+}
+/* Web font */
+@font-face {font-family: 'EgyptienneURW-Bol';src: url('webfonts/15CCDB_0.eot');src: url('../silver-bullet/webfonts/15CCDB_0.eot?#iefix') format('embedded-opentype'),url('webfonts/15CCDB_0.woff') format('woff'),url('webfonts/15CCDB_0.ttf') format('truetype'),url('webfonts/15CCDB_0.svg#wf') format('svg');-moz-font-feature-settings: "calt=0,liga=0";}
+
+#main {
+    margin: 20px auto;
+    width: 550px;
+}
+
+/* LOGIN PAGE*/
+#main_login {
+    margin: 20px auto;
+    width: 200px;
+}
+.login-box{
+    text-align: center;
+}
+
+div.or-line-breakup {
+    margin: 10px 0;
+    text-align: center;
+}
+span#or-word {
+    margin: 0 7px;
+    color:#ffffff;
+}
+
+div.facebook-signin, div.twitter-signin{
+    margin-bottom: 10px;
+    
+}
+img.fb-fake-button, #remember_me, #remember-me-label{
+    cursor: pointer;
+}
+
+#username {
+    border: 1px solid #CCCCCC;
+    cursor: pointer;
+    display: block;
+    margin-bottom: 10px;
+    padding: 3px 5px 3px 5px;
+    width: 190px;
+}
+#password {
+    border: 1px solid #CCCCCC;
+    cursor: pointer;
+    display: block;    
+    padding: 3px 5px 3px 5px;
+    width: 190px;
+}
+#_submit {
+    background-color:#f2633b;
+    border: none;
+    color:#ffffff;
+    cursor: pointer;
+    display: block;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    float: left;
+    width: 60px;
+    text-align: center;
+    font-size:12px;
+}
+#message_box{
+    width: 200px;
+    margin-bottom: 10px;
+    color:#FF5050;
+    font-weight: bold;
+}
+div.reset-pw{
+    width: 200px;
+    text-align: right;
+    margin-bottom: 5px;
+}
+div.reset-pw a{
+    color:#ffffff;
+    font-weight: bold;
+    font-size: 12px;
+    text-decoration: none;
+}
+#remember-me-label{
+    color:#ffffff;
+}
+#remember-login-box{
+    float: left;
+    padding-top: 5px;
+}
+#login-submit{
+    float: right;
+}
+
+/* OLOGIZE FORM PAGE*/
+#image_preview{
+    float: left;
+    overflow: visible;
+    padding: 0;
+    position: relative;
+    width: 200px;
+    text-align: center;
+}
+
+#image_preview img{
+    max-width: 200px;
+    max-height: 300px;  
+    border: 1px solid #ffffff;
+}
+#form_block { 
+    float:right; 
+    width: 320px;
+}              
+#post-ology-title, #post-ology-text, #post-ology-select{
+    margin-bottom: 17px;
+}              
+#post-ology-title input {
+    border: 1px solid #CCCCCC;
+    border-radius: 6px 6px 6px 6px;
+    cursor: pointer;
+    display: block;                    
+    padding: 5px 5px 5px 10px;
+    width: 310px;
+    outline: none;
+    color:#707070;
+    line-height: 16px;
+}
+
+#post-ology-text textarea {
+    border: 1px solid #CCCCCC;
+    border-radius: 6px 6px 6px 6px;
+    cursor: pointer;
+    display: block;
+    padding: 5px 5px 5px 10px;
+    width: 310px;
+    height: 80px;
+    outline: none;
+    color:#707070;
+}
+#post-ology-select select {
+    width: 233px;
+    height:29px;
+}
+.post-button {
+    background-color:#f2633b;
+    border: none;
+    color:#ffffff;
+    cursor: pointer;
+    display: block;
+    margin-left:2px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    float: left;
+    width: 120px;
+    text-align: center;
+    font-size:14px;
+}                
+/*input[disabled="disabled"] {
+    background-color: #F1F1F1;
+    color: #CCCCCC;
+    cursor: default;
+}*/
+
+span.customStyleSelectBox { 
+   width: 233px;
+   height: 29px;
+   background: url('ologize_select_bg.png') no-repeat left top;
+   display: block;
+   cursor: pointer;
+}
+span.customStyleSelectBox.changed { 
+}
+.customStyleSelectBoxInner {
+    display:block;
+    padding:4px 5px 0 15px; 
+    color:#000000;
+}
+#facebook-login-button{display:none;}
+
+/*THANKS PAGE*/
+#main .text_part{
+    width: 500px;
+    border-bottom:2px solid #b9b9b9;
+    margin: 0 auto;
+    padding: 20px 0 20px 0;
+    text-align: center;
+    color:#ffffff;
+    clear: both;
+}
+#main .awesome{
+    font-family: Verdana;
+    font-size: 28px;
+    font-weight: bold;
+    color:#ffffff;
+    display: block;
+    padding-bottom:15px;
+}
+#main .text_part .text{
+    color:#ffffff;
+    text-align: center;
+}
+#main .text_part .text a{
+    color:#ffffff;
+    font-weight: bold;
+    text-decoration: none;
+}
+#main .text_part .text a:hover{
+    text-decoration: underline;
+}
+#main .text_part .see_post{
+    margin:0 auto;
+    text-align: center;
+    width: 170px;
+    padding-top: 15px;
+}
+#main .text_part .see_post a{
+    background-color:#f2633b;
+    border: none;
+    color:#ffffff;
+    cursor: pointer;
+    display: block;
+    margin:0;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    width: 170px;
+    text-align: center;
+    font-size:14px;
+    text-decoration: none;
+}
+#main .share_buttons_part{
+    width: 500px;
+    margin: 0 auto;
+    padding: 20px 0 20px 0;
+    text-align: center;
+}
+#main .share_buttons_part .text{
+    text-align: center;
+    clear: both;
+    color: #ffffff;
+    padding-bottom: 10px;
+}
+#main .twitter_share{
+    padding-left:60px;
+    padding-right:10px;
+    float: left;
+}
+#main .twitter_share_button{
+    background: url('twitter_share.png') top left no-repeat;
+    width: 188px;
+    height: 36px;
+    cursor: pointer;
+}
+#main .facebook_share{
+    float: left;
+}
+#main .facebook_share_button{
+    background: url('facebook_share.png') top left no-repeat;
+    width: 188px;
+    height: 36px;
+    cursor: pointer;
+}
+#main .original_buttons{
+    display: none;
+}

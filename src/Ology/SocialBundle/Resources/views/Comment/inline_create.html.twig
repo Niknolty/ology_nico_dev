@@ -1,0 +1,9 @@
+{% if showprompt is defined %}
+    <form action="{{ path('_comment_store_ajax') }}" method="post" {{ form_enctype(form) }} id="offline-form-comment-inline" class="comment-form-card">
+        {{ form_rest(form) }}
+    </form>
+{% else %}
+    <form action="{{ path('_comment_store_ajax') }}" method="post" {{ form_enctype(form) }} id="form-comment-inline" class="comment-form-card">
+        {{ form_rest(form) }}
+    </form>
+{% endif %}

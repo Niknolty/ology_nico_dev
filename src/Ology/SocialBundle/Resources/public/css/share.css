@@ -1,0 +1,14 @@
+.social_network_share {
+    text-align: center;
+}
+
+.social_network_share ul {
+    position : relative;
+    list-style-type : none;
+}
+.social_network_share li {
+    float : left;
+    border : none;
+    padding : 6px;
+    margin : 2px;
+}

@@ -1,0 +1,56 @@
+parameters:
+    symfony_root: '/var/www/ology4/'
+    upload_folder: '/var/www/ology4/web/bundles/ologysocial/up'
+    mail_folder: '/var/www/ology4/tmp/mails'
+    redis-server: localhost
+    redis-port: 6379
+    elasticsearch-server: localhost
+    elasticsearch-port: 9200
+    website_url: 'http://ology4.com'
+    tmp_dir:                   '/tmp/'
+
+    post_original_image_path:  'bundles/ologysocial/up/img/post/'
+    post_small_image_path:     'bundles/ologysocial/up/img/post/post_small/'
+    post_medium_image_path:    'bundles/ologysocial/up/img/post/post_medium/'
+    post_large_image_path:     'bundles/ologysocial/up/img/post/post_large/'
+
+    post_audio_path:           'bundles/ologysocial/up/aud/post/'
+
+    ology_original_image_path: 'bundles/ologysocial/up/img/ology/'
+    ology_small_image_path:    'bundles/ologysocial/up/img/ology/ology_round_small/'
+    ology_medium_image_path:   'bundles/ologysocial/up/img/ology/ology_round_medium/'
+    ology_large_image_path:    'bundles/ologysocial/up/img/ology/ology_round_large/'
+
+    user_original_image_path:  'bundles/ologysocial/up/img/user/'
+    user_small_image_path:     'bundles/ologysocial/up/img/user/user_small/'
+    user_medium_image_path:    'bundles/ologysocial/up/img/user/user_medium/'
+    user_large_image_path:     'bundles/ologysocial/up/img/user/user_large/'
+
+    sitemap_path:              'bundles/ologysocial/sitemap/'
+    rss_path:                  'bundles/ologysocial/rss/'
+
+twig:
+    globals:
+        website_url: %website_url%
+
+        post_original_image_path:   %post_original_image_path%
+        post_small_image_path:      %post_small_image_path%
+        post_medium_image_path:     %post_medium_image_path%
+        post_large_image_path:      %post_large_image_path%
+
+        post_audio_path:            %post_audio_path%
+
+        ology_original_image_path:  %ology_original_image_path%
+        ology_small_image_path:     %ology_small_image_path%
+        ology_medium_image_path:    %ology_medium_image_path%
+        ology_large_image_path:     %ology_large_image_path%
+
+        user_original_image_path:   %user_original_image_path%
+        user_small_image_path:      %user_small_image_path%
+        user_medium_image_path:     %user_medium_image_path%
+        user_large_image_path:      %user_large_image_path%
+
+        assets_base_urls:           %assets_base_urls%
+
+        sitemap_path:               %sitemap_path%
+        rss_path:                   %rss_path%

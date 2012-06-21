@@ -1,0 +1,44 @@
+{% extends 'OlogySocialBundle:Stats:base.html.twig' %}
+{% block body %}
+<h1>Users</h1>
+<a href="{{ path("_stats_all_users") }}">All users</a>
+
+<h2>Activity</h2>
+Average number of ologies created by user: {{ stats['avg_ology_created_per_user'] }}<br />
+Average number of ologies joined by user: {{ stats['avg_ology_joined_per_user'] }}<br />
+
+<br/>
+Number of returning users this week: {{ stats['nb_users_login_last_week'] }}<br />
+Number of returning users this month: {{ stats['nb_users_login_last_month'] }}<br />
+Number of returning users this year: {{ stats['nb_users_login_last_year'] }}<br />
+
+<h2>Top 15 Ology Joiners</h2>
+<ul>
+{% for ologyJoinStat in stats['best_joiners'] %}
+        <li><a href="{{ path("_website_profile", {'id' : ologyJoinStat[0].user.id}) }}">{{ ologyJoinStat[0].user.firstName}} {{ ologyJoinStat[0].user.lastName}}</a>: {{ ologyJoinStat['n']}} ologies joined</li>
+{% endfor %}
+</ul>
+
+<h2>Top 15 Ology Founders</h2>
+<ul>
+{% for ologyCreateStat in stats['best_founders'] %}
+        <li><a href="{{ path("_website_profile", {'id' : ologyCreateStat[0].founder.id}) }}">{{ ologyCreateStat[0].founder.firstName}} {{ ologyCreateStat[0].founder.lastName}}</a>: {{ ologyCreateStat['n']}} ologies founded</li>
+{% endfor %}
+</ul>
+
+<h2>Top 15 Posters</h2>
+<ul>
+{% for postStat in stats['best_posters'] %}
+        <li><a href="{{ path("_website_profile", {'id' : postStat[0].author.id}) }}">{{ postStat[0].author.firstName}} {{ postStat[0].author.lastName}}</a>: {{ postStat['n']}} posts</li>
+{% endfor %}
+</ul>
+
+<h2>Top 15 Commenters</h2>
+<ul>
+{% for commentStat in stats['best_commenters'] %}
+        <li><a href="{{ path("_website_profile", {'id' : commentStat[0].author.id}) }}">{{ commentStat[0].author.firstName}} {{ commentStat[0].author.lastName}}</a>: {{ commentStat['n']}} comments</li>
+{% endfor %}
+</ul>
+
+
+{% endblock %}

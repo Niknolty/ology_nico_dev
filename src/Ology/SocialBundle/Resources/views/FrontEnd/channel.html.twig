@@ -1,0 +1,239 @@
+{% extends 'OlogySocialBundle:FrontEnd:base.html.twig' %}
+
+{% block title %}{{ channel.name }} | Ology{% endblock %}
+
+{% block page_header %}
+<meta name="title" content="{{ channel.name }}" />
+<meta name="keywords" content="{{ channel.name }}" />
+<meta name="description" content="{{ channel.name }}" />
+{% endblock %}
+
+{% block body %}
+{% if app.user is not empty%}
+<div id='page'>
+    {% include 'OlogySocialBundle:FrontEnd:dock.html.twig' %}
+</div>
+{% endif %}
+
+<div id="container-channel">
+    {% include 'OlogySocialBundle:FrontEnd:register-prompt.html.twig' %}
+    {% include 'OlogySocialBundle:FrontEnd:almost-register-prompt.html.twig'%}
+    <div id="post-ologist">
+        <div id="ology-image">
+            <img src="{{ asset('bundles/ologysocial/img/channels/' ~ channel.imageLogo) }}" height="100" width="100"/>
+        </div>
+
+        <div id="channel-desc">
+            <span class="channel-title">{{ channel.imageTitle|raw() }}</span>
+            <div>
+                {% if app.user is empty %}    
+                    <a href="{{ path('_remember_core_ology_offline', {'id': channel.id}) }}" class="sign follow"></a>
+                    {% include 'OlogySocialBundle:FrontEnd:register-prompt.html.twig' with {'prompt_action':'3'} %}
+                {% elseif isSubscribed is defined and isSubscribed == TRUE %}
+                    <a href="{{ path('_website_channel_unsubscription', {'channelId': channel.id}) }}" class="unfollow"></a>
+                {% else %}
+                    <a href="{{ path('_website_channel_subscription', {'channelId': channel.id}) }}" class="follow"></a>
+                {% endif %}
+            </div>
+        </div>
+            
+        {% if channel.ad0 %}
+            <div id="ad-zero">{{channel.ad0|raw}}</div>
+        {% endif %}
+    </div>
+    
+    {% if channel.ad1 %}
+    <div id="ad-one">{{channel.ad1|raw}}</div>
+    {% endif %}
+    {% if channel.ad6 %}
+        <div id="ad-six">{{channel.ad6|raw}}</div>
+    {% endif %}
+        
+    <div id="channel-box">
+        <div id="channel-left">
+            <div id="channel-featured-slideshow">
+                {% if channel.featuredPost1 %}
+                {% set imagePath = channel.featuredPost1.image1Url is not empty ? channel.featuredPost1.image1Url : channel.featuredPost1.imageUrl %}
+                <div id="channel-featured-post1" style="background-image:url('{{ asset(post_large_image_path ~ imagePath) }}');">
+                        <a href="{{ path("_website_post", {'postId' : channel.featuredPost1.id, 'slug' : channel.featuredPost1.slug}) }}" class="channel-featured-overlay">{{channel.featuredPost1.htmlTitle|raw}}</a>
+                </div>
+                {% endif %}
+
+                {% if channel.featuredPost2 %}
+                {% set imagePath = channel.featuredPost2.image1Url is not empty ? channel.featuredPost2.image1Url : channel.featuredPost2.imageUrl %}
+                <div id="channel-featured-post2" style="background-image:url('{{ asset(post_large_image_path ~ imagePath) }}');">
+                        <a href="{{ path("_website_post", {'postId' : channel.featuredPost2.id, 'slug' : channel.featuredPost2.slug}) }}" class="channel-featured-overlay">{{channel.featuredPost2.htmlTitle|raw}}</a>
+                </div>
+                {% endif %}
+
+                {% if channel.featuredPost3 %}
+                {% set imagePath = channel.featuredPost3.image1Url is not empty ? channel.featuredPost3.image1Url : channel.featuredPost3.imageUrl %}
+                <div id="channel-featured-post3" style="background-image:url('{{ asset(post_large_image_path ~ imagePath) }}');">
+                        <a href="{{ path("_website_post", {'postId' : channel.featuredPost3.id, 'slug' : channel.featuredPost3.slug}) }}" class="channel-featured-overlay">{{channel.featuredPost3.htmlTitle|raw}}</a>
+                </div>
+                {% endif %}
+
+                {% if channel.featuredPost4 %}
+                {% set imagePath = channel.featuredPost4.image1Url is not empty ? channel.featuredPost4.image1Url : channel.featuredPost4.imageUrl %}
+                <div id="channel-featured-post4" style="background-image:url('{{ asset(post_large_image_path ~ imagePath) }}');">
+                        <a href="{{ path("_website_post", {'postId' : channel.featuredPost4.id, 'slug' : channel.featuredPost4.slug}) }}" class="channel-featured-overlay">{{channel.featuredPost4.htmlTitle|raw}}</a>
+                </div>
+                {% endif %}
+
+                {% if channel.featuredPost5 %}
+                {% set imagePath = channel.featuredPost5.image1Url is not empty ? channel.featuredPost5.image1Url : channel.featuredPost5.imageUrl %}
+                <div id="channel-featured-post5" style="background-image:url('{{ asset(post_large_image_path ~ imagePath) }}');">
+                        <a href="{{ path("_website_post", {'postId' : channel.featuredPost5.id, 'slug' : channel.featuredPost5.slug}) }}" class="channel-featured-overlay">{{channel.featuredPost5.htmlTitle|raw}}</a>
+                </div>
+                {% endif %}
+                <div id="channel-featured-menu">
+                        {% if channel.featuredPost1 %}
+                        {% set imagePath = channel.featuredPost1.image1Url is not empty ? channel.featuredPost1.image1Url : channel.featuredPost1.imageUrl %}
+                                <a href="{{ path("_website_post", {'postId' : channel.featuredPost1.id, 'slug' : channel.featuredPost1.slug}) }}" id="channel-featured-thumb1" style="background-image:url('{{ asset(post_small_image_path ~ imagePath) }}');"></a>
+                        {% endif %}
+                        {% if channel.featuredPost2 %}
+                        {% set imagePath = channel.featuredPost2.image1Url is not empty ? channel.featuredPost2.image1Url : channel.featuredPost2.imageUrl %}
+                                <a href="{{ path("_website_post", {'postId' : channel.featuredPost2.id, 'slug' : channel.featuredPost2.slug}) }}" id="channel-featured-thumb2" style="background-image:url('{{ asset(post_small_image_path ~ imagePath) }}');"></a>
+                        {% endif %}
+                        {% if channel.featuredPost3 %}
+                        {% set imagePath = channel.featuredPost3.image1Url is not empty ? channel.featuredPost3.image1Url : channel.featuredPost3.imageUrl %}
+                                <a href="{{ path("_website_post", {'postId' : channel.featuredPost3.id, 'slug' : channel.featuredPost3.slug}) }}" id="channel-featured-thumb3" style="background-image:url('{{ asset(post_small_image_path ~ imagePath) }}');"></a>
+                        {% endif %}
+                        {% if channel.featuredPost4 %}
+                        {% set imagePath = channel.featuredPost4.image1Url is not empty ? channel.featuredPost4.image1Url : channel.featuredPost4.imageUrl %}
+                                <a href="{{ path("_website_post", {'postId' : channel.featuredPost4.id, 'slug' : channel.featuredPost4.slug}) }}" id="channel-featured-thumb4" style="background-image:url('{{ asset(post_small_image_path ~ imagePath) }}');"></a>
+                        {% endif %}
+                        {% if channel.featuredPost5 %}
+                        {% set imagePath = channel.featuredPost5.image1Url is not empty ? channel.featuredPost5.image1Url : channel.featuredPost5.imageUrl %}
+                                <a href="{{ path("_website_post", {'postId' : channel.featuredPost5.id, 'slug' : channel.featuredPost5.slug}) }}" id="channel-featured-thumb5" style="background-image:url('{{ asset(post_small_image_path ~ imagePath) }}');"></a>
+                        {% endif %}
+                </div>
+            </div>
+                
+            <div id="featured-posts">
+                <h2>{{ channel.specialTitle }}</h2>
+                
+                {% if channel.specialPost1 %}
+                <div class="featured-posts-item">
+                    <a href="{{ path("_website_post", {'postId' : channel.specialPost1.id, 'slug' : channel.specialPost1.slug}) }}">
+                        {% set imagePath = channel.specialPost1.image2Url is not empty ? channel.specialPost1.image2Url : channel.specialPost1.imageUrl %}
+                        {{ image_tag(asset(post_small_image_path ~ imagePath)) }}
+                    </a>
+                    <div class="extra-buzz-overlay">
+                        <a href="{{ path("_website_post", {'postId' : channel.specialPost1.id, 'slug' : channel.specialPost1.slug}) }}">{{ channel.specialPost1.htmlTitle|raw }}</a>
+                    </div>
+                </div>
+                {% endif %}
+                {% if channel.specialPost2 %}
+                <div class="featured-posts-item">
+                    <a href="{{ path("_website_post", {'postId' : channel.specialPost2.id, 'slug' : channel.specialPost2.slug}) }}">
+                        {% set imagePath = channel.specialPost2.image2Url is not empty ? channel.specialPost2.image2Url : channel.specialPost2.imageUrl %}
+                        {{ image_tag(asset(post_small_image_path ~ imagePath)) }}
+                    </a>
+                    <div class="extra-buzz-overlay">
+                        <a href="{{ path("_website_post", {'postId' : channel.specialPost2.id, 'slug' : channel.specialPost2.slug}) }}">{{ channel.specialPost2.htmlTitle|raw }}</a>
+                    </div>
+                </div>
+                {% endif %}
+                {% if channel.specialPost3 %}
+                <div class="featured-posts-item-right">
+                    <a href="{{ path("_website_post", {'postId' : channel.specialPost3.id, 'slug' : channel.specialPost3.slug}) }}">
+                        {% set imagePath = channel.specialPost3.image2Url is not empty ? channel.specialPost3.image2Url : channel.specialPost3.imageUrl %}
+                        {{ image_tag(asset(post_small_image_path ~ imagePath)) }}
+                    </a>
+                    <div class="extra-buzz-overlay">
+                        <a href="{{ path("_website_post", {'postId' : channel.specialPost3.id, 'slug' : channel.specialPost3.slug}) }}">{{ channel.specialPost3.htmlTitle|raw }}</a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div id="channel-right">
+            {% if channel.ad2 %}
+                <div id="ad-two">{{channel.ad2|raw}}</div>
+            {% endif %}
+            {% if channel.video %}
+                <div id="ad-video">{{channel.video|raw}}</div>
+            {% endif %}
+            {% if channel.ad3 %}
+		<div id="ad-three">{{channel.ad3|raw}}</div>
+            {% endif %}
+        </div>
+    </div>
+	
+    <div id="channel-posts">
+            {% for post in posts %}
+                    {% if post.isProfessional %}
+                            {% include 'OlogySocialBundle:FrontEnd:pro_post_card.html.twig' with {'post': post } %}
+                    {% else %}
+                            {% include 'OlogySocialBundle:FrontEnd:post_card.html.twig' with {'post': post } %}
+                    {% endif %}
+            {% endfor %}
+    </div>
+</div>
+{% if channel.ad4 %}
+    <div id="ad-four">{{channel.ad4|raw}}</div>
+{% endif %}
+{% if channel.ad5 %}
+    <div id="ad-five">{{channel.ad5|raw}}</div>
+{% endif %}
+
+<div>
+  <a href="{{ path("_website_channel_pag", {'stub' : stub, 'offset' : 1, 'n' : n}) }}" class="navigation">NEXT</a>
+</div>
+
+{% endblock %}
+
+{% block pagescripts %}
+    <script type="text/javascript">
+    $("#channel-featured-post1").click(function(){
+        window.location=$(this).find("a").attr("href");
+        return false;
+    });
+    $("#channel-featured-post2").click(function(){
+        window.location=$(this).find("a").attr("href");
+        return false;
+    });
+    $("#channel-featured-post3").click(function(){
+        window.location=$(this).find("a").attr("href");
+        return false;
+    });
+    $("#channel-featured-post4").click(function(){
+        window.location=$(this).find("a").attr("href");
+        return false;
+    });
+    $("#channel-featured-post5").click(function(){
+        window.location=$(this).find("a").attr("href");
+        return false;
+    });
+
+    $(window).scroll(function(){
+
+    var load = "<div class='loading'><img src='{{ asset('bundles/ologysocial/img/ajax-loader.gif') }}' />Loading More</div>";
+    var end = "<div id='end'>You've reached the end of the internets<div>";
+    
+    if  ($(window).scrollTop() == $(document).height() - $(window).height()){
+        if ($(".navigation").length) {
+            $(load).appendTo("body").css("display","block");
+            $.get( $(".navigation").attr("href"), function(data) { 
+                $(".navigation").remove();
+                $('#channel-posts').append( data );
+                $('#channel-posts').linkify( function (links){ links.attr('target', '_blank'); } );
+                $("abbr.timeago").timeago();
+                $('#channel-posts').masonry('reload');
+            });
+            $(".loading").delay(900).fadeOut();
+        } else {
+            $(".loading").delay(900).fadeOut(); 
+            $(end).appendTo("body").css("display","block").hide().fadeIn().delay(800).fadeOut();
+
+        }
+    }
+
+});
+
+    </script>
+  <script src="{{ asset('bundles/ologysocial/js/likes_display.js') }}?ologyv=11" type="text/javascript"></script>
+  <script src="{{ asset('bundles/ologysocial/js/offline_likes.js') }}?ologyv=11" type="text/javascript"></script>
+{% endblock %}

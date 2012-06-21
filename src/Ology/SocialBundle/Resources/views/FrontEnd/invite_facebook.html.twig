@@ -1,0 +1,98 @@
+{% extends 'OlogySocialBundle:FrontEnd:base.html.twig' %}
+{% block title %}Invite | Ology{% endblock %}
+{% block body %}
+{% if loggedIn == true %}
+	<div id='page'>
+            {% include 'OlogySocialBundle:FrontEnd:dock.html.twig' %}
+	</div>
+{% endif %}
+
+<div id="container">
+
+  <div id="invite-box-main">
+    <h2>Invite your Facebook friends</h2>
+        
+        {% if fbError is defined %}
+        <p>
+            <h3>Step 1: Authorize Ology to send an invite to your contacts by clicking here:</h3>
+                <fb:login-button size="small" scope="email,user_birthday,user_location,user_likes,publish_stream">Connect to FB</fb:login-button>
+        </p>
+                <div id="fb-root"></div>
+                
+        <p>
+            If you are not redirected after clicking the facebook button, you might have to log out from Facebook first and retry.
+        </p>
+        {% else %}
+        <h3>Choose which friends you want to invite:</h3>
+        <p>Ology will post an invite on the wall of the friends you selected on your behalf.<br/>
+        Please note that it is the <b>only</b> time that Ology will ever send a facebook message to your friends for you.<br/><br/></p>
+
+
+                {% if friends is defined %}
+                   
+            <form action="{{ path('_website_invite_fb_send') }}" method="post">
+                <div style="width: 490px; height: 250px; overflow-y: scroll; background:#ffffff;">
+                    {% for name, id in friends %}
+                            
+                            <div class="fb-invite-user">
+                              <div class="fb-invite-pic">
+                                <img src="https://graph.facebook.com/{{ id }}/picture" />
+                                <input type="checkbox" name="friends[]" value="{{id}}"/>
+                              </div>
+                              {{ name}}
+                            </div>
+                    
+                    {% endfor %}
+                 </div>
+                <div id="invite-form">
+                <br />
+                    <h3>Invite to:</h3>
+                    {{ form_row(inviteForm.ologyId) }} <br/>
+
+                    <h3>Include a personal message:</h2>
+                    {{ form_row(inviteForm.msg) }}
+                <div id="invite-button" >
+                <br />
+                    <input type="submit" value="send" class="invite-button" />
+                </div>
+
+            </form>
+                    </div>
+                {% endif %}
+                <p>Only click the send button once or invites will be sent multiple times.</p>
+        {% endif %}
+  </div>
+</div>
+{% endblock %}
+                        
+{% block pagescripts %}
+<script>
+              window.fbAsyncInit = function() {
+                FB.init({
+                  appId      : '{{ fb_app_id }}',
+                  status     : true,
+                  cookie     : true,
+                  xfbml      : true,
+                  oauth      : true,
+                });
+
+                FB.Event.subscribe('auth.login', function(response) {
+                  window.location = '{{ path(fb_controller_path) }}';
+                });
+              };
+
+              (function(d){
+                 var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+                 js = d.createElement('script'); js.id = id; js.async = true;
+                 js.src = "//connect.facebook.net/en_US/all.js";
+                 d.getElementsByTagName('head')[0].appendChild(js);
+               }(document));
+            </script>
+
+<script type="text/javascript">
+    $('#inviteForm_ologyId').prepend(
+        $('<option></option>').val(-1).html('Entire site')
+    );
+    $("#inviteForm_ologyId").val(-1);
+</script>
+{% endblock %}

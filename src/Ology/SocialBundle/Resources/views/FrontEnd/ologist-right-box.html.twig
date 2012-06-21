@@ -1,0 +1,49 @@
+<div class="ology-third-boxes-right">    
+        <div class="top-ologist">
+            <form action="{{ path("_website_invite_from_ology", {'ologyId': ology.id}) }}" method="post">
+                <input type="submit" class="invite-friends-button" value="invite friends"/>
+            </form>
+            {% if TopOlogistsTab[0][0] is defined %}    
+                Top Ologists:
+            {% endif %}
+            {% set number = '0' %}
+            {% set url = '' %}
+            {% for key, tab in TopOlogistsTab %}
+                {% for key2, tab1 in tab %}
+                    {% if key2 == 0 %}
+                        {% set number = tab1 %}
+                    {% else %}
+                        {% set url = tab1 %}
+                    {% endif %}
+                {% endfor %}
+                {% if number != 0 %}
+                    <a class="user-popupable" pid="{{ number }}" href="{{ path("_website_profile", {'id' : number}) }}"><img src="{{ asset('bundles/ologysocial/up/img/user/user_small/' ~ url) }}" class="user-pic"></a>
+                {% endif %}
+            {% endfor %}        
+        </div>
+
+        <div class="founder-box">
+            <a class="user-popupable" pid="{{ ology.founder.id }}" href="{{ path("_website_profile", {'id' : ology.founder.id}) }}">
+                    <img src="{{ asset('bundles/ologysocial/up/img/user/user_large/' ~ ology.founder.imageUrl) }}"   />
+            </a>
+            <div style="text-align: left"><small>Founded by</small></div>
+            <div style="text-align: left">
+                <a class="user-popupable" pid="{{ ology.founder.id }}" href="{{ path("_website_profile", {'id' : ology.founder.id}) }}">
+                    {% set firstname_length =  ology.founder.firstName|length %}
+                    {% set lastname_length =  ology.founder.lastName|length %}
+                        {% if (firstname_length + lastname_length) >= 20 %} 
+                            {{ (ology.founder.firstName~' '~ology.founder.lastName)|truncate(20, false, "...")}}
+                        {% else %}   
+                            {{ology.founder.firstName}} {{ology.founder.lastName}}
+                        {% endif %}
+                </a>
+            </div>
+            <div style="text-align: left;">
+                on {{ology.creationDate|date("M d, Y")}} 
+            </div>
+        </div>
+
+        <div class="founder-stats">
+            {% include 'OlogySocialBundle:FrontEnd:ology_stats.html.twig' %}
+        </div>
+</div> 

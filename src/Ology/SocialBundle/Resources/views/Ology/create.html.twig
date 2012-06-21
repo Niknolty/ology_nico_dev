@@ -1,0 +1,6 @@
+<form action="{{ path('_ology_store') }}" method="post" {{ form_enctype(form) }}>
+    
+        {% include 'OlogySocialBundle:Ology:form_content.html.twig' %}
+
+    <input type="submit" value="Create Ology" class="create-ology-button" />
+</form>

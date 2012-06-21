@@ -1,0 +1,65 @@
+{% extends 'OlogySocialBundle:FrontEnd:base.html.twig' %}
+{% block title %}Ologists{% endblock %}
+{% block body %}
+
+{% if loggedIn %}
+    <div id='page'>
+            {% include 'OlogySocialBundle:FrontEnd:dock.html.twig' %}
+    </div>
+{% endif %}
+
+<div id="container">
+
+    <div id="post-ologist">
+        <div id="ology-image">
+            <img src="{{ asset(ology_medium_image_path ~ ology.imageUrl) }}" height="100" width="100"/>
+        </div>
+
+        <div id="ology-desc">
+            <h2><a href="{{ path("_website_ology", {'id' : ology.id, 'slug' : ology.slug}) }}" class="ology-link-id2">{{ ology.name }}</a></h2>
+            <p class="ology-desc">{{ology.description|truncate(150)}}</p>
+        {% if loggedIn == false %}
+            <a href="{{ path('_remember_join_offline', {'id': ology.id}) }}" class="sign">Follow</a>
+            {% include 'OlogySocialBundle:FrontEnd:register-prompt.html.twig' with {'prompt_action':'3'} %}
+        {% elseif isMember == true %}
+            <a href="{{ path('_ology_leave', {'id': ology.id}) }}" class="unfollow"></a><br/>
+        {% else %}
+            <a href="{{ path('_ology_join', {'id': ology.id}) }}" class="follow"></a>
+        {% endif %}
+
+        </div>
+
+        {% if loggedIn %}
+            {% if ology.founder.id == user.id %}
+                <a href="{{ path("_website_update_ology", {'id' : ology.id}) }}" class="edit-ology" >Edit</a>
+            {% endif %}
+        {% endif %}
+
+
+        <div class="founder-section">
+            <a href="{{ path("_website_profile", {'id' : ology.founder.id}) }}">
+                <img src="{{ asset(user_large_image_path ~ ology.founder.imageUrl) }}"   />
+            </a>
+            Founded on {{ology.creationDate|date("m d, Y")}}<br /> by 
+            <a href="{{ path("_website_profile", {'id' : ology.founder.id}) }}">
+                {{ology.founder.firstName}} {{ology.founder.lastName}}
+            </a>
+        </div>
+
+    </div>
+
+    <div id="ology-posts-box">
+    <h4>{{ ology.name }} followers</h4>
+        {% for user in ologist %}
+            <div class="ologist-big">
+                <a href="{{ path("_website_profile", {'id' : user.id}) }}"><img src="{{ asset(user_medium_image_path ~  user.imageUrl) }}" height="70" width="70" /></a><br />
+                <a href="{{ path("_website_profile", {'id' : user.id}) }}">{{ user.firstName }} {{ user.lastName }}</a>
+            </div>
+        {% endfor %}
+
+    </div>
+
+
+</div>
+
+{% endblock %}

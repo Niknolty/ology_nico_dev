@@ -1,0 +1,7 @@
+Create audio post
+
+<form action="{{ path('_post_store_audio') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_rest(form) }}
+
+    <input type="submit" />
+</form>

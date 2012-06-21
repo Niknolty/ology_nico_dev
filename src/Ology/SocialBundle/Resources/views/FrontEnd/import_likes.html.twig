@@ -1,0 +1,29 @@
+{% extends 'OlogySocialBundle:FrontEnd:base.html.twig' %}
+{% block title %}Suggest Ologies | Ology{% endblock %}
+{% block body %}
+
+<div id="container">
+    <div id="featured">
+        <h2>Import Facebook Likes</h2>
+        Based on your facebook likes, you might want to join the following ologies:<br/>
+        {% for ology in ologies %}
+            <div>
+                <a href="{{ path("_website_ology", {'id' : ology.id, 'slug' : ology.slug}) }}">{{ image_tag(asset(ology_small_image_path ~ ology.imageUrl)) }}</a>
+                {% if memberships[ology.id] is defined %}
+                  <a href="{{ path('_ology_leave', {'id': ology.id}) }}" class="unfollow"></a>
+                {% else %}
+                  <a href="{{ path('_ology_join', {'id': ology.id}) }}" class="follow"></a>
+                {% endif %}
+            </div>
+            <p>
+                <span class="ology-featured-name"><a href="{{ path("_website_ology", {'id' : ology.id, 'slug' : ology.slug}) }}">{{ ology.name }}</a></span>
+                {{ ology.description }}
+            </p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+                        
+{% block pagescripts %}
+
+{% endblock %}

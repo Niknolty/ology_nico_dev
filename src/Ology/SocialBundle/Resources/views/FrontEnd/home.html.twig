@@ -1,0 +1,156 @@
+{% extends 'OlogySocialBundle:FrontEnd:base.html.twig' %}
+{% block title %}Home | Ology{% endblock %}
+{% block body %}
+{% if loggedIn == true %}
+<div id='page'>
+    {% include 'OlogySocialBundle:FrontEnd:dock.html.twig' %}
+</div>
+{% endif %}
+<div id="container-home">
+    <div id="profile">
+        {% include 'OlogySocialBundle:Tips:post_create_tip.html.twig' %}
+  	<a href="{{ path("_website_profile", {'id' : user.id}) }}"><img src="{{asset(user_medium_image_path ~ user.imageUrl) }}" width="60px" height="60px"/></a>
+  	<a href="{{ path("_website_profile", {'id' : user.id}) }}" class="view-profile">View Profile</a>
+        <a href="{{ path("_website_profile", {'id' : user.id}) }}" class="edit-settings">Edit Settings</a>
+        <div class="post-something">
+            {% if not loggedIn %}
+                You've got to log in or <a href="{{ path("_website_register") }}">register</a> before you can join the discussion!<br /><br />
+            {% elseif userOlogies|length > 0 %}
+                {% include 'OlogySocialBundle:FrontEnd:create_post_home.html.twig' %}
+            {% else %}
+                You've got to <a href="{{ path("_website_explore") }}"> follow some Ologies</a> before you can join the discussion!<br /><br />
+            {% endif %}
+        </div>
+    </div>
+    {% if justRegistered is defined %}
+        <div id="user-ologize-popup">
+            <a class='close-popup' href='#' onclick="$('#user-ologize-popup').remove(); return false;" title="Close">X</a>
+            <h2>Hey, one more quick thing:</h2>
+           {#% include "OlogySocialBundle:Website\\UserPage:getSettingsologize" %#}
+           {% include 'OlogySocialBundle:FrontEnd:ologize_settings.html.twig' %}
+        </div>
+    {% endif %}
+    <div id="ology-posts-box-home">
+        <div id="posts-box-main-home">
+            <div id="p">
+                {% if posts|length <= 0 %}
+                <div id="find-ologies">
+                    <h1><a href="{{ path("_website_explore") }}">You are not following any Ologies.</a></h1><a href="{{ path("_website_explore") }}">Explore and find what you love!</a>
+                </div>
+                {% else %}
+                
+                    <div id="post-filters-home">
+                        <h3>Top Posts:</h3>
+                    </div>
+
+                    <div id="posts-box-home">
+                        {% for post in posts %}
+                            {% if post.isProfessional %}
+                                {% include 'OlogySocialBundle:FrontEnd:pro_post_card.html.twig' with {'post': post} %}
+                            {% else %}
+                                {% include 'OlogySocialBundle:FrontEnd:post_card.html.twig' with {'post': post, 'cardNumber' : loop.index } %}
+                            {% endif %}
+                        {% endfor %}
+                        <div> 
+                            <a href="{{ path("_website_home_pag", {'offset' : 1, 'n' : nbPosts}) }}" class="navigation">NEXT</a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="right-panel-home">
+    {% include 'OlogySocialBundle:Tips:whats_new_tip.html.twig' %}
+    {% if loggedIn and notifications|length > 0 %}
+    <div id="whats-new-home">
+        <h2>What's New?</h2>
+        {% include 'OlogySocialBundle:FrontEnd:notifications.html.twig' %}
+    </div>
+    {% else %}
+    <div id="whats-new-home2">
+        <h2>What's New?</h2>
+        <h3><a href="{{ path("_website_explore") }}">Looks like nothing new is going on in your ologies.</a></h3>
+        <br />
+        <a href="{{ path("_website_explore") }}">Why don’t you explore and find some new ones to join!</a>
+    </div>
+    {% endif %}
+
+    <div id="ologist-home">
+        <div id="featured">
+            {% include 'OlogySocialBundle:Tips:ology_featured_tip.html.twig' %}
+            <h2>Recommended Ologies:</h2>
+            {% if sponsor != NULL %}
+            <div id="ology-sponsor-home">
+                <p>Brought to you by:</p>
+                {{ sponsor.tag|raw() }}
+            </div>
+            {% endif %}
+            {% if suggestedOlogies is defined and suggestedOlogies|length > 0 %}
+            <div id="featured">
+                {% for ology in suggestedOlogies %}
+                <div class="ology-featured-img">
+                    <a href="{{ path("_website_ology", {'id' : ology.id, 'slug' : ology.slug}) }}">{{ image_tag(asset(ology_small_image_path ~ ology.imageUrl)) }}</a>
+                    <a href="{{ path('_ology_join', {'id': ology.id}) }}" class="follow"></a>
+                </div>
+
+                <p class="ology-featured-desc">
+                    <span class="ology-featured-name"><a href="{{ path("_website_ology", {'id' : ology.id, 'slug' : ology.slug}) }}">{{ ology.name }}</a></span>
+                    {{ ology.description }}
+                </p>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            {% for ology in featuredOlogies %}
+            <div class="ology-featured-img">
+                <a href="{{ path("_website_ology", {'id' : ology.id, 'slug' : ology.slug}) }}">{{ image_tag(asset(ology_small_image_path ~ ology.imageUrl)) }}</a>
+                {% if memberships[ology.id] is defined %}
+                    <a href="{{ path('_ology_leave', {'id': ology.id}) }}" class="unfollow"></a>
+                {% else %}
+                    <a href="{{ path('_ology_join', {'id': ology.id}) }}" class="follow"></a>
+                {% endif %}
+            </div>
+
+            <p class="ology-featured-desc">
+                <span class="ology-featured-name"><a href="{{ path("_website_ology", {'id' : ology.id, 'slug' : ology.slug}) }}">{{ ology.name }}</a></span>
+                {{ ology.description }}
+            </p>
+            {% endfor %}
+        </div>
+    </div>
+  </div>
+{% endblock %}
+                        
+{% block pagescripts %}
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setCustomVar', 1, 'UserType', 'Member', 2]);
+    </script>
+    <script src="{{ asset('bundles/ologysocial/js/silver-bullet/homescroll.js') }}" type="text/javascript"></script>
+    <script type="text/javascript">
+        $('#postForm_firstOlogy').prepend(
+            $('<option></option>').val(-1).html('Pick an Ology')
+        );
+        $("#postForm_firstOlogy").val(-1);
+        
+        $('#postForm_firstOlogy').change(function() {
+          $('.post-button').removeAttr('disabled');
+        });
+
+        $("#post-button-home").live("click", function() {
+            if ($("#postForm_firstOlogy").val() == -1)
+                $("#postForm_firstOlogy").effect("shake", { times:2 }, 300), 
+                $('.post-button').attr('disabled', 'disabled');
+            else
+                $("form#form-post").submit();
+        });
+    </script>
+
+<script src="{{ asset('bundles/ologysocial/js/picgrabber.js') }}?ologyv=11" type="text/javascript"></script>
+<script src="{{ asset('bundles/ologysocial/js/likes_display.js') }}?ologyv=11" type="text/javascript"></script>
+<script src="{{ asset('bundles/ologysocial/js/offline_likes.js') }}?ologyv=11" type="text/javascript"></script>
+<script src="{{ asset('bundles/ologysocial/js/offline_comment.js') }}?ologyv=11" type="text/javascript"></script>
+
+{% endblock %}

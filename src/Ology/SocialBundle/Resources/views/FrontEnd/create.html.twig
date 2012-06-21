@@ -1,0 +1,36 @@
+{% extends 'OlogySocialBundle:FrontEnd:base.html.twig' %}
+{% block title %}Create a Stash or an Ology | Ology{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
+    <link href="{{ asset('bundles/ologysocial/css/jquery.tagit.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+    
+{% block body %}
+    <div id='page'>
+        {% include 'OlogySocialBundle:FrontEnd:dock.html.twig' %}
+    </div>
+
+    <div id="content">
+        <div class="create-box create-ology">
+            <h2>Create A New Ology</h2>
+            <img src="{{ asset('bundles/ologysocial/img/ology_create.png') }}" ></img>
+            <div class="create-box-text">
+                An ology is a community built around a specific interest. <br>
+                Multiple people can add to it!
+            </div>
+        </div>
+        <div class="create-box create-stash">
+            <h2>Create A New Stash</h2>
+            <img src="{{ asset('bundles/ologysocial/img/stash_create.png') }}" ></img>
+            <div  class="create-box-text">
+                A stash is a personal collection of posts. Only you can add things to it!
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block pagescripts %}
+    <script src="{{ asset('bundles/ologysocial/js/silver-bullet/ology.js') }}?v=11" type="text/javascript"></script>
+    <script src="{{ asset('bundles/ologysocial/js/tag-it.js') }}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ asset('bundles/ologysocial/js/stash.js') }}" type="text/javascript"></script>
+{% endblock %}

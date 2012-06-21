@@ -1,0 +1,12 @@
+<div id="reg-form-twitter">
+    <h2>Almost there!</h2>
+    <p>You've logged in with Twitter.<br /> We just need to send you a quick confirmation email.</p>
+    
+    <form action="{{ path('_website_twitter_register') }}" method="POST" {{ form_enctype(twitterRegisterForm) }}>
+        {{ form_errors(twitterRegisterForm) }}
+        {{ form_row(twitterRegisterForm.email) }}
+
+        {{ form_rest(twitterRegisterForm) }}
+        <input type="submit" value="Finish" class="signup-button" />
+    </form>
+</div>

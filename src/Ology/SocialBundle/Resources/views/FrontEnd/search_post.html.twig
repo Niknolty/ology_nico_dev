@@ -1,0 +1,132 @@
+{% extends 'OlogySocialBundle:FrontEnd:base.html.twig' %}
+
+{% block title %}Search | Ology{% endblock %}
+
+{% block body %}
+{% if loggedIn == true %}
+	<div id='page'>
+            {% include 'OlogySocialBundle:FrontEnd:dock.html.twig' %}
+	</div>
+{% endif %}
+
+<div id="container">
+    <div id="search-mainbar">
+    <input>
+    </div>
+
+    <div id="search-ologist">
+    <h2>Members:</h2>
+        {% if users|length == 0 %}
+            Couldn't find any users matching your search
+        {% else %}
+            {% for user in users %}
+                <div class="ologist-search-img">
+                    <img src="{{ asset(user_medium_image_path ~ user.imageUrl) }}" />
+                </div>
+                <p class="ologist-search-desc">
+                    <span class="ologist-search-name">
+                        <a href="{{ path('_website_profile', {'id' : user.id}) }}">{{ user.firstName }} {{ user.lastName }}</a>
+                        <span class="ologist-search-location">
+                            {{ user.location }}
+                        </span>
+                    </span>
+                    {{ user.summary }}
+                </p>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <div id="search-posts-box">
+        <div id="search-box-main">
+            <h2>Search Results for {{ term }}</h2>
+            <h3>Posts:</h3>
+            
+                <div id="search-posts-box">
+                    {% if posts|length == 0 %}
+                        Couldn't find any posts matching your search
+                    {% else %}
+
+                        {% for post in posts %}
+                        <div class="post">
+                            <h2><a href="{{ path("_website_ology", {'id' : post.firstOlogy.id, 'slug' : post.firstOlogy.slug}) }}">{{ post.firstOlogy.name }}</a></h2>
+                              <div class="user-img">
+                                <a href="#"><img src="{{ asset(user_medium_image_path ~ post.author.imageUrl) }}" class="user-pic"></a>
+                              </div>
+                              <h3><a href="{{ path("_website_post", {'postId' : post.id, 'slug' : post.slug}) }}">{{ post.title }}</a></h3>
+                              <div class="small">
+                                posted by <a href="{{ path("_website_profile", {'id' : post.author.id}) }}">{{ post.author.firstName}}</a>
+                                On {{post.creationDate|date("m d, Y")}}
+                              </div>
+                                <p>
+                                    {{ post.textContent|nl2br() }}
+                                </p>
+                              {% if post.postType.id == 3 %}
+                              <img src="{{ asset(post_large_image_path ~ post.imageUrl) }}"/>
+                              {% endif %}
+                              {% if post.postType.id == 4 %}
+                              <iframe width="560" height="360" src="http://www.youtube.com/embed/{{ post.videoUrl }}?wmode=transparent" frameborder="0" allowfullscreen></iframe>
+                              {% endif %}
+                              {% if post.postType.id == 5 %}
+                                <audio controls="true" src="{{ asset(post_audio_path ~ post.audioUrl) }}" type="audio/mpeg" style="width:100%;">
+                                  Your browser does not support the audio element.
+                                </audio>
+
+                              {% endif %}
+
+                              <div class="left">
+                                {% if post.timesCommented == 0 %}
+                                    <a href="{{ path("_website_post", {'postId' : post.id, 'slug' : post.slug}) }}#comments">comment &raquo;</a>
+                                {% endif %}
+                                {% if post.timesCommented == 1 %}
+                                    <a href="{{ path("_website_post", {'postId' : post.id, 'slug' : post.slug}) }}#comments">{{ post.timesCommented }} comment &raquo;</a>
+                                {% endif %}
+                                {% if post.timesCommented > 1 %}
+                                    <a href="{{ path("_website_post", {'postId' : post.id, 'slug' : post.slug}) }}#comments">{{ post.timesCommented }} comments &raquo;</a>
+                                {% endif %}
+                              </div>
+                        </div>
+                        {% endfor %}
+
+                    {% endif %}
+                </div>
+        </div>
+    </div>
+
+
+    <div id="search-ologies">
+    <h2>Ologies:</h2>
+        {% if ologies|length == 0 %}
+            Couldn't find any ologies matching your search
+        {% else %}
+            {% for ology in ologies %}
+
+                <div class="ology-search-img">
+                    <a href="{{ path("_website_ology", {'id' : ology.id}) }}"><img src="{{ asset(ology_small_image_path ~ ology.imageUrl) }}" /></a>
+                    {% if loggedIn %}
+                        {% if memberships[ology.id] %}
+                                <a href="{{ path('_ology_leave', {'id': ology.id}) }}" class="unfollow"></a>
+                        {% else %}
+                                <a href="{{ path('_ology_join', {'id': ology.id}) }}" class="follow"></a>
+                        {% endif %}
+                    {% endif %}
+
+                </div>
+                <p class="ology-search-desc">
+                    <span class="ology-search-name">
+                        <a href="{{ path("_website_ology", {'id' : ology.id}) }}">{{ ology.name }}</a>
+                    </span>
+                    {{ ology.description }}
+                </p>
+
+
+
+            {% endfor %}
+        {% endif %}
+    </div>
+
+
+
+</div>
+{% endblock %}
+{% block pagescripts %}
+{% endblock %}

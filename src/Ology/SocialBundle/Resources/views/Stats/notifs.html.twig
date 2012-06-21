@@ -1,0 +1,13 @@
+{% extends 'OlogySocialBundle:Stats:base.html.twig' %}
+{% block body %}
+<h1>Notifications</h1>
+
+<ul>
+    <li>Everything activated: {{ stats['all']}} / {{ stats['total']}}</li>
+    <li>Comments on own post: {{ stats['com_on_post']}} / {{ stats['total']}}</li>
+    <li>Follows-up on my comment: {{ stats['comment_on_comment']}} / {{ stats['total']}}</li>
+    <li>Joins an ology I created: {{ stats['join']}} / {{ stats['total']}}</li>
+    <li>Posts in an ology I follow: {{ stats['post']}} / {{ stats['total']}}</li>
+</ul>
+
+{% endblock %}

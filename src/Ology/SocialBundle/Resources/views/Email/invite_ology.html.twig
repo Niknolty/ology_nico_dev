@@ -1,0 +1,6 @@
+{% extends 'OlogySocialBundle:Email:template.html.twig' %}
+{% block body %}
+Looks like you're kind of a big deal, because {{ inviterName }} has invited you to join <a href="{{websiteUrl}}{{ path('_website_ology_invite', {'id' : ologyId, 'inviteId' : inviteId}) }}">{{ ologyName }}</a>.
+
+You should return the favor by inviting them to ollow one of your ologies! Don't have any? No problem--find ologies on the <a href="{{websiteUrl}}{{ path('_website_explore') }}">explore page</a> or get adventurous and <a href="{{websiteUrl}}{{ path('_website_create_ology') }}">create a new ology</a>.
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'OlogySocialBundle:Stats:base.html.twig' %}
+{% block body %}
+<h1>Labels</h1>
+
+<h2>Members</h2>
+<ul>
+{% for key, value in stats['ologies'] %}
+    <li>{{ key }}: {{ value }} ologies</li>
+{% endfor %}
+</ul>
+
+<h2>Posts</h2>
+<ul>
+{% for key, value in stats['posts'] %}
+    <li>{{ key }}: {{ value }} posts</li>
+{% endfor %}
+</ul>
+{% endblock %}

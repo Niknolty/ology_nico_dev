@@ -1,0 +1,12 @@
+{% extends 'OlogySocialBundle:Stats:base.html.twig' %}
+{% block body %}
+<h1>Followers</h1>
+    
+<h2>Top 15 users's followers</h2>
+<ul>
+{% for user in stats['topFollowers'] %}
+    <li><a href="{{ path("_website_profile", {'id' : user.id }) }}" >{{ user.name }}</a> has {{ user.nbFollowees }} followers</li>
+{% endfor %}
+</ul>
+
+{% endblock %}

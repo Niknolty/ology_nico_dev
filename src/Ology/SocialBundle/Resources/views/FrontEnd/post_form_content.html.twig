@@ -1,0 +1,44 @@
+                {{ form_errors(postForm) }}
+	<div id="post-ology-title">
+		{{ form_row(postForm.title) }}
+	</div>
+
+    <div id="post-ology-text">{{ form_row(postForm.textContent) }}</div>
+
+    <div class="media-box">
+	    <div class="attach-media">Attach Media:</div>
+	    <div class="add-image"></div>
+	    <div class="add-video"></div>
+	    <div class="add-audio"></div>
+    </div>
+
+    <div id="image_field">
+        <div class="cancel-x">x</div>
+        <div id="img-web">
+            <span class="egypt-med">Paste image URL</span>
+            <div id="web-link">
+                <input style="width: 80%; border: 1px solid #CCC;" id="input-img-grabber" type="text"/>
+                {{ form_row(postForm.imageUrl) }}
+            </div>
+            <div id="grabbed-image"></div>
+        </div>
+        <div id="img-or" style="display: none;">
+            -or-
+        </div>
+        <div id="img-upload">
+            <span class="egypt-med">Select Image</span> {{ form_row(postForm.imageFile) }}
+        </div>
+    </div>
+
+    <div id="video_field">
+        <span class="egypt-med">Paste YouTube video link</span> {{ form_row(postForm.videoUrl) }}
+        <div class="cancel-x">x</div>
+    </div>
+
+    <div id="audio_field">
+    	<span class="egypt-med">Select Audio file</span> {{ form_row(postForm.audioFile) }}
+        <div class="cancel-x">x</div>
+    </div>
+
+    {{ form_rest(postForm) }}
+

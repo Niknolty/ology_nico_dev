@@ -1,0 +1,6 @@
+{% for comment in comments %}
+    <p>{{ comment.id }}</p>
+    <p>{{ comment.author.id }}</p>
+    <p>{{ comment.post.id }}</p>
+    <p>{{ comment.content }}</p>
+{% endfor %}

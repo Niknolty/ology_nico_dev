@@ -1,0 +1,6 @@
+{# This is a hack. login-button is hide and triggered by js script when user click on the image #}
+{# Moved to base.html.twig
+{{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
+#}
+<img class="fb-fake-button" src="{{ asset('bundles/ologysocial/img/facebook_signin.png') }}">
+<fb:login-button id="facebook-login-button" scope="email,user_birthday,user_location,user_likes,publish_stream" autologoutlink="1" size="small"></fb:login-button>

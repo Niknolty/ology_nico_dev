@@ -1,0 +1,41 @@
+{% extends 'OlogySocialBundle:Stats:base.html.twig' %}
+{% block body %}
+<h1>Invites</h1>
+    <h2>Overall</h2>
+        Total sent: {{ total.nbTotal }} <br />
+        Total pending: {{ total.nbPending }}<br />
+        Total accepted: {{ total.nbAccepted }}<br />
+
+    <h2>Per Ology</h2>
+    <table>
+        <tr>
+            <td></td><td># sent</td><td># accepted</td><td># pending</td>
+        </tr>
+        {% for key, value in total.arrayNbInvites %}
+        <tr>
+            <td>{% if key != "general" %}
+                {{ total.ologies[key].name}}<br/>
+            {% else %}
+                {{ key }}<br/>
+            {% endif %}
+            </td>
+            <td>{{ total.arrayNbInvites[key]['total'] }}</td>
+            <td>{{ total.arrayNbInvites[key]['accepted'] }}</td>
+            <td>{{ total.arrayNbInvites[key]['pending'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Per Users</h2>
+    <table>
+        <tr><td>From</td><td># sent</td><td># accepted</td><td># pending</td></tr>
+    {% for stat in perUser %}
+        <tr>
+            <td><a href="{{ path("_website_profile", {'id' : stat[0].fromUser.id}) }}">{{stat[0].fromUser.firstName}} {{stat[0].fromUser.lastName}}</a></td>
+            <td>{{stat['total']}}</td>
+            <td>{{stat['accepted']}}</td>
+            <td>{{stat['pending']}}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

@@ -1,0 +1,136 @@
+{% extends 'OlogySocialBundle:FrontEnd:base.html.twig' %}
+{% block title %}{{ ology.name }} | Ology{% endblock %}
+{% block body %}
+
+{% if app.user is not empty%}
+<div id='page'>
+    {% include 'OlogySocialBundle:FrontEnd:dock.html.twig' %}
+</div>
+{% endif %}
+
+<div id="container-ology">
+    {% if app.user is empty %}
+        {% include 'OlogySocialBundle:FrontEnd:almost-register-prompt.html.twig'%} 
+    {% endif %}      
+    <div id="ology-ologist">
+        <div id="ology-image">
+            <img src="{{ asset(ology_medium_image_path ~ ology.imageUrl) }}" height="100" width="100"/>
+        </div>
+        <div id="ology-desc">
+            <h2><a href="{{ ology.Id }}" class="ology-link-id2">{{ ology.name }}</a></h2>
+            <p class="ology-desc">{{ology.description|truncate(150)}}</p>
+            <div>
+                {% if loggedIn == false %}    
+                    <a href="{{ path('_remember_join_offline', {'id': ology.id}) }}" class="sign follow"></a>
+                    {% include 'OlogySocialBundle:FrontEnd:register-prompt.html.twig' with {'prompt_action':'3'} %}
+                {% elseif isMember == true %}
+                    <a href="{{ path('_ology_leave', {'id': ology.id}) }}" class="unfollow"></a><br/>
+                    {% include 'OlogySocialBundle:Tips:follow_unfollow_tip.html.twig' %}
+                {% else %}  
+                    <a href="{{ path('_ology_join', {'id': ology.id}) }}" class="follow"></a>
+                    {% include 'OlogySocialBundle:Tips:follow_unfollow_tip.html.twig' %}
+                {% endif %}
+            </div>
+        </div>
+            
+        {% if loggedIn %}
+            {% if ology.founder.id == user.id %}
+                <a href="{{ path("_website_update_ology", {'id' : ology.id}) }}" class="edit-ology" >Edit</a>
+            {% endif %}
+        {% endif %}
+                
+        {# Begin clean-up ology box Author: Nicolas Le Deaut 05/01/2012 #}        
+            {% include 'OlogySocialBundle:FrontEnd:ologist-right-box.html.twig' %}       
+        {# End #}    
+                
+                
+                
+            <div id="post-bg"></div>
+            {% include 'OlogySocialBundle:Tips:post_create_tip.html.twig' %}
+
+
+{#
+		{% for member in members %}
+			<div class="ology-members">
+				<a href="{{ path("_website_profile", {'id' : member.id}) }}"><img src="{{ asset(user_small_image_path ~ member.imageUrl) }}"/></a>
+			</div>
+		{% endfor %}
+#}
+		{# <a href="{{ path("_website_ologist", {'id' : ology.id}) }}" class="view-all-ologist">View All</a> #}
+        <div class="post-ology">
+            {% include 'OlogySocialBundle:Post:create_post.html.twig' %}
+        </div>
+    </div>
+
+    <div id="ology-posts-box-ology">
+        <div id="posts-box-main-ology">
+            <div id="p">
+                <div id="post-filters-ology">
+                        <h3>{{ ology.name }} Feed</h3>
+                </div>
+
+                <div id="posts-box-ology">
+                    {% if not hasPosts %}
+                    <div class="post text">
+                        {% if (not loggedIn) or (user.id != ology.founder.id) %}
+                            <p style="font-size: 14px">Awww… looks like no one has posted anything yet.</p>
+                            <p style="font-size: 14px">Why not be the first? FIRST!!!</p>
+                        {% else %}
+                            <p style="font-size: 14px">Congrats on creating a new ology! You're kind of a big deal.</p>
+                            <p style="font-size: 14px">So now what?<br/>Post something.</p>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                        
+                    {% for po in postsOlogies %}
+                        {% if po.post.isProfessional %}
+                            {% include 'OlogySocialBundle:FrontEnd:pro_post_card.html.twig' with {'post': po.post } %}
+                        {% else %}
+                            {% include 'OlogySocialBundle:FrontEnd:post_card.html.twig' with {'post': po.post, 'cardNumber' : loop.index } %}
+                        {% endif %}
+                    {% endfor %}
+
+                    <div class="nextpost">
+                      <a href="{{ path("_website_ology_pag", {'offset' : 1, 'n' : nbPosts, 'id' : ology.id, 'slug' : ology.slug}) }}" class="navigation">NEXT</a>
+                    </div>
+                </div>   
+            </div>
+        </div>
+    </div>
+            
+    <div id="ology-right-panel-home">
+    {% include 'OlogySocialBundle:Tips:whats_new_tip.html.twig' %}
+    {% if loggedIn == false %}
+        <div id="whats-new-join">
+            <span class="whats-new-join">Join today! Ology is where thousands of people share their interests and passions with each other.</span>
+            {% include 'OlogySocialBundle:FrontEnd:facebook_signin.html.twig' %}
+            <span class="whats-new-join2">What is Ology?</span>
+            <iframe width="150" height="150" src="http://www.youtube.com/embed/y2e_1KpZFvo?wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        </div>
+    {% else %}
+        {% if  notifications|length > 0 %}
+            <div id="whats-new">
+                <h2>What's New</h2>
+                {% include 'OlogySocialBundle:FrontEnd:notifications.html.twig' %}
+            </div>
+        {% else %}
+            <div id="whats-new-home2">
+                <h2>What's New?</h2>
+                <h3><a href="{{ path("_website_explore") }}">Looks like nothing new is going on in your ologies.</a></h3>
+                <br />
+                <a href="{{ path("_website_explore") }}">Why don’t you explore and find some new ones to join!</a>
+            </div>
+        {% endif %}
+    {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block pagescripts %}
+<script src="{{ asset('bundles/ologysocial/js/silver-bullet/homescroll.js') }}?ologyv=11" type="text/javascript"></script>
+<script src="{{ asset('bundles/ologysocial/js/picgrabber.js') }}?ologyv=11" type="text/javascript"></script>
+<script src="{{ asset('bundles/ologysocial/js/offline_comment.js') }}?ologyv=11" type="text/javascript"></script>
+<script src="{{ asset('bundles/ologysocial/js/offline_post.js') }}?ologyv=11" type="text/javascript"></script>
+<script src="{{ asset('bundles/ologysocial/js/likes_display.js') }}?ologyv=11" type="text/javascript"></script>
+<script src="{{ asset('bundles/ologysocial/js/offline_likes.js') }}?ologyv=11" type="text/javascript"></script>
+{% endblock %}

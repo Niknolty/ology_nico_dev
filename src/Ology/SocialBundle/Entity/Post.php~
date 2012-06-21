@@ -1,0 +1,238 @@
+<?php
+
+namespace Ology\SocialBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="Posts")
+ */
+class Post {
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     */
+    protected $author;
+
+    /**
+     * @ORM\Column(name="title", type="text")
+     */
+    protected $title;
+    
+    /**
+     * @ORM\Column(name="html_content", type="text")
+     */
+    protected $content;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="PostType")
+     * @ORM\JoinColumn(name="post_type_id", referencedColumnName="id")
+     */
+    protected $post_type;
+    
+    /**
+     * @ORM\Column(name="creation_date", type="datetime")
+     */
+    protected $creationDate;
+    
+    /**
+     * @ORM\Column(name="times_ologized", type="integer")
+     */
+    protected $timesOlogized = 1;
+    
+    /**
+     * @ORM\Column(name="times_commented", type="integer")
+     */
+    protected $timesCommented = 1;    
+    
+    function __construct()
+    {
+        $this->creationDate = new \DateTime('now');
+    }
+    
+    public function update($author, $postType, $title, $htmlContent, $timesOlogized)
+    {
+        $this->author = $author;
+        $this->post_type = $postType;
+        $this->title = $title;
+        $this->content = $htmlContent;
+        $this->timesOlogized = $timesOlogized ;
+    }
+    
+    public function incrTimesCommented() {
+        $this->timesCommented++;
+    }
+    
+    public function decrTimesCommented() {
+        $this->timesCommented--;
+    }
+
+        /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getimesCommented()
+    {
+        return $this->timesCommented;
+    }
+
+    /**
+     * Set title
+     *
+     * @param text $title
+     */
+    public function setTimesCommented($timesCommented)
+    {
+        $this->timesCommented = $timesCommented;
+    }
+    
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set title
+     *
+     * @param text $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * Get title
+     *
+     * @return text 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set content
+     *
+     * @param text $content
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+    }
+
+    /**
+     * Get content
+     *
+     * @return text 
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * Set creationDate
+     *
+     * @param datetime $creationDate
+     */
+    public function setCreationDate($creationDate)
+    {
+        $this->creationDate = $creationDate;
+    }
+
+    /**
+     * Get creationDate
+     *
+     * @return datetime 
+     */
+    public function getCreationDate()
+    {
+        return $this->creationDate;
+    }
+
+    /**
+     * Set timesOlogized
+     *
+     * @param integer $timesOlogized
+     */
+    public function setTimesOlogized($timesOlogized)
+    {
+        $this->timesOlogized = $timesOlogized;
+    }
+
+    /**
+     * Get timesOlogized
+     *
+     * @return integer 
+     */
+    public function getTimesOlogized()
+    {
+        return $this->timesOlogized;
+    }
+
+    /**
+     * Set author
+     *
+     * @param Ology\SocialBundle\Entity\User $author
+     */
+    public function setAuthor(\Ology\SocialBundle\Entity\User $author)
+    {
+        $this->author = $author;
+    }
+
+    /**
+     * Get author
+     *
+     * @return Ology\SocialBundle\Entity\User 
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set post_type
+     *
+     * @param Ology\SocialBundle\Entity\PostType $postType
+     */
+    public function setPostType(\Ology\SocialBundle\Entity\PostType $postType)
+    {
+        $this->post_type = $postType;
+    }
+
+    /**
+     * Get post_type
+     *
+     * @return Ology\SocialBundle\Entity\PostType 
+     */
+    public function getPostType()
+    {
+        return $this->post_type;
+    }
+
+    /**
+     * Get timesCommented
+     *
+     * @return integer 
+     */
+    public function getTimesCommented()
+    {
+        return $this->timesCommented;
+    }
+}

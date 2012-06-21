@@ -1,0 +1,12 @@
+{% extends 'OlogySocialBundle:FrontEnd:base.html.twig' %}
+{% block title %}Ology is all about passion{% endblock %}
+
+
+{% block body %}
+<div id="container">
+<p>
+<br />
+{{ 'resetting.check_email'|trans({'%email%': user.email}, 'FOSUserBundle') }}
+</p>
+</div>
+{% endblock %}

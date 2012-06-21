@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:n="http://www.google.com/schemas/sitemap-news/0.9">
+{% if posts is defined %}
+    {% for post in posts %}
+        <url>
+            <loc>{{post.loc}}</loc>
+            <n:news>
+                <n:publication>
+                    <n:name>{{post.name}}</n:name>
+                    <n:language>{{post.lang}}</n:language>
+                </n:publication>
+                <n:title>{{post.title}}</n:title>
+                <n:publication_date>{{post.pub_date}}</n:publication_date>
+            </n:news>
+        </url>
+    {% endfor %}
+{% endif %}
+</urlset>

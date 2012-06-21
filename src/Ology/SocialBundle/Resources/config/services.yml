@@ -1,0 +1,297 @@
+services:
+#  kernel.listener.exception_listener:
+#    class:                  Ology\SocialBundle\Listener\ExceptionListener
+#    arguments:              [@router, @logger]
+#    tags:
+#      - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
+
+  twig.extension.txt: 
+    class: Twig_Extensions_Extension_Text 
+    tags: 
+      - { name: twig.extension }
+        
+  social.service.appmanager:
+    class:                  Ology\SocialBundle\Service\ApplicationManagerService
+    arguments:              [@social.service.ology, @social.service.post, @social.service.comment, @social.service.notification, @social.service.membership]
+      
+  social.service.cache:
+    class:                  Ology\SocialBundle\Service\CacheService
+    arguments:              [@social.dao.cache, @social.dao.ology]
+         
+  social.registration.form.type:
+        class:              Ology\UserBundle\Form\Type\RegistrationFormType
+        arguments:          [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: ology_user_registration }     
+
+  social.resetting.form.type:
+        class:              Ology\UserBundle\Form\Type\ResettingFormType
+        tags:
+            - { name: form.type, alias: ology_user_resetting }
+
+
+  ology_user.form.handler.registration:
+    class:                Ology\SocialBundle\Forms\Handler\RegistrationFormHandler
+    arguments:            ["@fos_user.registration.form", "@request", "@fos_user.user_manager", "@fos_user.mailer"]
+    scope:                request
+    public:               false
+  
+  social.service.ology:  
+    class:                  Ology\SocialBundle\Service\OlogyService
+    arguments:              [@social.dao.ology, @social.service.membership, @social.service.post, @social.service.labelology, @social.dao.cache]
+
+  social.service.post:
+    class:                  Ology\SocialBundle\Service\PostService
+    arguments:              [@social.dao.post, @social.dao.ology, @social.dao.user, @social.dao.postsologies, @social.dao.postschannels, @social.dao.postsstashes, @social.dao.cache, @social.service.comment, @social.service.mail]    
+  
+  social.service.comment:
+    class:                  Ology\SocialBundle\Service\CommentService
+    arguments:              [@social.dao.comment, @social.dao.cache, @social.service.mail, %default_comment_number%]
+    
+  social.service.likes:
+    class:                  Ology\SocialBundle\Service\LikesService
+    arguments:              [@social.dao.likes, @social.dao.cache, @social.service.user]
+    
+  social.service.channel:
+    class:                  Ology\SocialBundle\Service\ChannelService
+    arguments:              [@social.dao.channel, @social.dao.postschannels] 
+    
+  social.service.user:
+    class:                  Ology\SocialBundle\Service\UserService
+    arguments:              [@social.dao.user, @social.dao.cache, @social.service.mail]  
+  
+  social.service.notification:
+    class:                  Ology\SocialBundle\Service\NotificationService
+    arguments:              [@social.dao.notification, @social.dao.cache, @social.service.ology, @social.service.post, @social.service.comment, @social.service.user, @social.service.membership, @social.service.stash]
+    
+  social.service.membership:
+    class:                  Ology\SocialBundle\Service\MembershipService
+    arguments:              [@social.dao.membership, @social.dao.cache, @social.service.mail, @social.dao.user, @social.dao.ology, @social.dao.stats] 
+  
+  social.service.subscription:
+    class:                  Ology\SocialBundle\Service\SubscriptionService
+    arguments:              [@social.dao.subscription, @social.dao.cache, @social.service.mail, @social.dao.user, @social.dao.channel] 
+  
+  social.service.inbox:
+    class:                  Ology\SocialBundle\Service\InboxService
+    arguments:              [@social.dao.inbox]
+
+  social.service.message:
+    class:                  Ology\SocialBundle\Service\MessageService
+    arguments:              [@social.dao.message] 
+
+  social.service.label:
+    class:                  Ology\SocialBundle\Service\LabelService
+    arguments:              [@social.dao.label] 
+
+  social.service.labelology:
+    class:                  Ology\SocialBundle\Service\LabelOlogyService
+    arguments:              [@social.dao.labelology, @social.dao.label] 
+
+  social.service.invite:
+    class:                  Ology\SocialBundle\Service\InviteService
+    arguments:              [@social.dao.invite, @social.service.mail]
+
+  social.service.search:
+    class:                  Ology\SocialBundle\Service\SearchService
+    arguments:              [@foq_elastica.finder.website.ology, @foq_elastica.finder.website.ology, @foq_elastica.finder.website.ology]
+
+  social.service.merge:
+    class:                  Ology\SocialBundle\Service\MergeService
+    arguments:              [@doctrine.orm.entity_manager, @social.service.user, @social.service.cache, @social.service.follow, @social.dao.mergeaccount]
+    
+  social.service.mail:
+    class:                  Ology\SocialBundle\Service\EmailService
+    arguments:              [%website_url%, @mailer, @templating]
+    
+  social.service.follow:
+    class:                  Ology\SocialBundle\Service\FollowService
+    arguments:              [@social.dao.cache.followuser, @social.service.stash, @social.service.ology, @social.service.user, @social.service.membership, @social.service.notification, @social.service.mail]
+    
+  social.service.notif:
+    class:                  Ology\SocialBundle\Service\NotifService
+    arguments:              [@social.dao.cache.notif]
+
+  social.service.sponsor:
+    class:                  Ology\SocialBundle\Service\SponsorService
+    arguments:              [@social.dao.sponsor] 
+
+  social.service.stash:
+    class:                  Ology\SocialBundle\Service\StashService
+    arguments:              [@social.dao.stash, @social.dao.postsstashes, @social.dao.tagstash, @social.service.tag] 
+    
+  social.service.stats:
+    class:                  Ology\SocialBundle\Service\StatsService
+    arguments:              [@social.dao.stats, @social.service.stash, @social.service.follow, @social.service.user] 
+ 
+  social.service.tag:
+    class:                  Ology\SocialBundle\Service\TagService
+    arguments:              [@social.dao.tag, @social.dao.tagstash] 
+    
+  social.service.tips:
+    class:                  Ology\SocialBundle\Service\TipsPromptService
+    arguments:              [@security.context, @doctrine.orm.entity_manager] 
+    
+  social.dao.ology:
+    class:                  Ology\SocialBundle\DAO\OlogyDAO
+    arguments:              [@doctrine.orm.entity_manager, @snc_redis.default_client, @social.cache.ology, @service_container]
+
+  social.dao.user:
+    class:                  Ology\SocialBundle\DAO\UserDAO
+    arguments:              [@doctrine.orm.entity_manager, @fos_user.user_manager, @service_container, @social.dao.cache.user, @social.cache.user]
+   
+  social.dao.post:
+    class:                  Ology\SocialBundle\DAO\PostDAO
+    arguments:              [@social.cache.post, @social.dao.cache.post, @social.cache.splash, @doctrine.orm.entity_manager, @service_container]
+  
+  social.dao.postsologies:
+    class:                  Ology\SocialBundle\DAO\PostsOlogiesDAO
+    arguments:              [@social.dao.cache.postsologies, @doctrine.orm.entity_manager]
+    
+  social.dao.postschannels:
+    class:                  Ology\SocialBundle\DAO\PostsChannelsDAO
+    arguments:              [@social.cache.channel, @social.dao.cache.postschannels, @doctrine.orm.entity_manager]
+    
+  social.dao.postsstashes:
+    class:                  Ology\SocialBundle\DAO\PostsStashesDAO
+    arguments:              [@doctrine.orm.entity_manager, @social.dao.cache.postsStashes]
+    
+  social.dao.comment:
+    class:                  Ology\SocialBundle\DAO\CommentDAO
+    arguments:              [@doctrine.orm.entity_manager, @social.dao.notification]
+    
+  social.dao.likes:
+    class:                  Ology\SocialBundle\DAO\LikesDAO
+    arguments:              [@doctrine.orm.entity_manager, @social.service.user, @social.dao.cache.likes]
+  
+  social.dao.channel:
+    class:                  Ology\SocialBundle\DAO\ChannelDAO
+    arguments:              [@doctrine.orm.entity_manager]
+    
+  social.dao.notification:
+    class:                  Ology\SocialBundle\DAO\NotificationDAO
+    arguments:              [@doctrine.orm.entity_manager]  
+       
+  social.dao.membership:
+    class:                  Ology\SocialBundle\DAO\MembershipDAO
+    arguments:              [@doctrine.orm.entity_manager]         
+    
+  social.dao.subscription:
+    class:                  Ology\SocialBundle\DAO\SubscriptionDAO
+    arguments:              [@doctrine.orm.entity_manager]  
+    
+  social.dao.following:
+    class:                  Ology\SocialBundle\DAO\FollowingDAO
+    arguments:              [@doctrine.orm.entity_manager]       
+      
+  social.dao.inbox:
+    class:                  Ology\SocialBundle\DAO\InboxDAO
+    arguments:              [@doctrine.orm.entity_manager]        
+    
+  social.dao.label:
+    class:                  Ology\SocialBundle\DAO\LabelDAO
+    arguments:              [@doctrine.orm.entity_manager]           
+      
+  social.dao.labelology:
+    class:                  Ology\SocialBundle\DAO\LabelOlogyDAO
+    arguments:              [@doctrine.orm.entity_manager]  
+      
+  social.dao.message:
+    class:                  Ology\SocialBundle\DAO\MessageDAO
+    arguments:              [@doctrine.orm.entity_manager] 
+        
+  social.dao.invite:
+    class:                  Ology\SocialBundle\DAO\InviteDAO
+    arguments:              [@doctrine.orm.entity_manager]
+    
+  social.dao.stash:
+    class:                  Ology\SocialBundle\DAO\StashDAO
+    arguments:              [@doctrine.orm.entity_manager, @social.dao.cache.stash]
+    
+  social.dao.sponsor:
+    class:                  Ology\SocialBundle\DAO\SponsorDAO
+    arguments:              [@doctrine.orm.entity_manager]
+    
+  social.dao.cache:
+    class:                  Ology\SocialBundle\DAO\CacheDAO
+    arguments:              [@doctrine.orm.entity_manager, @snc_redis.default, @database_connection, @social.dao.cache.postsstashes, @social.dao.cache.postsologies, @social.dao.cache.postschannels, @social.dao.cache.user, @social.dao.cache.likes]
+
+  social.dao.mergeaccount:
+    class:                  Ology\SocialBundle\DAO\MergeAccountDAO
+    arguments:              [@doctrine.orm.entity_manager]
+  
+  social.dao.tag:
+    class:                  Ology\SocialBundle\DAO\TagDAO
+    arguments:              [@doctrine.orm.entity_manager]
+
+  social.dao.tagstash:
+    class:                  Ology\SocialBundle\DAO\TagStashDAO
+    arguments:              [@doctrine.orm.entity_manager]
+    
+  social.dao.stats:
+    class:                  Ology\SocialBundle\DAO\StatsDAO
+    arguments:              [@doctrine.orm.entity_manager, @snc_redis.default, @database_connection]     
+
+  ology.mailer:
+    class:                  Ology\UserBundle\Mailer\Mailer
+    arguments:              [@mailer, @router, @templating, %mymailer%, %website_url%]
+
+  social.cache.channel:
+    class:                  Ology\SocialBundle\Cache\ChannelCache
+    arguments:              [@doctrine.orm.entity_manager, @snc_redis.default, @database_connection]
+
+  social.cache.ology:
+    class:                  Ology\SocialBundle\Cache\OlogyCache
+    arguments:              [@doctrine.orm.entity_manager, @snc_redis.default, @database_connection]
+    
+  social.cache.post:
+    class:                  Ology\SocialBundle\Cache\PostCache
+    arguments:              [@doctrine.orm.entity_manager, @snc_redis.default, @database_connection]
+    
+  social.cache.user:
+    class:                   Ology\SocialBundle\Cache\UserCache
+    arguments:               [@doctrine.orm.entity_manager, @snc_redis.default_client, @database_connection]
+    
+  social.cache.splash:
+    class:                  Ology\SocialBundle\Cache\SplashCache
+    arguments:              [@doctrine.orm.entity_manager, @snc_redis.default, @database_connection]
+
+# --- New Redis Cache Services ---
+  social.dao.cache.followuser:
+    class:                  Ology\SocialBundle\DAO\CacheDAO\FollowUserCacheDAO
+    arguments:              [@snc_redis.default]
+    
+  social.dao.cache.likes:
+    class:                  Ology\SocialBundle\DAO\CacheDAO\LikesCacheDAO
+    arguments:              [@snc_redis.default]
+    
+  social.dao.cache.notif:
+    class:                  Ology\SocialBundle\DAO\CacheDAO\NotificationCacheDAO
+    arguments:              [@snc_redis.default]
+    
+  social.dao.cache.post:
+    class:                  Ology\SocialBundle\DAO\CacheDAO\PostCacheDAO
+    arguments:              [@snc_redis.default]
+    
+  social.dao.cache.postschannels:
+    class:                  Ology\SocialBundle\DAO\CacheDAO\PostsChannelsCacheDAO
+    arguments:              [@snc_redis.default, @social.dao.post]
+    
+  social.dao.cache.postsologies:
+    class:                  Ology\SocialBundle\DAO\CacheDAO\PostsOlogiesCacheDAO
+    arguments:              [@snc_redis.default, @social.dao.post]
+    
+  social.dao.cache.postsStashes:
+    class:                  Ology\SocialBundle\DAO\CacheDAO\PostsStashesCacheDAO
+    arguments:              [@snc_redis.default, @social.dao.post]
+    
+  social.dao.cache.stash:
+    class:                  Ology\SocialBundle\DAO\CacheDAO\StashCacheDAO
+    arguments:              [@snc_redis.default]
+    
+  social.dao.cache.user:
+    class:                  Ology\SocialBundle\DAO\CacheDAO\UserCacheDAO
+    arguments:              [@snc_redis.default]
+  social.dao.cache.page:
+    class:                  Ology\SocialBundle\DAO\CacheDAO\PageCacheDAO
+    arguments:              [@memcache]

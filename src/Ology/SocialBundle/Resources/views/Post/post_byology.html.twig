@@ -1,0 +1,13 @@
+{% for post in posts %}
+{% if post.isProfessional %}
+    {% include 'OlogySocialBundle:FrontEnd:pro_post_card.html.twig' with {'post': post } %}
+{% else %}
+    {% include 'OlogySocialBundle:FrontEnd:post_card.html.twig' with {'post': post, 'displayology' : true } %}
+{% endif %}     
+{% endfor %}
+
+{% if scroll %}
+    <div>
+      <a href="{{ path("_post_getforology", {'offset' : nextPage, 'n' : n, 'id' : ologyId}) }}" class="navigation" >NEXT</a>
+    </div>
+{% endif %}

@@ -1,0 +1,10 @@
+{% extends 'OlogySocialBundle:Email:template.html.twig' %}
+{% block body %}
+You needed your space, we get that. And that's okay, we just want you back.<br/>
+<a href="{{websiteUrl}}{{ path('_website_splash') }}">Look at how we've changed</a>.<br/><br/>
+
+<img src="{{ asset('bundles/ologysocial/img/my_preview.png') }}" />
+
+<br/><br/>
+Welcome to the new <a href="{{websiteUrl}}{{ path('_website_splash') }}">Ology</a>!
+{% endblock %}

@@ -1,0 +1,10 @@
+<div class="stash-preview">
+    {% if loggedIn and profileId == app.user.id %}
+    <div class="stash-delete"><a class="stash-delete-link" href="{{ path("_stash_delete", {'stashId' : stash.id}) }}"><img src="{{ asset('bundles/ologysocial/img/close_button.png') }}"/></a></div>
+    {% endif %}
+    <div class="stash-name-overlay"><a href="{{ path("_website_stash", {'id' : stash.id}) }}">{{stash.name}}</a></div>
+    <div class="stash-preview-post stash-ul">{% if 0 in stash.posts|keys %}<img src="{{ asset(post_small_image_path ~ stash.posts[0].imageUrl) }}" height="100px" width="100px" />{% endif %}</div>
+    <div class="stash-preview-post stash-ur">{% if 2 in stash.posts|keys %}<img src="{{ asset(post_small_image_path ~ stash.posts[2].imageUrl) }}" height="100px" width="100px" />{% endif %}</div>
+    <div class="stash-preview-post stash-bl">{% if 3 in stash.posts|keys %}<img src="{{ asset(post_small_image_path ~ stash.posts[3].imageUrl) }}" height="100px" width="100px" />{% endif %}</div>
+    <div class="stash-preview-post stash-br">{% if 1 in stash.posts|keys %}<img src="{{ asset(post_small_image_path ~ stash.posts[1].imageUrl) }}" height="100px" width="100px" />{% endif %}</div>
+</div>

@@ -1,0 +1,129 @@
+<?php
+
+namespace Ology\SocialBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="WebsiteNotifications")
+ */
+class WebsiteNotification {
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user;
+    
+    /**
+     * @ORM\Column(name="creation_date", type="datetime")
+     */
+    protected $creationDate;
+    
+    /**
+     * @ORM\Column(name="content", type="text")
+     */
+    protected $content;
+    
+    /**
+     * @ORM\Column(name="date_read", type="datetime", nullable="true")
+     */
+    protected $dateRead;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set creationDate
+     *
+     * @param datetime $creationDate
+     */
+    public function setCreationDate($creationDate)
+    {
+        $this->creationDate = $creationDate;
+    }
+
+    /**
+     * Get creationDate
+     *
+     * @return datetime 
+     */
+    public function getCreationDate()
+    {
+        return $this->creationDate;
+    }
+
+    /**
+     * Set content
+     *
+     * @param text $content
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+    }
+
+    /**
+     * Get content
+     *
+     * @return text 
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * Set dateRead
+     *
+     * @param datetime $dateRead
+     */
+    public function setDateRead($dateRead)
+    {
+        $this->dateRead = $dateRead;
+    }
+
+    /**
+     * Get dateRead
+     *
+     * @return datetime 
+     */
+    public function getDateRead()
+    {
+        return $this->dateRead;
+    }
+
+    /**
+     * Set user
+     *
+     * @param Ology\SocialBundle\Entity\User $user
+     */
+    public function setUser(\Ology\SocialBundle\Entity\User $user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * Get user
+     *
+     * @return Ology\SocialBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+}

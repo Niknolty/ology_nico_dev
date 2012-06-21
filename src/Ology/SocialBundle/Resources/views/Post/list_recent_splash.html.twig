@@ -1,0 +1,29 @@
+{% include 'OlogySocialBundle:FrontEnd:core_channels.html.twig' %}
+
+<div class="post">
+  <div class="post-content">
+    <iframe width="150" height="150" src="http://www.youtube.com/embed/y2e_1KpZFvo?wmode=transparent" frameborder="0" allowfullscreen></iframe>
+    <h3><a href="{{ path("_website_register") }}">Like what you see?</a></h3>
+    <p><a href="{{ path("_website_register") }}">
+    Sign up with our easy Facebook registration and get even more.
+    Post, follow, and create content all about the things you love.
+    Click here to get started.</a></p>
+    <center>
+      <a href="{{ path("_website_register") }}"><img src="{{ asset('bundles/ologysocial/img/ology-logo.png') }}"></a>
+    </center>
+  </div>
+</div>
+
+{% for post in posts %}
+    {% if post.isProfessional %}
+        {% include 'OlogySocialBundle:FrontEnd:pro_post_card.html.twig' with {'post': post, 'large' : true } %}
+    {% else %}
+        {% include 'OlogySocialBundle:FrontEnd:post_card.html.twig' with {'post': post, 'large' : true } %}
+    {% endif %}    
+{% endfor %}
+
+{% if (scroll is defined) and (nextPage <= 10) %}
+<div>
+    <a href="{{ path("_website_splash_pag", {'offset' : nextPage, 'n' : n}) }}" class="navigation">NEXT</a>
+</div>
+{% endif %}

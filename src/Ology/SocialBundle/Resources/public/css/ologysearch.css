@@ -1,0 +1,64 @@
+#splash-message{
+  width:   80%;
+  padding-top: 20px;
+  margin-left: 50px;
+}
+
+#content-search input {
+  width:480px;
+  padding: 7px 6px 8px 10px;
+  background-image:url("searchbarbg.jpg");
+  background-repeat:no-repeat;
+  background-position:0px 0px;
+  font-size: 14px;
+  font-family: Verdana;
+  color: grey;
+  border: none;
+}
+
+#splash-signin{
+  float:right;
+  font-weight:normal;
+  text-align:right;
+  width: 20%;
+  height: 50%;
+  margin: 20px 30px 20px 30px;
+  right: 40px;
+}
+#splash-signin #twitter-button{
+    float: right;
+    margin: 6px 0px;
+}
+#splash-signin a{
+  font-weight:normal;
+}
+
+.loading-search {
+  position:fixed;
+  top:300px;
+  width:450px;
+  background:#f4f4f4;
+  border:1px solid #ccc;
+  left:31%;
+  text-align:center;
+  padding:10px;
+  display:none;
+  z-index:100000000;
+}
+
+.header-splash {
+  margin:0 auto;
+  margin-top:54px;
+  width:800px;
+  height:100px;
+  /*background:#f1f1f1;
+  box-shadow: 2px 2px 5px #CCC;*/
+}
+.header-splash h2{
+    font-family: EgyptienneURW-Bol, sans-serif;
+    font-size:36px;
+}
+.header-splash p{
+  font-family: EgyptienneURW-Lig, sans-serif;
+  font-size:16px;
+}

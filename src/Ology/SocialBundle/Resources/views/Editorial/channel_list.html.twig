@@ -1,0 +1,24 @@
+{% extends 'OlogySocialBundle:FrontEnd:base.html.twig' %}
+{% block title %}Channels administration | My.Ology{% endblock %}
+
+{% block page_header %}
+<link href="{{ asset('bundles/ologysocial/css/editors.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+<div id="container">
+
+	<h1>Core Ologies Admin</h1>
+
+	{% for channel in channels %}
+		<a href="{{ path("_editors_channel_edit_form", {'stub' : channel.stub}) }}" class="channel">{{ channel.stub }} </a>
+	{% endfor %}
+
+        <h1>Sponsor Admin</h1>
+        <a href="{{ path('_sponsor_display') }}" class="channel">Set sponsor for featured Ologies</a>
+</div>
+
+{% endblock %}
+
+{% block pagescripts %}
+{% endblock %}

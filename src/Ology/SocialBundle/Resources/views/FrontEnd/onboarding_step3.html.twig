@@ -1,0 +1,74 @@
+{% extends 'OlogySocialBundle:FrontEnd:base.html.twig' %}
+{% block title %}Onboarding | Ology{% endblock %}
+{% block body %}
+
+<div id="container">
+    <div id="onboarding-profile">
+        <h1>You're set!</h1>
+        <h2>Nice work, you're sort of awesome.</h2>
+        <h3>Have a question?</h3>
+        <p>
+            Check out our <a href="{{ path("_website_faq") }}">FAQs</a> to learn the ins and outs of Ology.   
+        </p>
+        <div class="profile-user" style="background-image:url('{{ asset(user_large_image_path ~ user.imageUrl) }}');">
+        </div>
+        <span>
+            Look at you.
+        </span>
+        <div class="upload-button">
+            Upload New Photo
+        </div>
+        <form action="{{ path('_website_onboarding', {'step' : 3})   }}" method="post" {{ form_enctype(form) }} id="onboarding-form">
+            {{ form_row(form.imageFile) }}
+            <input type="submit" value="Update" id="onboarding-submit"/>
+        </form>
+    </div>
+    <div id="onboarding-main">
+        <div id="onboarding-nav-bar">
+            <div class="ology-circle">Step 1</div>
+            <div class="ology-circle">Step 2</div>
+            <div class="ology-circle selected">Done!</div>
+        </div>
+        <p>
+            Cool. Now why not:
+        </p>
+        <div id="social-content">
+            <a href="{{ constant('\\Ology\\SocialBundle\\Resources\\Constants::FACEBOOK_FOLLOW_LINK') }}" target="_blank">
+                <img src="{{ asset('bundles/ologysocial/img/facebook_like.jpg') }}"></img>
+            </a>
+            <a href="{{ constant('\\Ology\\SocialBundle\\Resources\\Constants::TWITTER_FOLLOW_LINK') }}" target="_blank">
+                <img src="{{ asset('bundles/ologysocial/img/twitter_follow.jpg') }}"></img>
+            </a>
+        </div>
+        <hr><br>
+        <p>
+            Where do you want to go from here?
+        </p>
+        <div id="onboarding-content">
+            <h2>Pick your destination:</h2>
+            <div class="rect-button">
+                <a href="{{ path("_website_profile", {'id' : user.getId }) }}">
+                    <img src="{{ asset('bundles/ologysocial/img/icon_profile.png') }}"></img>
+                    My Profile
+                </a>
+            </div>
+            <div class="rect-button">
+                <a href="{{ path("_website_home") }}">
+                    <img src="{{ asset('bundles/ologysocial/img/icon_home.png') }}"></img>
+                    My Home Page
+                </a>
+            </div>
+            <div class="rect-button">
+                <a href="{{ path("_website_last_page") }}">
+                    <img src="{{ asset('bundles/ologysocial/img/icon_arrow.png') }}"></img>
+                    Where I Was
+                </a>
+            </div>      
+
+            <h2>Happy Ologizing!</h2>
+            <p>- The Ology Team</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

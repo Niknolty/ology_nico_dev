@@ -1,0 +1,30 @@
+
+    <!-- inside a twig template -->
+{% block body %}
+{# Moved to base.html.twig
+{{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
+#}
+{{ facebook_login_button({'autologoutlink': true}) }}
+  {% endblock %}
+
+
+  {% block pagescripts %}
+{# Moved to base.html.twig
+    <script>
+      function goLogIn(){
+          window.location = "{{ path('_security_check') }}";
+      }
+
+      function onFbInit() {
+         if (typeof(FB) != 'undefined' && FB != null ) {
+              FB.Event.subscribe('auth.login', function(response) {
+                   setTimeout(goLogIn,500);
+              });
+              FB.Event.subscribe('auth.logout', function(response) {
+                   window.location = "{{ path('_security_logout') }}";
+              });
+         }
+      }
+    </script>
+   #}
+  {% endblock %}

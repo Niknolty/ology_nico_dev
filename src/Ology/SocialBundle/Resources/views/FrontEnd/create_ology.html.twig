@@ -1,0 +1,10 @@
+<div id="container">
+    <div id="create-ology">
+	<h2>Create an Ology</h2>
+        {% include 'OlogySocialBundle:Ology:create.html.twig' with {'form' : ologyForm} %}
+    </div>
+</div>
+
+{% block pagescripts %}
+    <script src="{{ asset('bundles/ologysocial/js/silver-bullet/ology.js') }}?v=11" type="text/javascript"></script>
+{% endblock %}

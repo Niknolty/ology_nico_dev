@@ -1,0 +1,5 @@
+{% for comment in ologies %}
+    <p>{{ comment.id }}</p>
+    <p>{{ comment.ology.name }}</p>
+    <p>{{ comment.ology.description }}</p>
+{% endfor %}

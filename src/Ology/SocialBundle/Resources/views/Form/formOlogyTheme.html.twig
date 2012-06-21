@@ -1,0 +1,40 @@
+{#
+        Here is defined the Ology form theme.
+
+        This overrides default values from Twig/Resources/views/Form/form_div_layout.html.twig
+
+        You can use it by importing this theme like this:
+
+        {% form_theme form 'OlogySocialBundle:Form:formOlogyTheme.html.twig' %}
+
+        @author Raphael
+
+#}
+
+{% block field_widget %}
+{% spaceless %}
+    {% set type = type|default('text') %}
+    <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %} placeholder="{{ label }}"/>
+{% endspaceless %}
+{% endblock field_widget %}
+    
+    {# Rows #}
+
+{% block field_row %}
+{% spaceless %}
+    <div class="input-ology">
+     {# {{ form_label(form, label|default(null)) }} #}
+        {{ form_errors(form) }}
+        {{ form_widget(form, { 'label': label|default('') } ) }}
+    </div>
+{% endspaceless %}
+{% endblock field_row %}
+
+{% block form_row %}
+{% spaceless %}
+    <div>
+        {{ form_label(form, label|default(null)) }}
+        {{ form_widget(form) }}
+    </div>
+{% endspaceless %}
+{% endblock form_row %}

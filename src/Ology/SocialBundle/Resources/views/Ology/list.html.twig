@@ -1,0 +1,10 @@
+<table>
+    <tr><td>id</td><td>name</td><td>picture</td></tr>
+{% for ology in ologies %}
+    <tr>
+        <td>{{ ology.id }}</td>
+        <td>{{ ology.name }}</td>
+        <td><img src="{{ asset(ology_original_image_path ~ ology.imageUrl) }}"  /></td>
+    </tr>
+{% endfor %}
+</table>

@@ -1,0 +1,101 @@
+{% extends 'OlogySocialBundle:FrontEnd:base.html.twig' %}
+{% block title %}Onboarding | Ology{% endblock %}
+{% block body %}
+
+<div id="container">
+    <div id="onboarding-profile">
+        <h1>Hey {{ user.firstName }} {{ user.lastName }}!</h1>
+        <h1>Congrats, you're in!</h1>
+        <h2>Welcome to Ology.</h2>
+        <h3>What's an ology?</h3>
+        <p>
+            An ology is an interest, a passion.<br>
+            Stay in-the-know about your ologies by clicking the "Follow" buttons.    
+        </p>
+        <div class="profile-user" style="background-image:url('{{ asset(user_large_image_path ~ user.imageUrl) }}');">
+        </div>
+        <span>
+            Is this you? You can upload a new picture here.
+        </span>
+        <div class="upload-button">
+            Upload New Photo
+        </div>
+        <form action="{{ path('_website_onboarding', {'step' : 2})   }}" method="post" {{ form_enctype(form) }} id="onboarding-form">
+            {{ form_row(form.imageFile) }}
+            <input type="submit" value="Update" id="onboarding-submit"/>
+        </form>
+    </div>
+    <div id="onboarding-main">
+        <div id="onboarding-nav-bar">
+            <div class="ology-circle">Step 1</div>
+            <div class="ology-circle selected">Step 2</div>
+            <div class="ology-circle disabled">Step 3</div>
+            <div id="next-button" class="disabled">
+                <a href="{{ path("_website_onboarding", {'step' : 3}) }}">
+                    <img src="{{ asset('bundles/ologysocial/img/button_next.png') }}"></img>
+                </a>
+            </div>
+        </div>
+        <p>
+            Click "Follow" to get the latest news and conversation from each ology:
+        </p>
+        <div id="onboarding-ologies">
+        {% for ology in ologies %}
+            {% if ology.imageLogo is defined %} {# is type of Channel #}
+                {% include 'OlogySocialBundle:Ology:core_ology.html.twig' with {'coreOlogy': ology, 'subscriptions': subscriptions} %}
+            {% else %}
+            <div class="post">
+                <div class="post-content">
+                    <div class="post-cat-info">
+                        <a href="{{ path("_website_ology", {'id' : ology.id, 'slug' : ology.slug}) }}">
+                        {{ image_tag(asset(ology_medium_image_path ~ ology.imageUrl)) }}
+                        </a>
+                        <h2><a href="{{ path("_website_ology", {'id' : ology.id, 'slug' : ology.slug}) }}">{{ ology.name }}</a></h2>
+                        {% if ology.ologylabels|length > 0 %}
+                            <span class="category-small">{{ ology.ologylabels[0].label.name }}</span>
+                        {% endif %}
+                    </div>
+
+                    {% if memberships[ology.id] is defined %}
+                        <a href="{{ path('_ology_leave', {'id': ology.id}) }}" class="unfollow"></a>
+                    {% else %}
+                        <a href="{{ path('_ology_join', {'id': ology.id}) }}" class="follow"></a>
+                    {% endif %}
+                        
+                    <div class="explore-description">
+                        <p>{{ ology.description }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+            <div>
+                <a href="{{ path("_website_explore_recent_pag", {'offset' : 1, 'n' : 10}) }}" class="navigation">NEXT</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block pagescripts %}
+{#  Moved to base.html.twig
+<script src="{{ asset('bundles/ologysocial/js/silver-bullet/jquery.masonry.min.js') }}" type="text/javascript"></script>
+#}
+<script src="{{ asset('bundles/ologysocial/js/silver-bullet/splashscroll.js') }}" type="text/javascript"></script>
+<script type="text/javascript">
+    {# This condition avoid bug after a page reload or upload image #}
+    if ($('.unfollow').size() > 0){
+        $("#next-button").removeClass("disabled");
+    }
+
+    $(".unfollow").live( 'click', function(){
+        if ($('.unfollow').size() <= 1){
+            $("#next-button").addClass("disabled");
+        }
+    });
+
+    $(".follow").live( 'click', function(){
+        $("#next-button").removeClass("disabled");
+    });
+</script>
+{% endblock %}

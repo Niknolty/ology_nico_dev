@@ -1,0 +1,47 @@
+{% extends 'OlogySocialBundle:Stats:base.html.twig' %}
+{% block body %}
+<h1>Posts</h1>
+<h2>General stats</h2>
+<ul>
+    <li>Total posts {{ stats['general']['total']}} </li>
+    <li>Text posts {{ stats['general']['text']}} ({{ stats['general']['textpercent']}}%)</li>
+    <li>Image posts {{ stats['general']['image']}} ({{ stats['general']['imagepercent']}}%)</li>
+    <li>Video posts {{ stats['general']['video']}} ({{ stats['general']['videopercent']}}%)</li>
+    <li>Audio posts {{ stats['general']['audio']}} ({{ stats['general']['audiopercent']}}%)</li>
+</ul>
+
+<h2>By categories</h2>
+{% for key, value in stats['labels'] %}
+<h3>{{ key }}</h3>
+<ul>
+    <li>Total posts {{ value['total']}} </li>
+    <li>Text posts {{ value['text'] }} ({{ value['textpercent'] }}%)</li>
+    <li>Image posts {{ value['image'] }} ({{ value['imagepercent'] }}%)</li>
+    <li>Video posts {{ value['video'] }} ({{ value['videopercent'] }}%)</li>
+    <li>Audio posts {{ value['audio'] }} ({{ value['audiopercent'] }}%)</li>
+</ul>
+{% endfor %}
+
+<h1>For Ology</h1>
+{% if ologyStats is defined %}
+    <ul>
+        <li>Total posts {{ ologyStats['total']}} </li>
+        <li>Text posts {{ ologyStats['text'] }} ({{ ologyStats['textpercent'] }}%)</li>
+        <li>Image posts {{ ologyStats['image'] }} ({{ ologyStats['imagepercent'] }}%)</li>
+        <li>Video posts {{ ologyStats['video'] }} ({{ ologyStats['videopercent'] }}%)</li>
+        <li>Audio posts {{ ologyStats['audio'] }} ({{ ologyStats['audiopercent'] }}%)</li>
+    </ul>
+{% else %}
+<form action="{{ path('_stats_posts') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_rest(form) }}
+    <input type="submit" value="OK"/>
+</form>
+{% endif %}
+
+<h2>10 most popular posts</h2>
+<ul>
+    {% for post in stats['posts'] %}
+    <li><b><a href="{{ path("_website_post", {'postId' : post.id}) }}">{{ post.title }}</a></b> in {{post.firstOlogy.name}} ({{ post.timesCommented }} comments)</li>
+    {% endfor %}
+</ul>
+{% endblock %}

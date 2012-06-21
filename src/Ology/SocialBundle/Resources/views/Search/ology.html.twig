@@ -1,0 +1,16 @@
+<p>Results for research: {{ search }}</p>
+Ology
+<table border="5" width=1000 >
+        {% for ology in ologies %}
+            <tr  height=30px >
+                <td>{{ ology.id }}</td>
+                <!-- <td>{ { ol.founder } }</td> -->
+                <td>{{ ology.name }} </td>
+                <td>{{ ology.description }}</td>
+                <td>{{ ology.imageUrl }}</td>
+                <td>{{ ology.creationDate|date('d/m/Y') }}</td>
+                <td>{{ ology.visibility }}</td>
+                <td>{{ ology.readOnly }}</td>
+            </tr>
+        {% endfor %}
+<table>

@@ -1,0 +1,152 @@
+OlogySocialBundle_api:
+    resource: "@OlogySocialBundle/Controller/OlogyAPI/PostController.php"
+    type:     annotation
+    prefix:   /api/ology
+
+OlogySocialBundle_exception:
+    resource: "@OlogySocialBundle/Controller/Exception/ExceptionController.php"
+    type:     annotation
+    
+OlogySocialBundle_stats:
+    resource: "@OlogySocialBundle/Controller/Stats/StatsController.php"
+    type:     annotation
+    prefix:   /stats
+
+OlogySocialBundle_old_groups:
+    resource: "@OlogySocialBundle/Controller/Website/OldGroupController.php"
+    type:     annotation
+    prefix:   /groups
+    
+OlogySocialBundle_editorial_post:
+    resource: "@OlogySocialBundle/Controller/Editorial/PostController.php"
+    type:     annotation
+    prefix:   /editors/post
+
+OlogySocialBundle_editorial_channel:
+    resource: "@OlogySocialBundle/Controller/Editorial/ChannelController.php"
+    type:     annotation
+    prefix:   /editors/channel
+   
+OlogySocialBundle_web_all:
+    resource: "@OlogySocialBundle/Controller/Website/WebsiteController.php"
+    type:     annotation
+
+OlogySocialBundle_web_ology:
+    resource: "@OlogySocialBundle/Controller/Website/OlogyPageController.php"
+    type:     annotation
+    
+OlogySocialBundle_web_stash:
+    resource: "@OlogySocialBundle/Controller/Website/StashPageController.php"
+    type:     annotation
+    
+OlogySocialBundle_web_channel:
+    resource: "@OlogySocialBundle/Controller/Website/ChannelPageController.php"
+    type:     annotation
+    
+OlogySocialBundle_web_home:
+    resource: "@OlogySocialBundle/Controller/Website/HomePageController.php"
+    type:     annotation
+    
+OlogySocialBundle_web_search:
+    resource: "@OlogySocialBundle/Controller/Website/SearchController.php"
+    type:     annotation
+    
+OlogySocialBundle_web_splash:
+    resource: "@OlogySocialBundle/Controller/Website/SplashPageController.php"
+    type:     annotation
+    
+OlogySocialBundle_web_explore:
+    resource: "@OlogySocialBundle/Controller/Website/ExplorePageController.php"
+    type:     annotation
+    
+OlogySocialBundle_web_invite:
+    resource: "@OlogySocialBundle/Controller/Website/InviteController.php"
+    type:     annotation
+    
+OlogySocialBundle_web_user:
+    resource: "@OlogySocialBundle/Controller/Website/UserPageController.php"
+    type:     annotation
+
+OlogySocialBundle_web_register:
+    resource: "@OlogySocialBundle/Controller/Website/RegistrationController.php"
+    type:     annotation
+
+OlogySocialBundle_adm_all:
+    resource: "@OlogySocialBundle/Controller/Admin/AdminPageController.php"
+    type:     annotation
+    prefix:   /admhome
+    
+OlogySocialBundle_adm_cache:
+    resource: "@OlogySocialBundle/Controller/Admin/CacheController.php"
+    type:     annotation
+    prefix:   /adm/cache
+    
+OlogySocialBundle_adm_email:
+    resource: "@OlogySocialBundle/Controller/Admin/EmailController.php"
+    type:     annotation
+    prefix:   /adm/mail
+    
+OlogySocialBundle_adm_post:
+    resource: "@OlogySocialBundle/Controller/Admin/PostController.php"
+    type:     annotation
+    prefix:   /adm/post
+    
+OlogySocialBundle_adm_user:
+    resource: "@OlogySocialBundle/Controller/Admin/UserController.php"
+    type:     annotation
+    prefix:   /adm/user
+    
+OlogySocialBundle_featured:
+    resource: "@OlogySocialBundle/Controller/Admin/FeaturedController.php"
+    type:     annotation
+    prefix:   /adm/ologies
+    
+OlogySocialBundle_import:
+    resource: "@OlogySocialBundle/Controller/Admin/ImportController.php"
+    type:     annotation
+    prefix:   /adm/import
+
+OlogySocialBundle_ology:
+    resource: "@OlogySocialBundle/Controller/FrontEnd/OlogyController.php"
+    type:     annotation
+    prefix:   /svc/ology
+    
+OlogySocialBundle_user:
+    resource: "@OlogySocialBundle/Controller/FrontEnd/UserController.php"
+    type:     annotation
+    prefix:   /svc/user
+    
+OlogySocialBundle_stash:
+    resource: "@OlogySocialBundle/Controller/FrontEnd/StashController.php"
+    type:     annotation
+    prefix:   /svc/stash 
+    
+OlogySocialBundle_tag:
+    resource: "@OlogySocialBundle/Controller/FrontEnd/TagController.php"
+    type:     annotation
+    prefix:   /svc/tag
+    
+OlogySocialBundle_post:
+    resource: "@OlogySocialBundle/Controller/FrontEnd/PostController.php"
+    type:     annotation
+    prefix:   /svc/post
+    
+OlogySocialBundle_likes:
+    resource: "@OlogySocialBundle/Controller/FrontEnd/LikesController.php"
+    type:     annotation
+    prefix:   /svc/likes 
+
+OlogySocialBundle_comment:
+    resource: "@OlogySocialBundle/Controller/FrontEnd/CommentController.php"
+    type:     annotation
+    prefix:   /svc/comment   
+
+OlogySocialBundle_search:
+    resource: "@OlogySocialBundle/Controller/FrontEnd/SearchController.php"
+    type:     annotation
+    prefix:   /svc/search
+    
+OlogySocialBundle_follow:
+    resource: "@OlogySocialBundle/Controller/FrontEnd/FollowController.php"
+    type:     annotation
+    prefix:   /svc/follow

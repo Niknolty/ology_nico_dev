@@ -1,0 +1,59 @@
+{% extends 'OlogySocialBundle:FrontEnd:base.html.twig' %}
+
+{% block title %}Search | Ology{% endblock %}
+
+{% block body %}
+{% if loggedIn == true %}
+	<div id='page'>
+            {% include 'OlogySocialBundle:FrontEnd:dock.html.twig' %}
+	</div>
+{% endif %}
+
+<div id="container">
+        <br /><br />
+        Posts123
+        <br /><br />
+            {% if posts|length == 0 %}
+                Couldn't find any posts matching your search
+            {% else %}
+                {% for post in posts %}
+                    {{ post.title }} {{ post.author.firstname }} {{ post.author.lastname }}
+                    {{ post.firstOlogy.name }}
+                {% endfor %}
+            {% endif %}
+        <br /><br />
+        Ologist
+        <br /><br />
+            {% if users|length == 0 %}
+                Couldn't find any users matching your search
+            {% else %}
+                {% for user in users %}
+                    {{ user.firstName }} {{ user.lastName }} LOCATION {{ user.summary }}
+                <img src="{{ asset(ology_small_image_path ~ user.imageUrl) }}" width="20" />
+                {% endfor %}
+            {% endif %}
+        <br /><br />
+        === Ologies ===
+        <br /><br />
+            {% if ologies|length == 0 %}
+                Couldn't find any ologies matching your search
+            {% else %}
+                {% for ology in ologies %}
+                    {{ ology.name }} {{ ology.founder.firstName }} {{ ology.founder.lastName }}
+                    {{ ology.description }} STATS FOLLOW
+                <img src="{{ asset(user_small_image_path ~ user.imageUrl) }}" width="20" />
+                {% if loggedIn %}
+                    <p>
+                    {% if memberships[ology.id] %}
+                            <a href="{{ path('_ology_leave', {'id': ology.id}) }}" class="unfollow"></a>
+                    {% else %}
+                            <a href="{{ path('_ology_join', {'id': ology.id}) }}" class="follow"></a>
+                    {% endif %}
+                    </p>
+                {% endif %}
+                {% endfor %}
+            {% endif %}
+</div>
+{% endblock %}
+{% block pagescripts %}
+{% endblock %}

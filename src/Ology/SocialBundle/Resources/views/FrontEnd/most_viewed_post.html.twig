@@ -1,0 +1,17 @@
+<div id="most-viewed-container">
+    <h2>Most Viewed in News:</h2>
+    {% for mostViewedPost in mostViewedPosts %}
+    <div class="most-viewed-item">
+        <div class="most-viewed-item-number">{{ loop.index }}.</div>
+        <div class="most-viewed-item-image"><img src="{{ asset(post_small_image_path ~ mostViewedPost.imageUrl) }}" height="60" width="60"/></div>
+        <div class="most-viewed-item-text"><a href="{{ path("_website_post", {'postId' : mostViewedPost.id, 'slug' : mostViewedPost.slug}) }}">{{ mostViewedPost.htmlTitle }}</a>
+            {% if mostViewedPost.timesCommented > 0 %}
+                 <a href="{{ path("_website_post", {'postId' : mostViewedPost.id, 'slug' : mostViewedPost.slug}) }}"><img src="{{ asset('bundles/ologysocial/img/comment.png') }}" style="vertical-align: text-top; margin-left: 5px;"/> ({{ mostViewedPost.timesCommented }})</a>
+            {% endif %}
+        </div>
+    </div><div style="clear:both;"></div>
+    {% endfor %}
+        
+    <div style="clear:both;"></div>
+</div>
+

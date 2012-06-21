@@ -1,0 +1,7 @@
+Create image post
+
+<form action="{{ path('_post_store_image') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_rest(form) }}
+
+    <input type="submit" />
+</form>

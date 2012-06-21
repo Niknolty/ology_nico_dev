@@ -1,0 +1,217 @@
+<?php
+
+namespace Ology\SocialBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="Users")
+ */
+class User {
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+         * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+    
+    /**
+     * @ORM\Column(type="string", name="encrypted_password", length=100)
+     */
+    protected $encryptedPassword;
+    
+    /**
+     * @ORM\Column(type="string", name="fb_token", length=100, nullable="true")
+     */
+    protected $fbToken;
+    
+    /**
+     * @ORM\Column(type="boolean", name="accepts_mail")
+     */
+    protected $acceptsMail;
+    
+    
+    /**
+     * @ORM\Column(type="datetime", name="last_login", nullable="true")
+     */
+    protected $lastLogin;
+    
+    /**
+     * @ORM\Column(type="datetime", name="creation_date")
+     */
+    protected $creationDate;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="User", mappedBy="User")
+     * @ORM\JoinColumn(name="invited_by", referencedColumnName="id") 
+     * @ORM\Column(nullable="true")
+     */
+    protected $invitedBy;
+    
+    /**
+     * @ORM\Column(type="boolean", name="is_active", nullable="false")
+     */
+    protected $isActive;
+    
+    function __construct()
+    {
+        $this->creationDate = new \DateTime('now');
+    }
+
+    public function updateUser($encryptedPassword, $fbToken, $acceptsMail, $lastLogin, $invitedBy)
+    {
+        $this->encryptedPassword = $encryptedPassword;
+        $this->fbToken = $fbToken;
+        $this->acceptsMail = $acceptsMail;
+        $this->lastLogin = $lastLogin;
+        $this->invitedBy = $invitedBy;      
+    }
+    
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set encryptedPassword
+     *
+     * @param string $encryptedPassword
+     */
+    public function setEncryptedPassword($encryptedPassword)
+    {
+        $this->encryptedPassword = $encryptedPassword;
+    }
+
+    /**
+     * Get encryptedPassword
+     *
+     * @return string 
+     */
+    public function getEncryptedPassword()
+    {
+        return $this->encryptedPassword;
+    }
+
+    /**
+     * Set fbToken
+     *
+     * @param string $fbToken
+     */
+    public function setFbToken($fbToken)
+    {
+        $this->fbToken = $fbToken;
+    }
+
+    /**
+     * Get fbToken
+     *
+     * @return string 
+     */
+    public function getFbToken()
+    {
+        return $this->fbToken;
+    }
+
+    /**
+     * Set acceptsMail
+     *
+     * @param boolean $acceptsMail
+     */
+    public function setAcceptsMail($acceptsMail)
+    {
+        $this->acceptsMail = $acceptsMail;
+    }
+
+    /**
+     * Get acceptsMail
+     *
+     * @return boolean 
+     */
+    public function getAcceptsMail()
+    {
+        return $this->acceptsMail;
+    }
+
+    /**
+     * Set lastLogin
+     *
+     * @param datetime $lastLogin
+     */
+    public function setLastLogin($lastLogin)
+    {
+        $this->lastLogin = $lastLogin;
+    }
+
+    /**
+     * Get lastLogin
+     *
+     * @return datetime 
+     */
+    public function getLastLogin()
+    {
+        return $this->lastLogin;
+    }
+
+    /**
+     * Set creationDate
+     *
+     * @param datetime $creationDate
+     */
+    public function setCreationDate($creationDate)
+    {
+        $this->creationDate = $creationDate;
+    }
+
+    /**
+     * Get creationDate
+     *
+     * @return datetime 
+     */
+    public function getCreationDate()
+    {
+        return $this->creationDate;
+    }
+
+    /**
+     * Set invitedBy
+     *
+     * @param string $invitedBy
+     */
+    public function setInvitedBy($invitedBy)
+    {
+        $this->invitedBy = $invitedBy;
+    }
+
+    public function getInvitedBy()
+    {
+        return $this->invitedBy;
+    }
+    
+
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean 
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+}

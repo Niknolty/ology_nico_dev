@@ -1,0 +1,355 @@
+#profile-left {
+    width:340px;
+    float: left;
+}
+#profile-right {
+    float: right;
+    width:  670px;
+}
+
+#profile-posts{
+  margin-top:10px;
+  width:660px;
+  min-height:700px;
+  float:right;
+  display:block;
+  margin-left: 12px;
+  border: 1px #C1C1C1 solid;
+}
+
+#profile-stashes {
+    margin-left: 12px;
+    margin-top: 12px;
+    width: 660px;
+    float: right;
+    border: 1px #C1C1C1 solid;
+    padding-bottom: 13px;
+    overflow-x: hidden;
+}
+
+#profile-posts-header {
+    height: 30px;
+    background-color: #F1F1F1;
+    margin-bottom: 5px;
+}
+
+#profile-stashes-header {
+    height: 30px;
+    background-color: #F1F1F1;
+}
+#profile-stashes-header-left {
+    width: 60%;
+    float: left;
+    height: 30px;
+    margin-left: 10px;
+}
+
+#profile-stashes-header-right {
+    width: 25%;
+    height: 30px;
+    text-align: right;
+    margin-right: 10px;
+    float: right;
+    padding-top: 2px;
+}
+
+.profile-stashes-stash {
+    width: 19%;
+    float: left;
+}
+
+#profile-ologies {
+    margin-left: 12px;
+    width: 660px;
+    float: right;
+    border: 1px #C1C1C1 solid;
+}
+
+#profile-ologies-ology-container, #profile-ologies-ology-container-aj {
+    padding-left: 3px;
+}
+
+#profile-posts-post-container {
+    padding-left: 7px;
+    position: relative;
+}
+
+#profile-stashes-stash-container-left {
+    position: relative;
+    float: left;
+    width:430px;
+    height: 215px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+#profile-stashes-stash-container-left-container {
+    position: absolute;
+    left: 0px;
+}
+
+#profile-stashes-stash-container-right {
+    float: right;
+    overflow-x: hidden;
+}
+
+#profile-stashes-stash-container, #profile-stashes-stash-container-aj {
+    padding-left: 10px;
+}
+#profile-ologies-header {
+    height: 30px;
+    background-color: #F1F1F1;
+    margin-bottom: 5px;
+}
+#profile-ologies-header-left {
+    width: 60%;
+    float: left;
+    height: 30px;
+    margin-left: 10px;
+}
+
+#profile-ologies-header-right {
+    width: 25%;
+    height: 30px;
+    text-align: right;
+    margin-right: 10px;
+    float: right;
+    padding-top: 2px;
+}
+
+.profile-ologies-ology {
+    width: auto;
+    float: left;
+    margin-right: 13px;
+}
+
+.profile-user{
+  width:340px;
+  position: relative;
+  height:310px;
+  padding:0;
+  background-color:#f1f1f1;
+  box-shadow: 2px 2px 5px #CCC;
+  word-wrap: break-word;
+  float:left;
+  background-repeat:no-repeat;
+  background-position:0 0;
+  background-size: cover;
+  overflow: hidden;
+}
+
+#profile-info {
+  width:309px;
+  padding:0;
+  padding-top: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color:white;
+  border: 6px #CCC solid;
+  word-wrap: break-word;
+  float:left;
+  background-repeat:no-repeat;
+  background-position:center center;
+  background-size: cover;
+  overflow: hidden;
+  color: #585858;
+}
+
+.profile-user img{
+
+}
+#profile-content{
+  width:730px;
+  height:auto;
+  float:right;
+}
+.profile-buttons{
+  width:740px;
+  height:70px;
+  float:right;
+}
+.profile-buttons a{
+  display:block;
+  margin:10px 10px; 0 10px;
+  padding:10px;
+  text-align: center;
+  float:left;
+  width:70px;
+  height:20px;
+  border:1px solid #ccc;
+  font-weight: normal;
+}
+.profile-buttons a:hover{
+  background:#d4f77a;
+  text-decoration:none;
+}
+
+#profile-ologies h3, #profile-stashes h3, #profile-stats h3{
+  font-size:14px;
+  font-weight:normal;
+  padding:0;
+  margin:0;
+  display:inline;
+}
+#profile-stats h4{
+  font-size:14px;
+  font-weight:normal;
+  padding:0;
+  margin:0;
+  display: block;
+}
+#profile-stats h5{
+  font-family: EgyptienneURW-Med;
+  font-size:20px;
+  padding:6px 0;
+  margin:0;
+}
+.profile-info-element {
+  font-family: Verdana, Tahoma, Helvetica, Sans-Serif;
+  font-size:12px;
+  margin:8px 0px 0px 0px;
+  padding: 0px;
+  color: #b5b5b5;
+}
+#profile-ologies h4, #profile-stashes h4, #profile-posts h4 {
+  font-family: EgyptienneURW-Lig;
+  font-size:16px;
+  padding:6px 0;
+  margin:0;
+}
+#profile-stats{
+  margin-top: 10px;
+  width:340px;
+  height:auto;
+  background-color:#f1f1f1;
+  word-wrap: break-word;
+  float:left;
+}
+#profile-activity{
+  width:325px;
+  height:500px;
+  padding:10px;
+  word-wrap: break-word;
+  position:absolute;
+  top:70px;
+  right:0;
+  float:right;
+}
+
+#profile-posts .post{
+  width:200px;
+  margin:0 5px 10px 0;
+  padding-bottom: 5px;
+}
+#profile-posts .post img{
+  /*width:100%;
+  height:auto;*/
+}
+
+/*
+#profile-ologies #profile-ologies-ology-container .profile-ologies-ology img{
+    width: 60px;
+    height: 60px;
+}*/
+
+#profile-posts .post .show-comments img{
+  width:13px;
+  height:12px;
+}
+
+.profile-user h2{
+  font-family: EgyptienneURW-Med;
+  font-size:28px;
+  margin:0;
+  padding:0 0 10px 0;
+  line-height:1em;
+  }
+.profile-top3{
+  font-family:EgyptienneURW-Reg;
+  font-size:20px;
+  display:block;
+  margin-bottom:30px;
+}
+.profile-summary{
+  color:#fff;
+  font-size:16px;
+  float: left;
+  display:block;
+  padding:15px;
+  width:311px;
+  background:#000;
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 2px 5px #CCC;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+}
+.profile-name{
+  color:#fff;
+  font-size:16px;
+  display:block;
+  float: left;
+  padding:14px 15px 14px 15px;
+  top:0;
+  left:0;
+  width:310px;
+  background:#000;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.profile-name h2{
+    color: white;
+}
+
+.member-since{
+  font-size:12px;
+  color:#ffffff;
+  background-color:#555;
+  width:320px;
+  padding:10px;
+  position: relative;
+  left:-15px;
+  opacity: .9;
+  -moz-opacity: .9;
+  filter:alpha(opacity=.99);
+}
+.member-since h4{
+  padding: 0;
+  margin: 0;
+  font-size:18px;
+  font-weight:normal;
+}
+
+#profile-ologies-main{
+  background:#fff;
+  padding:0 10px 10px;
+  height:auto;
+}
+#profile-ologies-main hr{
+  background:none;
+  border-top:1px solid #ccc;
+  width:320px;
+  clear:both;
+  margin-top:10px;
+}
+
+#love-o-meter {
+    width: 300px;
+    height: 8px;
+    float: left;
+}
+
+#love-o-meter-love {
+    height: 8px;
+    background-color: green;
+    float: left;
+}
+#love-o-meter-hate {
+    height: 8px;
+    background-color: red;
+    float: left;
+}
+#love-o-meter-hmmm {
+    height: 8px;
+    background-color: gray;
+    float: left;
+}

@@ -1,0 +1,37 @@
+<div class="likes-card">
+    <div class="show-love">
+    {% if app.user is not empty %}
+        {% if (likes['isLoving'][post.id] == false) %} 
+            <a id="{{ post.timesLoved }}" href="{{ path("_post_love", {'postId' : post.id}) }}" class="love-card"></a>
+        {% elseif (likes['isLoving'][post.id] == true) %}
+            <a id="{{ post.timesLoved }}" href="{{ path("_post_unlove", {'postId' : post.id}) }}" class="love-card-clicked"></a>
+        {% endif%}
+    {% else %}
+        <input id="{{ post.id }}" value="{{ post.timesLoved }}" src="{{ asset('bundles/ologysocial/img/likes/love_card.png') }}" type="image" method="post" class="love-click-offline"/>
+    {% endif %}   
+    </div>
+
+    <div class="show-hate">
+    {% if app.user is not empty %}
+        {% if (likes['isHating'][post.id] == false) %} 
+            <a id="{{ post.timesHated }}" href="{{ path("_post_hate", {'postId' : post.id}) }}" class="hate-card"></a>     
+        {% elseif (likes['isHating'][post.id] == true) %}
+            <a id="{{ post.timesHated }}" href="{{ path("_post_unhate", {'postId' : post.id}) }}" class="hate-card-clicked"></a>
+        {% endif%}
+    {% else %}
+        <input id="{{ post.id }}" value="{{ post.timesHated }}" src="{{ asset('bundles/ologysocial/img/likes/hate_card.png') }}" type="image" method="post" class="hate-click-offline"/>
+    {% endif %}    
+    </div>
+
+    <div class="show-hmm">
+    {% if app.user is not empty %}
+        {% if (likes['isHmm'][post.id] == false) %} 
+            <a id="{{ post.timesHmm }}" href="{{ path("_post_hmm", {'postId' : post.id}) }}" class="hmm-card"></a>     
+        {% elseif (likes['isHmm'][post.id] == true) %}
+            <a id="{{ post.timesHmm }}" href="{{ path("_post_unhmm", {'postId' : post.id}) }}" class="hmm-card-clicked"></a>
+        {% endif%}
+    {% else %}
+        <input id="{{ post.id }}" value="{{ post.timesHmm }}" src="{{ asset('bundles/ologysocial/img/likes/hmm_card.png') }}" type="image" method="post" class="hmm-click-offline"/>
+    {% endif %}    
+    </div>
+</div>

@@ -1,0 +1,7 @@
+Create video post
+
+<form action="{{ path('_post_store_video') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_rest(form) }}
+
+    <input type="submit" />
+</form>

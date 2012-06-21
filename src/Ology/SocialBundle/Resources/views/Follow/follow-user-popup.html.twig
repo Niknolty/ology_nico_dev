@@ -1,0 +1,37 @@
+<div id="follow-user-popup">
+    <div class="follow-profile">
+        <b>{{ followee.firstName }} {{ followee.lastName }}</b>
+        <img src="{{ asset('bundles/ologysocial/up/img/user/user_large/' ~ followee.imageUrl) }}"/>
+    </div>
+    <div id="follow-form">
+        {% if (ologies | length > 0) or (stashes | length > 0) %}
+            <div id="follow-everything" class="not-selected">Follow Everything</div><br />
+        {% endif %}
+        {% if ologies | length > 0 %}
+        <h2>Ologies</h2>
+        <div class="follow-ologies">
+            {% for ology in ologies %}
+                <div ology-id="{{ ology.id }}" ologyOrStash="ology"
+                    class="{% if ology.id in followedOlogies %}is{% else %}not{% endif %}-selected">
+                    {{ ology.name }}
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% if stashes | length > 0 %}
+        <h2>Stashes</h2>
+        <div class="follow-stashes">
+            {% for stash in stashes %}
+                <div stash-id="{{ stash.id }}" ologyOrStash="stash"
+                     class="{% if stash.id in followedStashes %}is{% else %}not{% endif %}-selected">
+                    {{ stash.name }}
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <input type="hidden" id="followee-id" value="{{ followee.id }}"/>
+        {% if (ologies | length > 0) or (stashes | length > 0) %}
+        <input type="submit" id="follow-submit" value="Follow" />
+        {% endif %}
+    </div>
+</div>

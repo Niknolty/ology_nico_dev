@@ -1,0 +1,18 @@
+{% extends 'OlogySocialBundle:Email:template.html.twig' %}
+{% block body %}
+You're in!  Congrats on being awesome!<br/><br/>
+
+So now what?<br/><br/>
+
+1. Follow and create ologies. An "ology" is anything you're interested in. A sports team, a new band, a bad reality TV show.....actually, anything at all.  Check out the <a href="{{websiteUrl}}{{ path('_website_explore') }}">the explore page</a> to find the communities for your interests.<br/>
+2. Post something. Make your voice heard! It's easy.<br/>
+3. <a href="{{websiteUrl}}{{ path('_website_invite') }}">Invite your friends</a> to join as well!<br/><br/>
+
+Remember, if you don't see an ology for the things you're passionate about, you can <a href="{{websiteUrl}}{{ path('_website_create_ology') }}">create your own</a>. It'll be yours, you'll love it, and other people will too.<br/><br/>
+If you lost your password please click here: <a href="{{ websiteUrl }}{{ path('_website_reset') }}">Reset Password</a>.<br/><br/>
+
+Still have a few questions (on how to use Ology)? No worries, check out these <a href="{{ websiteUrl }}{{ path('_website_faq') }}">FAQs</a>.
+
+Welcome to Ology. What are you waiting for?<br/><br/>
+
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'OlogySocialBundle:FrontEnd:base.html.twig' %}
+{% block title %}My Articles | Ology{% endblock %}
+{% block page_header %}
+<link href="{{ asset('bundles/ologysocial/css/editors.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+<div id="container">
+    <h1>Drafts</h1>
+    {% if drafts|length == 0 %}
+    No draft. Get to work.
+    {% else %}
+    <table>
+        <tr style="border-bottom: 1px dotted black">
+            <td style="text-align: center;">Title</td>
+            <td style="text-align: center;">Last saved</td>
+            <td>Kind</td></tr>
+    {% for post in drafts %}
+            <tr style="border-bottom: 1px dotted black">
+                <td><a href="{{ path("_editors_post_edit_form", {'id' : post.id}) }}">{% if post.htmlTitle|length > 0 %}{{ post.htmlTitle|raw }}{% else %}{{ post.id }}{% endif %}</a></td>
+                <td>{{ post.lastSaved|date("F j, Y, g:i a") }}</td>
+                <td>{{ post.postType.name }}</td>
+            </tr>
+    {% endfor %}
+    {% endif %}
+    </table>
+
+    <h1>Scheduled</h1>
+    {% if scheduled|length == 0 %}
+    No posts scheduled.
+    {% else %}
+    <table>
+        <tr style="border-bottom: 1px dotted black">
+            <td style="text-align: center;">Title</td>
+            <td style="text-align: center;">Scheduled for</td>
+            <td>Kind</td></tr>
+    {% for spost in scheduled %}
+            <tr style="border-bottom: 1px dotted black">
+                <td><a href="{{ path("_editors_post_edit_form", {'id' : spost.id}) }}">{% if spost.htmlTitle|length > 0 %}{{ spost.htmlTitle|raw }}{% else %}{{ spost.id }}{% endif %}</a></td>
+                <td>{{ spost.scheduledPublish|date("F j, Y, g:i a") }}</td>
+                <td>{{ spost.postType.name }}</td>
+            </tr>
+    {% endfor %}
+    </table>
+    {% endif %}
+
+
+    <h1>Published</h1>
+    <table>
+        <tr style="border-bottom: 1px dotted black">
+            <td style="text-align: center;">Title</td>
+            <td style="text-align: center;">Date published</td>
+            <td>Kind</td>
+            <td>Edit</td>
+            <td>Delete</td>
+        </tr>
+    {% for post in published %}
+            <tr style="border-bottom: 1px dotted black">
+                <td><a href="{{ path("_website_post", {'postId' : post.id}) }}">{% if post.htmlTitle|length > 0 %}{{ post.htmlTitle|raw }}{% else %}{{ post.id }}{% endif %}</a></td>
+                <td>{{ post.creationDate|date("F j, Y, g:i a") }}</td>
+                <td>{{ post.postType.name }}</td>
+                <td><a href="{{ path("_editors_post_edit_pp_form", {'id' : post.id, 'postPublish' : true}) }}">Edit</a></td>
+                <td><a class="del-post-link" href="{{ path("_pro_post_delete", {'id' : post.id}) }}">Delete</a></td>
+            </tr>
+    {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+{% block pagescripts %}
+<script type="text/javascript">
+$('.del-post-link').click(function(event) {
+    event.preventDefault()
+    var url = $(this).attr('href');
+    var confirm_box = confirm('Are you sure? All that hard work!');
+    if (confirm_box) {
+        window.location = url;
+    } else {
+        alert('didn\'t think so.'); 
+    }
+});
+</script>
+{% endblock %}

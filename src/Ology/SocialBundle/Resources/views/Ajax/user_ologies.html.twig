@@ -1,0 +1,35 @@
+<div id="profile-ologies-main">
+    <h4>{{ profileUser.firstName }} Founded:</h4>
+    {% if foundedOlogies|length == 0 %}
+        {{ profileUser.firstName }} hasn't created any ologies yet.
+    {% else %}
+        {% for fOlogy in foundedOlogies %}
+            <div class="ology-box">
+                <a href="{{ path("_website_ology", {'id' : fOlogy.id, 'slug' : fOlogy.slug}) }}"><img src="{{ asset('bundles/ologysocial/up/img/ology/ology_round_small/' ~ fOlogy.imageUrl) }}"/></a>
+                <br /> <a href="{{ path("_website_ology", {'id' : fOlogy.id, 'slug' : fOlogy.slug}) }}">{{ fOlogy.name }}</a>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <hr />
+    <h4>{{ profileUser.firstName }} Follows:</h4>
+    {% if joinedOlogies|length == 0 %}
+        {{ profileUser.firstName }} isn't following any ologies yet.
+    {% else %}
+        {% for jOlogy in joinedOlogies %}
+        <div class="ology-box">
+            {% if jOlogy.slug is defined %}
+                <a href="{{ path("_website_ology", {'id' : jOlogy.id, 'slug' : jOlogy.slug}) }}">
+                    <img src="{{ asset(ology_small_image_path ~ jOlogy.imageUrl) }}"  />
+                </a>
+                <br /> <a href="{{ path("_website_ology", {'id' : jOlogy.id, 'slug' : jOlogy.slug}) }}">{{ jOlogy.name }}</a>
+            {% else %}
+                <a href="{{ path('_website_channel', {'stub' : jOlogy.stub}) }}">
+                    <img src="{{ asset('bundles/ologysocial/img/channels/' ~ jOlogy.imageLogo) }}" width="50" title="{{ jOlogy.name }}" />
+                </a>
+                <br /> <a href="{{ path("_website_channel", {'stub' : jOlogy.stub}) }}">{{ jOlogy.name }}</a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    {% endif %}
+    <div class="clear"></div>
+</div>

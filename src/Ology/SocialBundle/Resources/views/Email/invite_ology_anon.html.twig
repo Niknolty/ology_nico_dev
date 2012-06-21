@@ -1,0 +1,10 @@
+{% extends 'OlogySocialBundle:Email:template.html.twig' %}
+{% block body %}
+<p><a href="{{websiteUrl}}{{ path("_website_profile", {'id' : inviterId}) }}">{{ inviterName }}</a> has invited you to become a part of <a href="{{websiteUrl}}{{ path('_website_ology_invite', {'id' : ologyId, 'inviteId' : inviteId}) }}">{{ ologyName }}</a> on Ology!</p>
+{% if msg is defined %}
+<p>{{ heshe }} left you this message: "<b>{{ msg }}</b>"</p>
+{% endif %}
+<p><a href="{{websiteUrl}}{{ path('_website_ology_invite', {'inviteId' : inviteId, 'id' : ologyId}) }}">Click here to check out the group and join your friend</a>.</p>
+
+<p>Post, share, and discover in a single place. Your favorite TV show, an obscure indie band, or a local project you're a part of. [Ology] is all about you. Here you can express the things that have always interested you and always will.  It's not about where you've been or what you've done, it's about what you love.</p>
+{% endblock %}

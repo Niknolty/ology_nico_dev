@@ -1,0 +1,94 @@
+{% extends 'OlogySocialBundle:FrontEnd:base.html.twig' %}
+
+{% block title %}Explore | Ology{% endblock %}
+
+{% block body %}
+  <div class="header-explore">
+   <h2>Find things you love by selecting a category.</h2>
+  </div>
+
+
+    <div id="filters-explore">
+      {% if loggedIn and user.FbId != NULL %}
+      <a href="#" data-filter=".you" class="you">{{ image_tag(asset(user_small_image_path ~ user.imageUrl)) }}</a>
+
+      {% endif %}
+      <a href="#" data-filter=".5" class="art"></a>
+      <a href="#" data-filter=".6" class="business"></a>
+      <a href="#" data-filter=".7" class="celebs"></a>
+      <a href="#" data-filter=".8" class="fashion"></a>
+      <a href="#" data-filter=".9" class="film"></a>
+      <a href="#" data-filter=".10" class="fitness"></a>
+      <a href="#" data-filter=".11" class="food"></a>
+      <a href="#" data-filter=".3" class="geek"></a>
+      <a href="#" data-filter=".4" class="humor"></a>
+      <a href="#" data-filter=".12" class="lit"></a>
+      <a href="#" data-filter=".1" class="music"></a>
+      <a href="#" data-filter=".2" class="news"></a>
+      <a href="#" data-filter=".15" class="other"></a>
+      <a href="#" data-filter=".13" class="politics"></a>
+      <a href="#" data-filter=".21" class="religion"></a>
+      <a href="#" data-filter=".20" class="romance"></a>
+      <a href="#" data-filter=".17" class="sports"></a>
+      <a href="#" data-filter=".18" class="travel"></a>
+      <a href="#" data-filter=".14" class="tv"></a>
+      <input id="cat-filter" type="hidden" >
+    </div>
+
+
+  <div id="container-splash">
+
+    {% for ology in ologies %}
+      <div class="post">
+        <div class="post-content">
+          <div class="post-cat-info">
+            <a href="{{ path("_website_ology", {'id' : ology.id, 'slug' : ology.slug}) }}">
+              {{ image_tag(asset(ology_medium_image_path ~ ology.imageUrl)) }}
+            </a>
+            <h2><a href="{{ path("_website_ology", {'id' : ology.id, 'slug' : ology.slug}) }}">{{ ology.name }}</a></h2>
+            {% if ology.ologylabels|length > 0 %}
+               <span class="category-small">{{ ology.ologylabels[0].label.name }}</span>
+            {% endif %}
+          </div>
+
+        {% if loggedIn %}
+          {% if memberships[ology.id] is defined %}
+            <a href="{{ path('_ology_leave', {'id': ology.id}) }}" class="unfollow"></a>
+          {% else %}
+            <a href="{{ path('_ology_join', {'id': ology.id}) }}" class="follow"></a>
+          {% endif %}
+        {% endif %}
+          <div class="explore-description">
+            <p>{{ ology.description }}</p>
+          </div>
+
+          <div class="founder-section"><p>
+          <a href="{{ path("_website_profile", {'id' : ology.founder.id}) }}">
+            {{ image_tag(asset(user_medium_image_path ~ ology.founder.imageUrl)) }}
+          </a>
+            Founded by<br />
+            <h3><a href="{{ path("_website_profile", {'id' : ology.founder.id}) }}">
+              {{ology.founder.firstname}} {{ology.founder.lastname}}
+            </a></h3>
+          </p>
+          </div>
+          {% include 'OlogySocialBundle:FrontEnd:ology_stats.html.twig' with {'stats': statss[ology.id]} %}
+      </div>
+    </div>
+    {% endfor %}
+
+    <div>
+      <a href="{{ path("_website_explore_recent_pag", {'offset' : 1, 'n' : n}) }}" class="navigation">NEXT</a>
+    </div>
+  </div>
+
+  {% endblock %}
+
+
+  {% block pagescripts %}
+{#  Moved to base.html.twig
+  <script src="{{ asset('bundles/ologysocial/js/silver-bullet/jquery.masonry.min.js') }}" type="text/javascript"></script>
+#}
+  <script src="{{ asset('bundles/ologysocial/js/silver-bullet/splashscroll.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('bundles/ologysocial/js/offline_likes.js') }}" type="text/javascript"></script>
+{% endblock %}

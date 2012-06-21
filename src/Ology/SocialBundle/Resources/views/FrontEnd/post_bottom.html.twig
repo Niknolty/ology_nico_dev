@@ -1,0 +1,120 @@
+<div id="never-miss-a-thing" {% if not loggedIn %}style="border-bottom: 5px #CCC solid;"{% else %} no=no {% endif %}>
+    <span class="never-miss-a-thing-item">Never Miss <br/>A Thing</span>
+    <a class="never-miss-a-thing-item" href="{{ constant('\\Ology\\SocialBundle\\Resources\\Constants::FACEBOOK_FOLLOW_LINK') }}" target="_blank">
+        <img src="{{ asset('bundles/ologysocial/img/facebook_like.jpg') }}"></img>
+    </a>
+    <a class="never-miss-a-thing-item" href="{{ constant('\\Ology\\SocialBundle\\Resources\\Constants::TWITTER_FOLLOW_LINK') }}" target="_blank">
+        <img src="{{ asset('bundles/ologysocial/img/twitter_follow.jpg') }}"></img>
+    </a>
+    <a class="never-miss-a-thing-item" href="http://eepurl.com/ewlzs" target="_blank">
+        <img src="{{ asset('bundles/ologysocial/img/daily_digest_button.png') }}"></img>
+    </a>
+    <a class="never-miss-a-thing-item" href="http://itunes.apple.com/us/app/ology/id474073496?mt=8" target="_blank">
+        <img src="{{ asset('bundles/ologysocial/img/download_mobile_app_button.png') }}"></img>
+    </a>
+</div>
+
+
+{% if loggedIn == false %}
+<div id="post-join-bottom">
+    <div class="join-text">
+        <h3>Sign up for Ology</h3>
+        <p>Join today! Ology is where thousands of people share their interests and passions with each other.</p>
+        {% include 'OlogySocialBundle:FrontEnd:facebook_signin.html.twig' %}
+        <br />
+    </div>
+    <div class="join-video">
+            <iframe width="150" height="150" src="http://www.youtube.com/embed/y2e_1KpZFvo?wmode=transparent" Pframeborder="0" allowfullscreen></iframe>
+    </div>
+</div>
+{% endif %}
+
+{% if pro is defined %}
+    <div id="pro-post-container-more-author-bottom">
+        <div class="user-img">
+            <a href="{{ path("_website_profile", {'id' : post.author.id}) }}"><img src="{{ asset('bundles/ologysocial/up/img/user/user_small/' ~ post.author.imageUrl) }}" class="user-pic"></a>
+        </div>
+        <div class="small">
+            <div id="user-name"><a href="{{ path("_website_profile", {'id' : post.author.id}) }}">{{ post.author.firstName}} {{ post.author.lastName}}</a></div><br />
+            {% if post.author.editorTitle is empty %}
+            {% else %}
+                {{ post.author.editorTitle }} <br />
+            {% endif %}
+        </div><br />
+        <div id="more-from-the-author-posts">
+            <h2 style="font-size: 17px;">More from the Author:</h2>
+            {% if postsOfUserForOlogy[0] is not defined %}
+                <p style="font-size: 14px">Awww… looks like <b>{{ post.author.firstName}} {{ post.author.lastName}}</b> has no other posts.</p>
+            {% else %}
+                {% for po in postsOfUserForOlogy %}
+                    {% if po.imageUrl is defined %}
+                    <div class="more-from-the-author-posts-item">
+                        <div class="more-from-the-author-posts-item-white">
+                            <h3><a style="font-size: 11px;" href="{{ path("_website_post", {'postId' : po.id, 'slug' : po.slug}) }}">{{ po.htmlTitle|raw }}</a></h3>
+                            <a href="{{ path("_website_post", {'postId' : po.id, 'slug' : po.slug}) }}">{{ image_tag(asset('bundles/ologysocial/up/img/post/post_small/' ~ po.imageUrl)) }}</a>    
+                      
+                        </div>    
+                        {% if po.timesCommented == 0 %}
+                        {% elseif po.timesCommented == 1 %}
+                            <img src="{{ asset('bundles/ologysocial/img/comment.png') }}"/>
+                            <b>{{ po.timesCommented }} Comment</b>
+                        {% else %}
+                            <img src="{{ asset('bundles/ologysocial/img/comment.png') }}"/>
+                            <b>{{ po.timesCommented }} Comments</b>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>          
+    </div>
+{% endif %}  
+
+
+<div id="featured-post">
+    <div id="ology-sponsor-post-left">
+        <h2>Recommended Ologies:</h2>
+    </div>
+    <div id="ology-sponsor-post">
+        {% if sponsor != NULL %}
+            {{ sponsor.tag|raw() }}
+        {% endif %}
+    </div>
+    <div style="clear:both"></div>
+    {% if suggestedOlogies is defined and suggestedOlogies|length > 0 %}
+        {% for ology in suggestedOlogies %}
+        <div class="featured-ology-post">
+            <div class="ology-featured-img">
+                <a href="{{ path("_website_ology", {'id' : ology.id, 'slug' : ology.slug}) }}"><img src="{{ asset('bundles/ologysocial/up/img/ology/ology_round_medium/' ~ ology.imageUrl) }}" width="120px" height="120px"/></a>
+                <a href="{{ path('_ology_join', {'id': ology.id}) }}" class="follow"></a>
+            </div>
+
+            <p class="ology-featured-desc">
+                <span class="ology-featured-name"><a href="{{ path("_website_ology", {'id' : ology.id, 'slug' : ology.slug}) }}">{{ ology.name }}</a></span>
+                {{ ology.description }}
+            </p>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    {% for ology in featuredOlogies %}
+        {% if loop.index0 < featuredToDisplay %}
+        <div class="featured-ology-post">
+            <div class="ology-featured-img">
+                <a href="{{ path("_website_ology", {'id' : ology.id, 'slug' : ology.slug}) }}"><img src="{{asset('bundles/ologysocial/up/img/ology/ology_round_medium/' ~ ology.imageUrl) }}" width="120px" height="120px"/></a>
+                {% if loggedIn %}
+                    {% if memberships[ology.id] is defined %}
+                        <a href="{{ path('_ology_leave', {'id': ology.id}) }}" class="unfollow"></a>
+                    {% else %}
+                        <a href="{{ path('_ology_join', {'id': ology.id}) }}" class="follow"></a>
+                    {% endif %}
+                {% endif %}
+            </div>
+            <p class="ology-featured-desc">
+                <span class="ology-featured-name"><a href="{{ path("_website_ology", {'id' : ology.id, 'slug' : ology.slug}) }}">{{ ology.name }}</a></span>
+                {{ ology.description }}
+            </p>
+        </div>
+        {% endif %}
+    {% endfor %}
+</div>

@@ -1,0 +1,74 @@
+<?php
+
+namespace Ology\SocialBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity()
+ * @ORM\Table(name="Ologies")
+ */
+class Ology
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    protected $id;
+
+    /**
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    protected $name;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="founder_id", referencedColumnName="id", nullable="true")
+     */
+    protected $founder;
+
+    /**
+     * @ORM\Column(name="description", type="text")
+     */
+    protected $description;
+
+    /**
+     * @ORM\Column(name="image_url", type="string", length="255")
+     */
+    protected $imageUrl;
+    
+    /**
+     * @ORM\Column(name="creation_date", type="datetime")
+     */
+    protected $creationDate;
+    
+    /**
+     * @ORM\Column(name="visibility", type="integer")
+     */
+    protected $visibility;
+    
+    /**
+     * @ORM\Column(name="read_only", type="integer")
+     */
+    protected $readOnly;
+       
+    function __construct()
+    {
+        $this->creationDate = new  \DateTime('now');
+    }    
+    
+    function update($id, $name, $founder, $description, $imageUrl, $visibility, $readOnly)
+    {
+        $this->id = $id;
+        $this->name = $name;
+        $this->founder = $founder;
+        $this->description = $description;
+        $this->imageUrl = $imageUrl;
+        $this->visibility = $visibility;
+        $this->readOnly = $readOnly;
+        $this->creationDate = new \DateTime('now');
+    }
+    
+    
+}

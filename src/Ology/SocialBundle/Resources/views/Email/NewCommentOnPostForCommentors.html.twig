@@ -1,0 +1,4 @@
+{% extends 'OlogySocialBundle:Email:template.html.twig' %}
+{% block body %}
+{{ recipientName }}, <a href="{{websiteUrl}}{{ path("_website_profile", {'id' : commenterId}) }}">{{ commenterName }}</a> just replied to your comment on "<a href="{{websiteUrl}}{{ path('_website_post', {'postId': postId}) }}">{{ postName }}</a>" in <a href="{{websiteUrl}}{{ path('_website_ology', {'id': ologyId}) }}">{{ ologyName }}</a>. Check it out!
+{% endblock %}

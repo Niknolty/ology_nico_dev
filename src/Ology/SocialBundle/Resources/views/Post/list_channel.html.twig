@@ -1,0 +1,13 @@
+{% for post in posts %}
+    {% if post.isProfessional %}
+        {% include 'OlogySocialBundle:FrontEnd:pro_post_card.html.twig' with {'post': post } %}
+    {% else %}
+        {% include 'OlogySocialBundle:FrontEnd:post_card.html.twig' with {'post': post } %}
+    {% endif %}
+{% endfor %}
+
+{% if (scroll is defined) %}
+<div>
+    <a href="{{ path("_website_channel_pag", {'stub' : stub, 'offset' : nextPage, 'n' : n}) }}" class="navigation">NEXT</a>
+</div>
+{% endif %}

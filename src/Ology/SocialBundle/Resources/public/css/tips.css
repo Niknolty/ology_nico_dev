@@ -1,0 +1,202 @@
+/* 
+    Document   : tips
+    Created on : Apr 3, 2012, 10:48:52 AM
+    Author     : raphael
+    Description: For a new user, tool tips are avaible to guide him trough the web site
+
+*/
+
+.tips{
+    background-color: #FFFFFF;
+    border:     3px solid #F5613B;
+    box-shadow: 2px 2px 5px grey;
+    color:      #000000;
+    display:    none;
+    font-size:  12px;
+    padding:    20px 20px 30px;
+    position:   absolute;
+    right:      50%;
+    text-align: justify;
+    width:      250px;
+    z-index:    5000;
+}
+.tips.right{
+    right:      100%;
+    top:        7%;
+}
+.tips.top{
+    top:        130%;
+}
+.tips:after, .tips:before {
+    content:    ' ';
+    height:     0;
+    position:   absolute;
+    width:      0;
+    border:     10px solid transparent;
+    bottom:     100%;
+}
+.tips.top:after {
+    border-width: 14px;
+    left:       72%;
+    margin-left:-10px;
+    border-bottom-color: #FFFFFF;
+}
+.tips.top:before {
+    border-width: 19px;
+    border-bottom-color: #F5613B;
+    left:       70%;
+    margin-left:-10px;
+}
+.tips.right:after {
+    left:       100%;
+    border-width: 14px;
+    top:        14px;
+    margin-left:0px;
+    border-left-color: #FFFFFF;
+}
+.tips.right:before {
+    left:       100%;
+    border-width: 19px;
+    border-left-color: #F5613B;
+    top:        10px;
+    margin-left:0px;
+}
+.tips.tipsleft:after {
+    right:       100%;
+    border-width: 14px;
+    top:        64px;
+    margin-left:0px;
+    border-right-color: #FFFFFF;
+}
+.tips.tipsleft:before {
+    right:       100%;
+    border-width: 19px;
+    border-right-color: #F5613B;
+    top:        60px;
+    margin-left:0px;
+}
+
+
+.tips .tip-close{
+    margin:     1px 1px;
+    padding:    2px 4px;
+    cursor:     pointer;
+    position:   absolute;
+    font-weight:bold;
+    top:        0;
+    right:      0;
+}
+.tips .tip-close:hover{
+    background: #FFFFFF;
+    color:      red;
+}
+
+.tips #next-tip-button{
+    color:      black;
+    cursor:     pointer;
+    position:   absolute;
+    bottom:     0;
+    right:      0;
+    margin:     4px 10px;
+    padding:    5px;
+    font-weight:bold;
+    font-size:  12px;
+}
+.tips #next-tip-button:hover{
+    background-color: #FFFFFF;
+    text-decoration: underline;
+    color:      red;
+}
+
+/* Custom necessary little fix */
+
+#tip1{
+    right:      35%;
+    top:        130%; 
+}
+#tip2{
+    right:      20%;
+    bottom:     -105px;
+}
+#tip3{
+    right:      33%;
+    top:        150%;
+}
+#tip4{
+    left:       103%;
+    bottom:     78%;
+}
+#tip5{
+    right:      40%;
+    top:        100%;
+}
+#tip6{
+    right:      100%;
+    top:        50%;
+}
+#tip7{
+    right:      34%;
+    top:        0%
+}
+#tip8{
+    right:      38%;
+}
+#tip9{
+    right:      64%;
+}
+#tip11{
+    top:        95%;
+}
+#tip12{
+    top:        33%;
+}
+#tip12 #next-tip-button{
+    color:      black;
+    font-weight:bold;
+}
+#tip12 #next-tip-button:hover{
+    color:      red;
+}
+#tip13{
+    right:      35%;
+    top:        90%;
+}
+#tip14{
+    position:   relative;
+    right:      0%;
+    top:        15px;
+}
+#tip14.tips.top:after, #tip14.tips.top:before {
+    margin-left:-113px;
+}
+#tip15{
+    right:      25%;
+}
+#tip16{
+    right:      69%;
+    top:        70%;
+}
+#tip17{
+    right:      45%;
+    top:        600%;
+}
+
+/*  -- Hack section --
+
+    Overflow set to visible are mandatory to see tip popup.
+    This is the only solution. Maybe it's not bug free...
+    BUT, this tips.css is loaded only when tip is enable in the session ;)
+
+*/
+#posts-box-home .post, #posts-box-ology .post {
+    overflow:   visible;
+}
+#right-panel-home, #ology-right-panel-home {
+    overflow:   visible;
+}
+#posts-box-home, #posts-box3-home, #posts-box-ology {
+    overflow:   visible;
+}
+#posts-box-home .post .post-content, #posts-box-ology .post .post-content, .post-content{
+    overflow:   visible;
+}

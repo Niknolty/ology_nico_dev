@@ -1,0 +1,114 @@
+{% extends 'OlogySocialBundle:FrontEnd:base.html.twig' %}
+{% block title %}Ology is all about passion | Ology{% endblock %}
+
+
+{% block body %}
+<style type="text/css">
+  .circle{ display: none;}
+</style>
+<link href="{{ asset('bundles/ologysocial/css/ologysearch.css') }}?v=1" type="text/css" rel="stylesheet" />
+
+    <div class="header-splash">
+        <div id="splash-signin">
+            {% if not loggedIn %}
+                {% include 'OlogySocialBundle:FrontEnd:facebook_signin.html.twig' %}
+                {% include 'OlogySocialBundle:FrontEnd:twitter_signin.html.twig' %}
+            {% endif %}
+        </div>
+        <div id="splash-message">
+            <h2>Ology is all about passions.</h2>
+            <div id="content-search">
+                 <br/>
+                 <input type="text" id="content-search-input" value="What's your passion?"/><br/>
+            </div>
+        </div>
+    </div>
+
+    {% if app.request.query.get('openTwitterPopup') %}
+        <div id="twitter-popup" class="popup">
+            <div id="twitter-popup-content"></div>
+            <span class="popup-close">X</span>
+        </div>
+    {% endif %}
+    {% if app.request.query.get('openFacebookPopup') %}
+        <div id="facebook-popup" class="popup">
+            <div id="facebook-popup-content"></div>
+            <span class="popup-close">X</span>
+        </div>
+    {% endif %}
+
+    {% include 'OlogySocialBundle:FrontEnd:register-prompt.html.twig' with {'prompt_action':'1'} %}
+    <div id='loading-splash' style='display: none;' class='loading-search'><img src="{{ asset('bundles/ologysocial/img/ajax-loader.gif') }}" /><br/>
+        All of our representatives are currently busy.<br/>
+        Please stay on the line and your request will be answered by the next available representative.
+    </div>
+    <div id="container-splash">
+        {% include 'OlogySocialBundle:FrontEnd:core_channels.html.twig' %}
+        {% include 'OlogySocialBundle:FrontEnd:register-prompt.html.twig'%}
+        {% include 'OlogySocialBundle:FrontEnd:almost-register-prompt.html.twig'%}
+        {% for post in posts %}
+            {% if post.isProfessional %}
+                {% include 'OlogySocialBundle:FrontEnd:pro_post_card.html.twig' with {'post': post, 'large' : true} %}
+            {% else %}
+                {% include 'OlogySocialBundle:FrontEnd:post_card.html.twig' with {'post': post, 'large' : true } %}
+            {% endif %}
+        {% endfor %}
+        <div>
+          <a href="{{ path("_website_splash_pag", {'offset' : 1, 'n' : n}) }}" class="navigation">NEXT</a>
+        </div>
+    </div>
+  {% endblock %}
+
+
+{% block pagescripts %}
+<link rel="stylesheet" href="{{ asset('bundles/ologysocial/js/jquery.autocomplete-1.1.3/styles.css') }}" type="text/css"/>
+<script src="{{ asset('bundles/ologysocial/js/jquery.autocomplete-1.1.3/jquery.autocomplete.js') }}" type="text/javascript"></script>
+<script type="text/javascript">
+var tbval = "What's your passion?";
+var a = $('#content-search-input').autocomplete({ 
+    serviceUrl:'{{ path("_ologies_autocomplete_ajax") }}',
+    maxHeight:220,
+    width:496,
+    noCache: false,
+  });
+
+
+function searchOlogies() {
+    setTimeout(function() {
+        var val = $('#content-search-input').val();
+        tbval = val;
+        var url = '/splash/0/15/'.concat(val);
+        $.get(url, function(data) {
+            $("#loading-splash").hide();
+            $('#container-splash').html( data );
+            $('#container-splash').masonry('reload');
+        });
+    }, 50);
+    $("#loading-splash").show();
+}
+
+$('.autocomplete-w1').click(function() {
+    searchOlogies();
+});
+
+$("#content-search-input").keyup(function(event){
+    if(event.keyCode == 13){
+        searchOlogies();
+        event.preventDefault();
+    }
+});
+    
+$("#content-search-input").focus(function(){
+    if (this.value == tbval){this.value = '';} 
+}).blur(function(){
+  if (this.value == ''){this.value = tbval;} 
+});
+</script>
+
+<script src="{{ asset('bundles/ologysocial/js/silver-bullet/jquery.reject.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/ologysocial/js/silver-bullet/splashscroll.js') }}?ologyv=11" type="text/javascript"></script>
+<script src="{{ asset('bundles/ologysocial/js/offline_comment.js') }}?ologyv=11" type="text/javascript"></script>
+<script src="{{ asset('bundles/ologysocial/js/offline_likes.js') }}?ologyv=11" type="text/javascript"></script>
+<script src="{{ asset('bundles/ologysocial/js/likes_display.js') }}?ologyv=11" type="text/javascript"></script>
+  
+{% endblock %}

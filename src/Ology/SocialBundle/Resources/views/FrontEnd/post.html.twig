@@ -1,0 +1,181 @@
+{% extends 'OlogySocialBundle:FrontEnd:base.html.twig' %}
+
+{% block fb_title %}<meta property="og:title" content="{{ post.title }}" />{% endblock %}
+{% block fb_description %}<meta property="og:description" content="{{ post.textContent }}" />{% endblock %}
+{% block fb_image %}
+{% if post.postType.id == 3 %}
+<meta property="og:image" content="{{ asset(post_small_image_path ~ post.imageUrl) }}" />
+{% else %}
+<meta property="og:image" content="{{ asset(ology_large_image_path ~ ology.imageUrl) }}" />
+{% endif %}
+{% endblock %}
+{% block title %}{{ post.title }} | Ology{% endblock %}
+
+{% block page_header %}
+<link href="{{ asset('bundles/ologysocial/css/post.css') }}?ologyv=11" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+{% if app.user is not empty%}
+<div id='page'>
+    {% include 'OlogySocialBundle:FrontEnd:dock.html.twig' %}
+</div>
+{% endif %}
+
+<div id="container-post">
+    {% include 'OlogySocialBundle:Post:post_sidebar.html.twig' %}
+    {% include 'OlogySocialBundle:FrontEnd:like-feedback-prompt.html.twig' %}
+
+    <div id="postbox">
+        <div id="posts-box-main">
+            <div class="backto-ology">
+                {% if getPreviousAndNextPostInfos["previousPostExist"] != "false" %}
+                    <input class="get-previous-post" type="button" href="{{path("_website_post",{'postId' : getPreviousAndNextPostInfos['previousPostId'], 'slug' : getPreviousAndNextPostInfos['previousPostSlug']})}}" {% if getPreviousAndNextPostInfos['previousPostTitle']|length < 50 %} value="<< {{ getPreviousAndNextPostInfos['previousPostTitle'] }}" {% else %} value="<< {{getPreviousAndNextPostInfos['previousPostTitle']|truncate(50, false, "...")}}"{% endif %}/>
+                {% else %}
+                    <input class="no-previous-post" type="button" value=""/>
+                {% endif %}
+                <input class="back-to-current-ology" type="button" value="Back To All Things &#10 {{ ology.Name }}" href="{{ path("_website_ology", {'id' : ology.id, 'slug' : ology.slug}) }}"/>
+                {% if getPreviousAndNextPostInfos["nextPostExist"] != "false" %}
+                    <input class="get-next-post" type="button" href="{{path("_website_post",{'postId' : getPreviousAndNextPostInfos['nextPostId'], 'slug' : getPreviousAndNextPostInfos['nextPostSlug']})}}" {% if getPreviousAndNextPostInfos['nextPostTitle']|length < 50 %} value="{{ getPreviousAndNextPostInfos['nextPostTitle'] }} >>" {% else %} value="{{getPreviousAndNextPostInfos['nextPostTitle']|truncate(50, false, "...")}} >>"{% endif %}/>
+                {% else %}
+                    <input class="no-next-post" type="button" value=""/>
+                {% endif %}
+            </div>
+                
+            <div id="post-box">
+                {% if canDeletePost %}
+                    {% include 'OlogySocialBundle:Tips:post_edit_tip.html.twig' %}
+                    <div id="edit-box">
+                        {% include 'OlogySocialBundle:FrontEnd:edit_post.html.twig' %}
+                    </div>
+                    <a href="{{ path("_post_delete", {'id' : post.id}) }}" class="delete-item">x</a>
+                    <span class="space-item"> | </span>
+                    <div class="edit-item">Edit</div>
+                {% endif %}
+
+                <div id="post-main">
+                    <h2><a href="{{ path("_website_post", {'postId' : post.id, 'slug' : post.slug}) }}" class="post-link">{{ post.title }}</a></h2>
+                    {% if post.postType.id == 3 %}
+                        {% if post.imageSourceUrl != NULL %}
+                            <a href="{{ post.imageSourceUrl }}" target="_blank">{{ image_tag(asset(post_large_image_path ~ post.imageUrl)) }}</a>
+                        {% else %}
+                            {{ image_tag(asset(post_large_image_path ~ post.imageUrl)) }}
+                        {% endif %}
+                    {% endif %}
+                    {% if post.postType.id == 4 %}
+                        <iframe width="590" src="http://www.youtube.com/embed/{{ post.videoUrl }}?wmode=transparent" frameborder="0" allowfullscreen></iframe>
+                    {% endif %}
+                    {% if post.postType.id == 5 %}
+                        <audio controls="true" src="{{ asset(post_audio_path ~ post.audioUrl) }}" type="audio/mpeg" style="width:100%;">
+                                Your browser does not support the audio element.
+                        </audio>
+                    {% endif %}
+
+                    <div class="post-user">
+                        <div class="user-img">
+                            <a class="user-popupable" pid="{{ post.author.id }}" href="{{ path("_website_profile", {'id' : post.author.id}) }}"><img src="{{ asset(user_small_image_path ~ post.author.imageUrl) }}" class="user-pic"></a>
+                        </div>
+                        <div class="small">
+                            <div id="user-name">by <a class="user-popupable" pid="{{ post.author.id }}" href="{{ path("_website_profile", {'id' : post.author.id}) }}">{{ post.author.firstName}} {{ post.author.lastName}}</a></div><br />
+                            On {{post.creationDate|date("M d, Y")}}<br />
+                            {# Show the reologized user and infos #}
+                            {% include 'OlogySocialBundle:FrontEnd:reologized.html.twig' with {'inAPost' : 'true'}%}
+                        </div>
+                    </div>
+                        
+                    <p>{{ post.textContent|nl2br() }}</p>
+                    {% if post.postType.id == 3 %}
+                        {% if post.imageSourceUrl != NULL %}
+                            <div class="via-site-name">Via {{ post.imageSourceUrl }}</div>
+                        {% endif %}
+                    {% endif %}
+                          
+                <div id="comments-main">
+                    <div class="comments">
+                        <img src="{{ asset('bundles/ologysocial/img/comment_icon_grey.png') }}"/>
+                        {% if post.timesCommented <=1 %}
+                                 {{post.timesCommented}} Comment
+                        {% else %}
+                                 {{post.timesCommented}} Comments
+                        {% endif%}
+                    </div>
+                    
+                    {% if loggedIn %}
+                        {% include 'OlogySocialBundle:Comment:create.html.twig' with {'form' : commentForm} %}
+                    {% else %}
+                        {% include 'OlogySocialBundle:Comment:create.html.twig' with {'form' : commentForm, 'showprompt' : true} %}
+                        {% include 'OlogySocialBundle:FrontEnd:register-prompt.html.twig' with {'prompt_action':'1'} %}
+                        {% include 'OlogySocialBundle:FrontEnd:almost-register-prompt.html.twig'%}
+                    {% endif %}
+                    <br/>
+                    
+                    <div id="comments">
+                        {% for comment in comments %}
+                        <div class="comment"> <a name="comments"></a>
+                        {% if loggedIn %}
+                            {% if comment.author.id == user.id %}
+                            <a href="{{ path("_comment_delete", {'id' : comment.id}) }}" class="delete-item">x</a>
+                            {% endif %}
+                        {% endif %}
+                            <div class="user-img">
+                                <a href="{{ path("_website_profile", {'id' : comment.author.id}) }}"><img src="{{ asset(user_small_image_path ~ comment.author.imageUrl) }}"></a>
+                            </div>
+                            <p style="padding-left:50px"><a href="{{ path("_website_profile", {'id' : comment.author.id}) }}">{{ comment.author.firstName }}</a> - {{ comment.content|nl2br() }}
+                                <span class="small">
+                                    <br /> Commented <abbr class="timeago" title="{{comment.creationDate|date("c")}}"></abbr>
+                                </span>
+                            </p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    {% if post.timesCommented > 0 %}
+                        <div id="comment-scroll">
+                            <span>Go ahead, tell us what you really think.</span><img id="scrollUpToCommentBox" src="{{ asset('bundles/ologysocial/img/comment_button_big.png') }}" />
+                        </div>
+                    {% endif %}
+                    
+                </div>
+            </div>
+        </div>
+        {% include 'OlogySocialBundle:FrontEnd:post_bottom.html.twig'%}
+    </div>
+</div>
+
+    <div id="post-right">
+        {% include 'OlogySocialBundle:Tips:whats_new_tip.html.twig' %}
+        {% if loggedIn %}
+        <div class="whats-new-user-post">
+            <h2>What's Happening?</h2><br />
+            {% if notifications|length > 0%}
+                {% include 'OlogySocialBundle:FrontEnd:notifications.html.twig' %}
+            {% else %}
+                <h3><a href="{{ path("_website_explore") }}">Looks like nothing new is going on in your ologies.</a></h3>
+                <br />
+                <a href="{{ path("_website_explore") }}">Why don’t you explore and find some new ones to join!</a>
+            {% endif %}
+        </div>
+        {% endif %}     
+        {% include 'OlogySocialBundle:FrontEnd:feature.html.twig' with {'proPost': proPost1, 'userPosts' : userPosts1} %}
+        {% include 'OlogySocialBundle:FrontEnd:feature.html.twig' with {'proPost': proPost2, 'userPosts' : userPosts2} %}
+    </div>
+</div>
+{% endblock %}
+{% block pagescripts %}
+<script type="text/javascript" src="http://platform.tumblr.com/v1/share.js"></script>
+<script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+<script src="{{ asset('bundles/ologysocial/js/offline_comment.js') }}?ologyv=11" type="text/javascript"></script>
+<script src="{{ asset('bundles/ologysocial/js/likes_display.js') }}?ologyv=11" type="text/javascript"></script>
+<script src="{{ asset('bundles/ologysocial/js/offline_likes.js') }}?ologyv=11" type="text/javascript"></script>
+<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+<script type="text/javascript">
+$('#commentForm_content').val("");
+</script>
+{% endblock %}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ology - Sign in</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="{{ asset('bundles/ologysocial/js/ologize_it/ologize_it.js')}}"></script>
+        <link rel="stylesheet" href="{{ asset('bundles/ologysocial/js/ologize_it/ologize_it.css')}}" type="text/css" />
+    </head>
+    <body>
+        <script>
+            function goLogIn(){
+                window.location.href = "{{ path('_security_check') }}?s={{ src_dec }}&l={{ link_dec }}&t={{ title_dec }}&d={{ description_dec }}";
+                return false;
+            }
+            function onFbInit() {
+                if (typeof(FB) != 'undefined' && FB != null) {
+                    FB.Event.subscribe('auth.statusChange', function(response) {
+                        if (response.session || response.authResponse) {
+                            setTimeout(goLogIn, 500);
+                        } else {
+                            window.location.href = "{{ path('_security_logout') }}";
+                        }
+                    });
+                }
+            }
+        </script>
+        {{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
+        <div id="main_login">
+            
+            <div class="login-box">
+                <div class="ology_logo">
+                    <img src="{{ asset('bundles/ologysocial/js/ologize_it/ologize_post_logo.png') }}"/>
+                </div>
+                {% if login_error != '' %}
+                    <div id="message_box">
+                        {{ login_error }}
+                    </div>
+                {% endif %}
+                <div id="signin-box">
+                    <div class="facebook-signin">
+                         {% include 'OlogySocialBundle:FrontEnd:facebook_signin.html.twig' %}
+                    </div>
+                    <div class="twitter-signin">
+                        <a id="twitter-button" href="{{ path ('_website_twitter_check')}}?s={{ src_dec }}&l={{ link_dec }}&t={{ title_dec }}&d={{ description_dec }}"><img src="{{ asset('bundles/ologysocial/img/twitter_signin.png') }}"></a>
+                    </div>
+                </div>
+                <div class="or-line-breakup">
+                    <img id="line" src="{{ asset('bundles/ologysocial/img/line.png')}}"/>
+                    <span id="or-word">or</span>
+                    <img id="line" src="{{ asset('bundles/ologysocial/img/line.png')}}"/>
+                </div>
+            
+                <form action="{{ path('fos_user_security_check') }}" method="post" id="login-form">
+                    <input type="text" id="username" name="_username" placeholder="Email address" value="" />
+                    <input type="password" id="password" name="_password" placeholder="Password" value=""/>
+                    <input type="hidden" id="l" name="l" value="{{ link }}" />
+                    <input type="hidden" id="s" name="s" value="{{ src }}" />
+                    <input type="hidden" id="t" name="t" value="{{ title }}" />
+                    <input type="hidden" id="d" name="d" value="{{ description }}" />
+
+                    <div class="reset-pw"><a href="{{ path("_website_reset") }}" target="_blank">Forgot Password?</a></div>
+                    <div id="remember-login-box">
+                        <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                        <label for="remember_me" id="remember-me-label">Remember me</label>
+                    </div>    
+                    <div id="login-submit">
+                        <input type="submit" id="_submit" name="_submit" value="Login" />
+                    </div>
+                </form>                
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,6 @@
+imports:
+    - { resource: deployment.yml }
+    - { resource: redis.yml }
+    
+parameters:
+    default_comment_number: 10;

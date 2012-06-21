@@ -1,0 +1,14 @@
+{% for postStash in postsStashes %}
+    {% set post = postStash.post %}
+    {% if post.isProfessional %}
+        {% include 'OlogySocialBundle:FrontEnd:pro_post_card.html.twig' with {'post': post, 'large' : true } %}
+    {% else %}
+        {% include 'OlogySocialBundle:FrontEnd:post_card.html.twig' with {'post': post, 'cardNumber' : loop.index, 'large' : true } %}
+    {% endif %}
+{% endfor %}
+
+{% if scroll == true %}
+<div>
+    <a href="{{ path("_website_stash_pag", {'id' : id, 'offset' : nextPage, 'n' : n}) }}" class="navigation">NEXT</a>
+</div>
+{% endif %}

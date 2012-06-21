@@ -1,0 +1,17 @@
+<div id="stats">
+        {% if ology is defined %}
+                {% if stats.nbMembers <= 1%}
+                    <a href="{{ path("_website_ologist", {'id' : ology.id}) }}">{{ stats.nbMembers }} follower</a>
+                {% else %}
+                    <a href="{{ path("_website_ologist", {'id' : ology.id}) }}">{{ stats.nbMembers }} followers</a>
+                {% endif %}    
+        {% else %}
+                {% if stats.nbMembers <= 1%}
+                    {{ stats.nbMembers }} follower
+                {% else %}
+                    {{ stats.nbMembers }} followers
+                {% endif %}    
+        {% endif %}<br/>
+        {{ stats.nbPosts }} posts<br/>
+        {{ stats.nbComments }} comments
+</div>

@@ -1,0 +1,100 @@
+<?php
+
+namespace Ology\SocialBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="Following")
+ */
+class Following {
+    /**
+     * @ORM\Id
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="follower_id", referencedColumnName="id")
+     */
+    protected $follower;
+    
+    /**
+     * @ORM\Id
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="followee_id", referencedColumnName="id")
+     */
+    protected $followee;
+    
+    /**
+     * @ORM\Column(name="creation_date", type="datetime")
+     */
+    protected $creationDate;
+
+    function __construct()
+    {
+        $this->creationDate = new \DateTime('now');
+    }
+    
+    public function update($follower, $followee) {
+        $this->follower = $follower;
+        $this->followee = $followee;
+    }    
+    
+    /**
+     * Set creationDate
+     *
+     * @param datetime $creationDate
+     */
+    public function setCreationDate($creationDate)
+    {
+        $this->creationDate = $creationDate;
+    }
+
+    /**
+     * Get creationDate
+     *
+     * @return datetime 
+     */
+    public function getCreationDate()
+    {
+        return $this->creationDate;
+    }
+
+    /**
+     * Set follower
+     *
+     * @param Ology\SocialBundle\Entity\User $follower
+     */
+    public function setFollower(\Ology\SocialBundle\Entity\User $follower)
+    {
+        $this->follower = $follower;
+    }
+
+    /**
+     * Get follower
+     *
+     * @return Ology\SocialBundle\Entity\User 
+     */
+    public function getFollower()
+    {
+        return $this->follower;
+    }
+
+    /**
+     * Set followee
+     *
+     * @param Ology\SocialBundle\Entity\User $followee
+     */
+    public function setFollowee(\Ology\SocialBundle\Entity\User $followee)
+    {
+        $this->followee = $followee;
+    }
+
+    /**
+     * Get followee
+     *
+     * @return Ology\SocialBundle\Entity\User 
+     */
+    public function getFollowee()
+    {
+        return $this->followee;
+    }
+}

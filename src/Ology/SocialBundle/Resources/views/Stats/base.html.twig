@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>The ugly (but useful) stats page | My.Ology</title>
+        <link rel="shortcut icon" href="{{ asset('bundles/ologysocial/img/ology_favicon.png') }}" />
+    </head>
+    <body>
+        <table><tr>
+            <td><a href="{{ path("_stats_general") }}">General</a></td>
+            <td><a href="{{ path("_stats_users") }}">Users</td>
+            <td><a href="{{ path("_stats_labels") }}">Labels</td>
+            <td><a href="{{ path("_stats_ologies") }}">Ologies</td>
+            <td><a href="{{ path("_stats_posts") }}">Posts</td>
+            <td><a href="{{ path("_stats_comments") }}">Comments</td>
+            <td><a href="{{ path("_stats_invites") }}">Invites</td>
+            <td><a href="{{ path("_stats_notifs") }}">Notifications</td>
+            <td><a href="{{ path("_stats_follow") }}">Follows</td>
+        </tr></table>
+        {% block body %}{% endblock %}
+    </body>
+</html>

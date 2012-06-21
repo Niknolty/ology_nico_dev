@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">
+    {% for inc_sitemap in inc_sitemaps %}
+    <sitemap>
+        <loc>{{inc_sitemap.loc}}</loc>
+        <lastmod>{{inc_sitemap.lastmod}}</lastmod>
+    </sitemap>
+    {% endfor %}    
+</sitemapindex>

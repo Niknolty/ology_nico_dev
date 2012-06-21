@@ -1,0 +1,31 @@
+<span style="display: inline-block; border: 1px solid #000000; text-align: center;">
+<h1>{{ ology.name }}</h1>
+<img src="{{ asset(ology_original_image_path ~ ology.imageUrl) }}"  />
+<p style="text-align: center;">{{ology.description}}</p>
+</span>
+
+<br /><br /><br />
+<span>
+Tag ology: 
+<a href="{{ path('_ology_tag', {'id': ology.id, 'label_name': 'tv'}) }}">TV</a>
+ - 
+<a href="{{ path('_ology_tag', {'id': ology.id, 'label_name': 'music'}) }}">Music</a>
+ - 
+<a href="{{ path('_ology_tag', {'id': ology.id, 'label_name': 'sport'}) }}">Sports</a>
+ - 
+<a href="{{ path('_ology_tag', {'id': ology.id, 'label_name': 'planets'}) }}">Planets</a>
+</span>
+
+<br /><br /><br />
+
+<span>
+Join/Leave ology: 
+<a href="{{ path('_ology_join', {'id': ology.id}) }}">Join</a>
+<a href="{{ path('_ology_leave', {'id': ology.id}) }}">Leave</a>
+</span>
+
+<br /><br /><br />
+Stats<br/>
+nb members {{ stats.nbMembers }}<br/>
+nb posts {{ stats.nbPosts }}<br/>
+nb comments {{ stats.nbComments }}<br/>

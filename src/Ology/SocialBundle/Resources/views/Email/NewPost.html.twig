@@ -1,0 +1,5 @@
+{% extends 'OlogySocialBundle:Email:template.html.twig' %}
+{% block body %}
+Check out the new post in <a href="{{websiteUrl}}{{ path('_website_ology', {'id': ologyId}) }}">{{ ologyName }}</a>!
+"<a href="{{websiteUrl}}{{ path('_website_post', {'postId': postId}) }}">{{ postName }}</a>" by <a href="{{websiteUrl}}{{ path("_website_profile", {'id' : posterId}) }}">{{ posterName }}</a>.<br />
+{% endblock %}

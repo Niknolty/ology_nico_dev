@@ -1,0 +1,6 @@
+<form action="{{ path('_stash_create') }}" method="post" {{ form_enctype(form) }}>
+    
+    {% include 'OlogySocialBundle:Stash:form_content.html.twig' %}
+
+    <input type="submit" value="Create Stash" id="create-stash-button" class="invite-button" />
+</form>

@@ -1,0 +1,13 @@
+{% extends 'OlogySocialBundle:Email:template.html.twig' %}
+{% block body %}
+{% if msg is defined %}
+<p>Hey! <a href="{{websiteUrl}}{{ path("_website_profile", {'id' : inviterId}) }}">{{ inviterName }}</a> has invited you to join <a href="{{websiteUrl}}{{ path('_website_splash_invite_general', {'inviteId' : inviteId}) }}">Ology</a> and left you this message:</p>
+<p><b>{{ msg }}</b></p>
+{% else %}
+<p>Hey! <a href="{{websiteUrl}}{{ path("_website_profile", {'id' : inviterId}) }}">{{ inviterName }}</a> has invited you to join <a href="{{websiteUrl}}{{ path('_website_splash_invite_general', {'inviteId' : inviteId}) }}">Ology</a>.</p>
+{% endif %} 
+
+<p><a href="{{websiteUrl}}{{ path('_website_register_invite_general', {'inviteId' : inviteId}) }}">Accept your invite here</a>.</p>
+
+<p>Post, share, and discover in a single place. Your favorite TV show, an obscure indie band, or a local project you're a part of. Ology is all about you. Here you can express the things that have always interested you and always will.  It's not about where you've been or what you've done, it's about what you love.</p>
+{% endblock %}

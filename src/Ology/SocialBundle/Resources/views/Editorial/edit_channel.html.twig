@@ -1,0 +1,87 @@
+{% extends 'OlogySocialBundle:FrontEnd:base.html.twig' %}
+{% block page_header %}
+<link href="{{ asset('bundles/ologysocial/css/editors.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+
+{% block title %}Edit Channel | My.Ology{% endblock %}
+{% block body %}
+<div id="container">
+    <form action="{{ path('_editors_channel_store') }}" method="post" {{ form_enctype(channelForm) }} id="form-channel">
+        <div class="channel-edit">
+            {{ form_errors(channelForm) }}
+            <h3>Ads</h3>
+        	<div class="channel-ads">
+                        {{ form_row(channelForm.ad0) }}
+                        
+        		{{ form_row(channelForm.ad1) }}
+
+        		{{ form_row(channelForm.ad2) }}
+
+        		{{ form_row(channelForm.ad3) }}
+
+        		{{ form_row(channelForm.ad4) }}
+
+        		{{ form_row(channelForm.ad5) }}
+                        
+                        {{ form_row(channelForm.ad6) }}
+                        
+                        {{ form_row(channelForm.video) }}
+        	</div>
+        </div>
+        <div class="channel-edit">
+            <h3>Featured Posts</h3>
+        	<div class="article-ology-text">
+                    {{ form_row(channelForm.featuredPost1id) }}
+
+                    {{ form_row(channelForm.featuredPost2id) }}
+
+                    {{ form_row(channelForm.featuredPost3id) }}
+
+                    {{ form_row(channelForm.featuredPost4id) }}
+
+                    {{ form_row(channelForm.featuredPost5id) }}
+        	</div>
+            
+                {{ form_row(channelForm.stub) }}
+        </div>
+            
+        <div class="channel-edit">
+            <h3>Extra Posts</h3>
+        	<div class="article-ology-text">
+                    {{ form_row(channelForm.specialTitle) }}
+
+                    {{ form_row(channelForm.specialPost1id) }}
+
+                    {{ form_row(channelForm.specialPost2id) }}
+
+                    {{ form_row(channelForm.specialPost3id) }}
+        	</div>
+            
+                {{ form_row(channelForm.stub) }}
+        </div>
+
+        <div id="channel-edit-submit">
+            <input type="submit" value="Save" class="post-button" />
+        </div>
+    </form>
+    
+    <form action="{{ path('_editors_channel_add_post') }}" method="post" id="form-channel-add-post">
+        <div>
+            <h3>Add an existing post to the channel</h3>
+            <input type="text" name="curateForm[postId]"/><input type="hidden" name="curateForm[channelId]" value="{{ channel.id }}"/><input type="submit"/>
+        </div>
+    </form>
+    
+    <form action="{{ path('_editors_channel_remove_post') }}" method="post" id="form-channel-rem-post">
+        <div>
+            <h3>Remove an existing post from this channel</h3>
+            <input type="text" name="uncurateForm[postId]"/><input type="hidden" name="uncurateForm[channelId]" value="{{ channel.id }}"/><input type="submit"/>
+        </div>
+    </form>
+</div>
+{% endblock %}
+                        
+{% block pagescripts %}
+
+{% endblock %}

@@ -1,0 +1,36 @@
+<div class="likes-post">
+    <div class="show-love-post">
+    {% if app.user is not empty %}  
+        {% if (likes['isLoving'][post.id] == false) %} 
+            <a href="{{ path("_post_love", {'postId' : post.id}) }}" class="love-post"></a>     
+        {% elseif (likes['isLoving'][post.id] == true) %}
+            <a href="{{ path("_post_unlove", {'postId' : post.id}) }}" class="love-post-clicked"></a>
+        {% endif%}
+    {% else %}
+        <input id="{{ post.id }}" src="{{ asset('bundles/ologysocial/img/likes/love_post.png') }}" type="image"  method="post" class="love-click-offline"/>
+    {% endif %} 
+    </div>
+    <div class="show-hate-post">
+    {% if app.user is not empty %}
+        {% if (likes['isHating'][post.id] == false) %} 
+            <a href="{{ path("_post_hate", {'postId' : post.id}) }}" class="hate-post"></a>     
+        {% elseif (likes['isHating'][post.id] == true) %}
+            <a href="{{ path("_post_unhate", {'postId' : post.id}) }}" class="hate-post-clicked"></a>
+        {% endif %}    
+    {% else %}
+        <input id="{{ post.id }}" src="{{ asset('bundles/ologysocial/img/likes/hate_post.png') }}" type="image" method="post" class="hate-click-offline"/>
+    {% endif %}
+    </div>
+
+    <div class="show-hmm-post">
+    {% if app.user is not empty %}
+        {% if (likes['isHmm'][post.id] == false) %} 
+            <a href="{{ path("_post_hmm", {'postId' : post.id}) }}" class="hmm-post"></a>     
+        {% elseif (likes['isHmm'][post.id] == true) and (likes['isLoving'][post.id] == false) and (likes['isHating'][post.id] == false)%}
+            <a href="{{ path("_post_unhmm", {'postId' : post.id}) }}" class="hmm-post-clicked"></a>
+        {% endif%}
+    {% else %}
+        <input id="{{ post.id }}" src="{{ asset('bundles/ologysocial/img/likes/hmm_post.png') }}" type="image" method="post" class="hmm-click-offline"/>
+    {% endif %}
+    </div>
+</div>

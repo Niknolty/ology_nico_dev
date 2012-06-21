@@ -1,0 +1,17 @@
+{% if (post.timesCommented > 0) %}
+    <div class="comments-count">
+        &nbsp;{{ post.timesCommented }} comment{{ post.timesCommented == 1 ? '' : 's' }}
+    </div>
+{% endif %}
+
+    <div class="loves-count" style="{% if post.timesLoved == 0 %}display: none;{% endif %}"> 
+        &nbsp;{{ post.timesLoved }} love{{ post.timesLoved == 1 ? '' : 's' }}&nbsp;
+    </div>
+
+    <div class="hates-count" style="{% if post.timesHated == 0 %}display: none;{% endif %}">
+        &nbsp;{{ post.timesHated }} hate{{ post.timesHated == 1 ? '' : 's' }}&nbsp;
+    </div>
+
+    <div class="hmms-count" style="{% if post.timesHmm == 0 %}display: none;{% endif %}">
+        &nbsp;{{ post.timesHmm }} hmm{{ post.timesHmm == 1 ? '' : 's' }}&nbsp;
+    </div>    

@@ -1,0 +1,108 @@
+<div class="pro post pics {{ post.firstOlogy.id }}">
+    <div class="post-content">
+        {% if large is defined %}
+        <a href="{{ path("_website_post", {'postId' : post.id, 'slug' : post.slug}) }}">{{ image_tag(asset(post_medium_image_path ~ post.imageUrl)) }}</a>
+        {% else %}
+        <a href="{{ path("_website_post", {'postId' : post.id, 'slug' : post.slug}) }}">{{ image_tag(asset(post_small_image_path ~ post.imageUrl)) }}</a>
+        {% endif %}
+        
+        {% if unStashable is defined and unStashable %}
+            <div class="stash-delete-card"><a class="stash-delete-card-link" href="{{ path("_stash_unstash", {'stashId' : stashId, 'postId' : post.id}) }}"><img src="{{ asset('bundles/ologysocial/img/close_button.png') }}"/></a></div>
+        {% endif %}
+        {% include 'OlogySocialBundle:FrontEnd:reologize_button.html.twig' %}
+        
+        {% if displayology is defined %}
+            {% if large is defined %}
+            <div class="large-overlay">
+            {% else %}
+            <div class="channel-overlay">
+            {% endif %}
+            Posted in <a href="{{ path("_website_ology", {'id' : post.firstOlogy.id, 'slug' : post.firstOlogy.slug}) }}">{{ post.firstOlogy.name }}</a>
+            </div>
+        {% endif %}
+        	
+        {% include 'OlogySocialBundle:Likes:ShowLikesCard.html.twig' %}
+        
+        <h3><a href="{{ path("_website_post", {'postId' : post.id, 'slug' : post.slug}) }}">{{ post.htmlTitle|raw }}</a></h3>
+        
+        <p class="card-txt">
+            {{ post.summary|nl2br() }}
+        </p>
+
+        <hr align="center" width="90%" color="C5C5C5" size="1"/>
+        <div class="user-img">
+            <a href="{{ path("_website_profile", {'id' : post.author.id}) }}">{{ image_tag(asset(user_small_image_path ~ post.author.imageUrl), {'class': 'user-pic'}) }}</a>
+        </div>
+
+        <div class="pro-small">
+            Posted by
+            <a href="{{ path("_website_profile", {'id' : post.author.id}) }}" class="user-popupable" pid="{{ post.author.id }}">
+                {% set firstname_length =  post.author.firstName|length %}
+                {% set lastname_length =  post.author.lastName|length %}
+                {% if (firstname_length + lastname_length) >= 15 %} 
+                    {{ (post.author.firstName~' '~post.author.lastName)|truncate(15, false, "...")}}
+                {% else %}   
+                    {{post.author.firstName}} {{post.author.lastName}}
+                {% endif %}      
+            </a><br />
+            {{ post.author.editorTitle }}<br />
+            in <a href="{{ path("_website_ology", {'id' : post.firstOlogy.id, 'slug' : post.firstOlogy.slug}) }}">{{ post.firstOlogy.name }}</a><br/>
+        </div>
+        
+        {# Show the reologized user and infos #}
+        {% include 'OlogySocialBundle:FrontEnd:reologized.html.twig' %}
+        
+        {# Show the number of comment/like/hate/hmm under the card #}
+        {% include 'OlogySocialBundle:Likes:ShowStats.html.twig' %}     
+    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+    {% if loggedIn %}
+        {% if commentForm[post.id] is defined %}
+            <div id="comment-form-{{post.id}}" class="inline-comment-form" href="{{ path("_website_post_ajax_comments", {'postId' : post.id, 'slug' : post.slug}) }}">
+                {% include 'OlogySocialBundle:Comment:inline_create.html.twig' with {'form' : commentForm[post.id] } %}
+            </div>
+        {% endif %}
+    {% else %}
+        {% include 'OlogySocialBundle:Comment:inline_create.html.twig' with {'form' : commentForm[post.id], 'showprompt' : true} %}
+    {% endif %}
+    
+                    
+    {% if commentPost[post.id] is defined %}
+        <div class="two-first-comment">
+        {% for comment in commentPost[post.id] %}
+            <div class="post-card-comment"> <a name="comments">
+                <div class="user-img">
+                    <a href="{{ path("_website_profile", {'id' : comment.author.id}) }}">
+                        <img src="{{ asset('bundles/ologysocial/up/img/user/user_small/' ~ comment.author.imageUrl) }}">
+                    </a>
+                </div>
+                <p class="commentp"><a href="{{ path("_website_profile", {'id' : comment.author.id}) }}">{{ comment.author.firstName }}</a> 
+                {% if comment.content|length <= 140 %}
+                    {{ comment.content|nl2br() }}
+                {% else %}
+                    {{ comment.content|truncate(140, false, "...") }} 
+                {% endif %}
+                </p>
+            </div>
+        {% endfor %}  
+        </div>        
+    {% endif %}    
+        
+        
+        
+    <div class="show-comments">
+        {% if cardNumber is defined and cardNumber == 2 %}
+            {% include 'OlogySocialBundle:Tips:comment_tip.html.twig' %}
+        {% endif %}
+          {% if post.timesCommented > 2 %}
+            <div  class="show-postcard-comments" href="{{ path("_website_post_ajax_comments", {'postId' : post.id, 'slug' : post.slug}) }}">
+                show comments
+            </div>
+          {% endif %}
+    </div>                 
+</div>

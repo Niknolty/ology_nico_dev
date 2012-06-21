@@ -1,0 +1,95 @@
+<?php
+
+namespace Ology\SocialBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="UserProfiles")
+ */
+class UserProfile {
+    
+    /**
+     * @ORM\Id
+     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id") 
+     */
+    protected $user;
+    
+    /**
+     * @ORM\Column(name="first_name", type="string", length="255")
+     */
+    protected $firstName;
+    
+    /**
+     * @ORM\Column(name="last_name", type="string", length="255")
+     */
+    protected $lastName;
+    
+    public function update($firstName, $lastName)
+    {
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
+    }
+
+    /**
+     * Set firstName
+     *
+     * @param string $firstName
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+    }
+
+    /**
+     * Get firstName
+     *
+     * @return string 
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * Set lastName
+     *
+     * @param string $lastName
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+    }
+
+    /**
+     * Get lastName
+     *
+     * @return string 
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * Set user
+     *
+     * @param Ology\SocialBundle\Entity\User $user
+     */
+    public function setUser(\Ology\SocialBundle\Entity\User $user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * Get user
+     *
+     * @return Ology\SocialBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+}

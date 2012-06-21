@@ -1,0 +1,10 @@
+<table>
+    <tr><td>id</td><td>name</td><td>picture</td></tr>
+{% for user in users %}
+    <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td><img src="{{ asset(user_original_image_path ~ 'default.jpg') }}"  /></td>
+    </tr>
+{% endfor %}
+</table>

@@ -1,0 +1,10 @@
+{% if user.getShowStartedBar is defined and user.getShowStartedBar == TRUE %}
+<div class="dock-bar">
+    <h1>Ology 101: What should I do now?</h1>
+    <div>
+        <a href="{{ path('_website_onboarding', {'step' : 2}) }}">
+            <img id="get-started-button" src="{{ asset('bundles/ologysocial/img/button_get_started.png') }}"></img>
+        </a>
+    </div>
+</div>
+{% endif %}

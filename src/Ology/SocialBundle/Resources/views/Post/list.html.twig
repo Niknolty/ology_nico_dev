@@ -1,0 +1,28 @@
+{% if posts|length == 0 and nextPage == 1 %}
+    <br/><br/>
+    No one has started the {{ searchTerm }} Ology yet. 
+    {% if loggedIn %}
+        <a href="{{ path("_website_create_ology_byname", {'name' : searchTerm}) }}">Why don't you start it today?</a>
+    {% else %}
+        <a href="{{ path("_website_register") }}">Why don't you join and start it today?</a>
+    {% endif %}
+{% else %}
+    {% for post in posts %}
+        {% if post.isProfessional %}
+            {% include 'OlogySocialBundle:FrontEnd:pro_post_card.html.twig' with {'post': post, 'large' : true } %}
+        {% else %}
+            {% include 'OlogySocialBundle:FrontEnd:post_card.html.twig' with {'post': post, 'large' : true } %}
+        {% endif %}
+    {% endfor %}
+    {% if posts|length < 5 and nextPage == 1 %}
+        <div class="post text masonry-brick">
+            Looks like there is not much going on here.<br/>
+            <a href="{{ path("_website_ology", {'id' : posts[0].firstOlogy.id, 'slug' : posts[0].firstOlogy.slug}) }}">Why don't you post something?</a>
+        </div>
+    {% endif %}
+{% endif %}
+{% if scroll %}
+  <div>
+      <a href="{{ path("_website_splash_ology_pag", {'offset' : nextPage, 'n' : n, 'ologyPrefix' : ologyPrefix}) }}" id="next" class="navigation">NEXT</a>
+  </div>
+{% endif %}

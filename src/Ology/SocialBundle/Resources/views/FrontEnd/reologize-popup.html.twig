@@ -1,0 +1,24 @@
+<div class="reologize-popup" title="<img id='reologize-icon' src='{{ asset('bundles/ologysocial/img/reologize_icon_gray.jpg') }}'/><div id='reologize-title'>ReOlogize It:</div>">
+    <div id="reologize-form">
+        <h2>Ologies</h2>
+        <div class="reologize-ologies">
+            {% for ology in ologies %}
+                <div ology-id="{{ ology.id }}" ologyOrStash="ology" class="not-selected">
+                    {{ ology.name }}
+                </div>
+            {% endfor %}
+        </div>
+        <h2>Stashes</h2>
+        <div class="reologize-stashes">
+            {% for stash in stashes %}
+                <div stash-id="{{ stash.id }}" ologyOrStash="stash" class="not-selected">
+                    {{ stash.name }}
+                </div>
+            {% endfor %}
+        </div>
+        <input type="hidden" id="post-id" value="{{ postId }}"/>
+        <input type="hidden" id="hidden-ology" name="hidden-ologies" value="0"/>
+        <input type="hidden" id="hidden-stash" name="hidden-stashes" value="0"/>
+        <input type="submit" id="reologize-submit" value="ReOlogize"/>
+    </div>
+</div>

@@ -1,0 +1,321 @@
+#most-viewed-container {
+    width:300px;
+}
+
+#most-viewed-container h2 {
+  font-family: EgyptienneURW-Med, sans-serif;
+  text-align:left;
+  padding-top:5px;
+  margin-bottom:10px;
+}
+
+.most-viewed-item {
+    height: 65px;
+} 
+
+.most-viewed-item .most-viewed-item-number {
+    font-family: EgyptienneURW-Lig;
+    font-size: 59px;
+    float: left;
+    width: 46px;
+    margin-top: 21px;
+}
+
+.most-viewed-item .most-viewed-item-image {
+    float: left;
+    width: 70px;
+}
+
+.most-viewed-item .most-viewed-item-text {
+    font-size: 10px;
+    float: left;
+    width: 184px;
+}
+
+#never-miss-a-thing {
+    border-top: 5px #CCC solid;
+    margin-top: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    position: relative;
+    left: -2px;
+    width: 102%;
+    height: 35px;
+}
+
+#never-miss-a-thing span
+{
+    font-family: EgyptienneURW-Med, sans-serif;
+    font-size: 20px;
+    display: block;
+    width: 154px;
+    float: left;
+    text-align: center;
+}
+
+#never-miss-a-thing a
+{
+    float: left;
+    margin-right: 5px;
+}
+
+#featured-post {
+    border-top: 5px #CCC solid;
+    position: relative;
+    left: -2px;
+    width: 99%;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+#featured-post .h2 {
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+.featured-ology-post {
+    width: 265px;
+    height: 200px;
+    float: left;
+    margin-left: 25px;
+}
+
+.ology-featured-desc-post {
+  margin:0;
+  margin-left: 15px;
+  font-size:11px;
+  line-height:1.1em;
+  display:block;
+  width:140px;
+  float: left;
+  height:95px;
+  margin-bottom:5px;
+  overflow:hidden;
+  text-align:left;
+}
+
+#featured-post .follow {
+  display:block;
+  width:120px;
+  margin:0 auto;
+  padding:10 0px;
+  background:#d4f77a;
+  text-align:center;
+  font-size:14px;
+  height:26px;
+  border:1px solid #ccc;
+  background-image:url("sprite.png");
+  background-repeat:no-repeat;
+  background-position:-2px -78px;
+}
+#featured-post .follow:hover{
+  background-color:#d4f66a;
+}
+#featured-post .unfollow {
+  display:block;
+  width:120px;
+  margin:0 auto;
+  background:#f1f1f1;
+  text-align:center;
+  font-size:14px;
+  height:26px;
+  border:1px solid #ccc;
+  background-image:url("sprite.png");
+  background-repeat:no-repeat;
+  background-position:-2px -110px;
+}
+#featured-post .unfollow:hover {
+  display:block;
+  width:120px;
+  margin:0 auto;
+  background:#ccc;
+  color:#ccc;
+  text-align:center;
+  font-size:14px;
+  border:1px solid #ccc;
+  text-decoration:none;
+  background-image:url("sprite.png");
+  background-repeat:no-repeat;
+  background-position:42px -150px;
+}
+
+#pro-post-container-more-author-bottom{
+    border-top: 5px #CCC solid;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    position: relative;
+    left: -2px;
+    width: 102%;
+    height: auto;
+}
+
+#more-from-the-author{
+    margin-top: 30px;
+    padding-left: 8px;
+    height: auto;
+}
+
+#pro-post-container-more-author-bottom #more-from-the-author-posts .more-from-the-author-posts-item .more-from-the-author-posts-item-white h3{
+    width: 150px;
+    overflow: hidden;
+    margin: 0;
+}
+
+#pro-post-container-more-author-bottom #more-from-the-author-posts .more-from-the-author-posts-item .more-from-the-author-posts-item-white a{
+    width: 150px;
+    overflow: hidden; 
+}
+
+#pro-post-container-more-author-bottom #more-from-the-author .post-content{
+  background-color:#ffffff;
+  padding: 2px;
+  border-right: 2px solid #fff;
+}
+
+
+#more-from-the-author-posts{
+  margin-top:10px;
+  position: relative;
+  height:350px;
+  width:600px;
+  padding:5px 10px 10px 10px;
+}
+
+
+.more-from-the-author-posts-item-white{
+  float: left;
+  width:155px;
+  height:auto;
+  background-color: #ffffff;
+  padding: 5px;
+}
+
+
+.more-from-the-author-posts-item-white a img{
+    width: 150px;
+    height: 150px;
+    margin-left: 2px;
+}
+
+.more-from-the-author-posts-item{
+  float: left;
+  width:165px;
+  height:auto;
+  position: relative;
+  background-color: #DDD;
+  margin-right:13px;
+  margin-top: 7px;
+  overflow: hidden;
+  padding: 5px;
+}
+
+#big-post-sidebar{
+    float: left;
+    height: auto;
+    margin-right: 4px;
+    margin-top: 11px;
+    position:relative;
+    width: 230px;
+}
+
+#post-sidebar{
+    float: left;
+    height: auto;
+    margin-right: 4px;
+    /*margin-top: 0;*/
+    /*position: fixed;*/
+    width: 230px;
+}
+
+#post-sidebar-follow-ology{
+    width: 220px;
+    border: 1px solid #CCCCCC;
+    margin: auto;
+    margin-top: 4px;
+    font-size: 18px;
+    color: black;
+    text-transform: capitalize;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-family: EgyptienneURW-Med,sans-serif;
+    box-shadow: 1px 1px #CCCCCC;
+}
+
+.post-sidebar-follow-ology-text{
+    font-size: 12px;
+    color: black;
+    font-family: Verdana,sans-serif;
+}
+
+#post-sidebar-infos{
+    width: 220px;
+    border: 1px solid #CCCCCC;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    margin-right: auto;
+    margin-left: auto;
+    position: relative;
+    box-shadow: 1px 1px #CCCCCC;
+}
+
+.get-previous-post,
+.no-previous-post
+{
+    border-top: none;
+    border-left: none;
+    border-bottom: none;
+    border-right: 2px solid #CCCCCC;
+    float: left;
+    text-align: center;
+    display: block;
+    width: 25%;
+    height: 50px;
+    font-family: Verdana;
+    margin-right: 2px;
+    margin-left: 1px;
+    background-color: white;
+    font-size: 11px;
+    white-space: normal;
+}
+
+.get-next-post,
+.no-next-post{
+    border-left: 2px solid #CCCCCC;
+    border-top:none;
+    border-bottom: none;
+    border-right: none; 
+    float: left;
+    text-align: center;
+    display: block;
+    width: 25%;
+    height: 50px;
+    font-family: Verdana;
+    margin-right: 2px;
+    margin-left: 1px;
+    background-color: white;
+    font-size: 11px;
+    white-space: normal;
+}
+
+.back-to-current-ology{
+    display: block;
+    border: none;
+    text-align: center;
+    height: 50px;
+    width: 48%;
+    float:left;
+    font-family: Verdana;
+    color: grey;
+    margin-right: 2px;
+    background-color: white;
+    font-size: 12px;
+}
+
+.back-to-current-ology:hover,
+.get-next-post:hover,
+.get-previous-post:hover
+{
+    cursor:pointer;
+    /*border-style: inset;*/
+}

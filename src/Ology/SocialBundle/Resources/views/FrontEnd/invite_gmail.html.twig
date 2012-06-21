@@ -1,0 +1,76 @@
+{% extends 'OlogySocialBundle:FrontEnd:base.html.twig' %}
+{% block title %}Invite | Ology{% endblock %}
+{% block body %}
+{% if loggedIn == true %}
+	<div id='page'>
+            {% include 'OlogySocialBundle:FrontEnd:dock.html.twig' %}
+	</div>
+{% endif %}
+
+<div id="container">
+    <div id="invite-box-main">
+        <h2>Invite your Gmail friends</h2>
+
+            {% if error is defined %}
+                <div style="background-color: red; color: white; padding:5px;">
+                    We could not import your contacts, please try again.
+                </div>
+            {% endif %}
+
+            <h3> Step 1: Authorize Ology to grab your gmail contacts: </h3>
+            <p><a href="https://www.google.com/accounts/AuthSubRequest?scope=http%3A%2F%2Fwww.google.com%2Fm8%2Ffeeds%2F&session=1&secure=0&next={{ url }}{{ path('_website_invite_gmail')}}">Click to Authorize </a>
+            </p>
+
+
+        {% if contacts is defined %}
+
+        <h3>Step 2: Choose which contacts you want to invite:</h3>
+        <p>
+        Ology will not store your password nor your contact list.
+        </p>
+
+        <form action="{{ path('_website_invite_gmail_send') }}" method="post">
+            <div style="width: 450px; height: 300px; overflow-y: scroll; background:#fff;">
+                <ul>
+                    {% for name, id in contacts %}
+                        <li>
+                            <input type="checkbox" name="friends[]" value="{{id}}"/>{{ name}}
+                        </li>
+                    {% endfor %}
+                </ul>
+             </div>
+            
+            <div id="invite-form">
+            <br />
+            <h3>Invite to:</h3>
+            {{ form_row(inviteForm.ologyId) }} <br/>
+            
+            <h3>Include a personal message:</h3>
+            {{ form_row(inviteForm.msg) }}
+            <br />
+            <div id="invite-button" >
+                <br />
+                <input type="submit" value="Send" class="invite-button" />
+                <p>Only click the send button once or invites will be sent multiple times.</p>
+            </div>
+
+
+
+            </div>
+        </form>
+    </div>
+{% endif %}
+</div>
+{% endblock %}
+                        
+{% block pagescripts %}
+<script type="text/javascript">
+    $('#inviteForm_ologyId').prepend(
+        $('<option></option>').val(-1).html('Entire site')
+    );
+    $("#inviteForm_ologyId").val(-1);
+</script>
+{% endblock %}
+
+
+

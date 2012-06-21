@@ -1,0 +1,32 @@
+{% extends 'OlogySocialBundle:FrontEnd:base.html.twig' %}
+
+{% block title %}Ology is all about passion{% endblock %}
+
+{% block body %}
+<div id="container">
+    <div id="invite-box-main" class="merge-form">
+        {% if mergeform is defined %}
+        <h2>Merge your logins </h2>
+        <h3>Hey! We already have a user with this address.</h3>
+            {% if error is defined %}
+                <div id="merge-error">
+                    {{ error }} 
+                    <p>Please try again.</p>
+                </div>
+            {% else %}
+            <div>
+                Please enter your password and verify that it's you so we can link you to your old account.
+            </div>
+            {% endif %}
+        <form action="{{ path('_website_merge_facebook') }}" method="post" id="login-form">
+            {{ form_row(mergeform.plainPassword) }}
+            <br />
+            <input type="submit" id="_submit-facebook" name="_submit" value="Merge my accounts" /><br /><br /><br />
+        </form>
+        <div>
+            <a href="{{ path("_website_splash", {'openFacebookPopup' : true}) }}">I don't want to merge, give me a chance to put a new email</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+<?php
+
+namespace Ology\SocialBundle\Resources\config;
+
+class config_path {
+    const PATH_FILES = '/mnt/projects/ology/Ology/web/bundles/ologysocial/up/img';
+    const USER_IMG_DIR = '/user/';
+    const USER_IMG_PREFIX = 'user_';
+    const USER_IMG_BIG = 250;
+    const USER_IMG_MED = 60;
+    const USER_IMG_SMA = 30;
+    const USER_IMG_DEFAULT = 'default.jpg';
+}
+
+?>

@@ -1,0 +1,13 @@
+<p>Results for research: {{ search }}</p>
+Post
+<table border="5" width=1000 >
+        {% for post in posts %}
+            <tr  height=30px >
+                <td>{{ post.id }}</td>
+                <!-- <td>{ { ol.founder } }</td> -->
+                <td>{{ post.title }} </td>
+                <td>{{ post.textContent }}</td>
+                <td>{{ post.creationDate }}</td>
+            </tr>
+        {% endfor %}
+<table>

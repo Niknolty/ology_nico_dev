@@ -1,0 +1,17 @@
+<div class="post">
+    <div class="post-content">
+        <div class="post-cat-info">
+            <a href="{{ path('_website_channel', {'stub' : coreOlogy.stub}) }}">
+                {{ image_tag(asset('bundles/ologysocial/img/channels/' ~ coreOlogy.imageLogo)) }}
+            </a>
+            <h2><a href="{{ path('_website_channel', {'stub' : coreOlogy.stub}) }}">{{ coreOlogy.name }}</a></h2>
+        </div>
+
+        {% if subscriptions[coreOlogy.id] is defined %}
+            <a href="{{ path('_website_channel_unsubscription', {'channelId': coreOlogy.id}) }}" class="unfollow"></a>
+        {% else %}
+            <a href="{{ path('_website_channel_subscription', {'channelId': coreOlogy.id}) }}" class="follow"></a>
+        {% endif %}
+        <br>
+    </div>
+</div>

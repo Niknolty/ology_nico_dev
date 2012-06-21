@@ -1,0 +1,6 @@
+<form action="{{ path('_post_store_obj') }}" method="post" {{ form_enctype(postForm) }} id="form-post">
+    {% include 'OlogySocialBundle:FrontEnd:post_form_content.html.twig' %}
+    {% include 'OlogySocialBundle:Tips:attach_media_tip.html.twig' %}
+    <div class="cancel">Cancel</div>
+    <input type="button" value="Post (Ologize)" id="post-button-home" class="post-button" />
+</form>

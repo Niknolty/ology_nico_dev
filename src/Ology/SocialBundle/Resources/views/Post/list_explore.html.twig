@@ -1,0 +1,50 @@
+    {% for ology in ologies %}
+      <div class="post">
+        <div class="post-content">
+          <div class="post-cat-info">
+            <a href="{{ path("_website_ology", {'id' : ology.id, 'slug' : ology.slug}) }}">
+              {{ image_tag(asset(ology_medium_image_path ~ ology.imageUrl)) }}
+            </a>
+            <h2><a href="{{ path("_website_ology", {'id' : ology.id, 'slug' : ology.slug}) }}">{{ ology.name }}</a></h2>
+            {% if ology.ologylabels|length > 0 %}
+               <span class="category-small">{{ ology.ologylabels[0].label.name }}</span>
+            {% endif %}
+          </div>
+
+        {% if loggedIn %}
+          {% if memberships[ology.id] is defined %}
+            <a href="{{ path('_ology_leave', {'id': ology.id}) }}" class="unfollow"></a>
+          {% else %}
+            <a href="{{ path('_ology_join', {'id': ology.id}) }}" class="follow"></a>
+          {% endif %}
+        {% endif %}
+          <div class="explore-description">
+            {{ ology.description }}
+          </div>
+
+          <div class="founder-section">
+          <a href="{{ path("_website_profile", {'id' : ology.founder.id}) }}">
+            {{ image_tag(asset(user_medium_image_path ~ ology.founder.imageUrl)) }}
+          </a>
+            Founded by<br /> 
+            <h3><a href="{{ path("_website_profile", {'id' : ology.founder.id}) }}">
+              {{ology.founder.firstname}} {{ology.founder.lastname}}
+            </a></h3>
+          </div> 
+
+          {% include 'OlogySocialBundle:FrontEnd:ology_stats.html.twig' with {'stats': statss[ology.id]} %}
+      </div>
+      </div>
+    {% endfor %}
+
+    {% if scroll %}
+        <div>
+            {% if type == 'labels' %}
+                <a href="{{ path("_website_explore_pag", {'offset' : nextPage, 'n' : n, 'labels' : labels}) }}" id="next" class="navigation">NEXT</a>
+            {% elseif type == 'recent' %}
+                <a href="{{ path("_website_explore_recent_pag", {'offset' : nextPage, 'n' : n}) }}" id="next" class="navigation">NEXT</a>
+            {% elseif type == 'you' %}
+                <a href="{{ path("_website_explore_you_pag", {'offset' : nextPage, 'n' : n}) }}" id="next" class="navigation">NEXT</a>
+            {% endif %}
+        </div>
+    {% endif %}

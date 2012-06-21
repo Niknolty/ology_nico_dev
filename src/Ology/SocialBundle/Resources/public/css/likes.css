@@ -1,0 +1,169 @@
+/* 
+    Document   : likes
+    Created on : Apr 10, 2012, 12:16:41 PM
+    Author     : raphael
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.likes-card{
+    display:    none;
+    position:   absolute;
+    right:      -12px;
+    bottom:     50px;
+    overflow:   visible !important;
+    z-index:    10;
+    background-repeat:no-repeat;
+}
+
+.love-card{
+    background-image:url("../img/likes/love_card.png");
+    display:    block;
+    height:     41px;
+    width:      50px;
+}
+
+.love-card:active, .love-card-clicked:active{
+    background-image:url("../img/likes/love_card_mid.png");
+}
+
+.love-card-clicked{
+    background-image:url("../img/likes/love_card_clicked.png");
+    display:    block;
+    height:     41px;
+    width:      50px;
+}
+.hate-card{
+    background-image:url("../img/likes/hate_card.png");
+    display:    block;
+    height:     41px;
+    width:      50px;
+}
+.hate-card:active, .hate-card-clicked:active{
+    background-image:url("../img/likes/hate_card_mid.png");
+}
+
+.hate-card-clicked{
+    background-image:url("../img/likes/hate_card_clicked.png");
+    display:    block;
+    height:     41px;
+    width:      50px;
+}
+.hmm-card{
+    background-image:url("../img/likes/hmm_card.png");
+    display:    block;
+    height:     41px;
+    width:      50px;
+}
+.hmm-card:active, .hmm-card-clicked:active{
+    background-image:url("../img/likes/hmm_card_mid.png");
+}
+
+.hmm-card-clicked{
+    background-image:url("../img/likes/hmm_card_clicked.png");
+    display:    block;
+    height:     41px;
+    width:      50px;
+}
+
+.love-post{
+    background-image:url("../img/likes/love_post.png");
+    display:    block;
+    height:     54px;
+    width:      68px;
+}
+.love-post:active, .love-post-clicked:active{
+    background-image:url("../img/likes/love_post_mid.png");
+}
+.love-post-clicked{
+    background-image:url("../img/likes/love_post_clicked.png");
+    display:    block;
+    height:     54px;
+    width:      68px;
+}
+.hate-post{
+    background-image:url("../img/likes/hate_post.png");
+    display:    block;
+    height:     54px;
+    width:      68px;
+}
+.hate-post:active, .hate-post-clicked:active{
+    background-image:url("../img/likes/hate_post_mid.png");
+}
+.hate-post-clicked{
+    background-image:url("../img/likes/hate_post_clicked.png");
+    display:    block;
+    height:     54px;
+    width:      68px;
+}
+.hmm-post{
+    background-image:url("../img/likes/hmm_post.png");
+    display:    block;
+    height:     54px;
+    width:      68px;
+}
+
+.hmm-post:active, .hmm-post-clicked:active{
+    background-image:url("../img/likes/hmm_post_mid.png");
+}
+
+.hmm-post-clicked{
+    background-image:url("../img/likes/hmm_post_clicked.png");
+    display:    block;
+    height:     54px;
+    width:      68px;
+}
+
+.show-love-post, .show-hate-post, .show-hmm-post{
+    display:    inline-block;
+}
+
+.hate-click-offline, .hmm-click-offline{
+    border:     none;
+    padding:    0;
+    margin-left:  -10px;
+}
+
+.love-click-offline{
+    border:     none;
+    padding:    0;
+    margin-left: -10px;
+}
+
+
+#post-sidebar-infos .love-click-offline{
+    border:     none;
+    padding:    0;
+    margin-left: 6px;   
+}
+
+
+/* Nico CSS */
+
+.love-imgs, .hate-imgs, .hmm-imgs{
+    padding:    5px;
+    position:   relative;
+    clear:      left;   
+}
+
+#post-sidebar #post-sidebar-infos .post-likes{
+    display:    inline-block;
+    padding:    5px;
+    position:   relative;
+    width: 212px;
+}
+
+
+#post-sidebar #post-sidebar-infos .list-people-like{
+    padding-right:    5px;
+    padding-left: 5px;
+    text-align: center;
+}
+
+.comments-count, .loves-count, .hates-count, .hmms-count{
+   display: inline-block;
+   font-size: 9px;
+   width: auto;
+   height: auto;
+}
+

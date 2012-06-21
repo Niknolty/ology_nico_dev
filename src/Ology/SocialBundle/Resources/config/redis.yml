@@ -1,0 +1,19 @@
+snc_redis:
+    clients: 
+        default:
+            type: predis
+            alias: default
+            dsn: redis://%redis-server%:%redis-port%
+            options:
+               profile: 2.4
+
+        session:
+            type: predis
+            alias: session
+            dsn: redis://%redis-server%:%redis-port%/1
+            options:
+               profile: 2.4
+            
+    session:
+        client: session
+        use_as_default: true

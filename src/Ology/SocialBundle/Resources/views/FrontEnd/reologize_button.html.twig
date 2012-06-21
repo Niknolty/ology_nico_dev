@@ -1,0 +1,7 @@
+{% if loggedIn %}
+    <a href="{{ path("_post_reologize_popup", {'id' : post.id}) }}" class="reologize-link reologize-card">
+        <img src="{{ asset('bundles/ologysocial/img/reologize_icon_gray.jpg') }}" />
+        ReOlogize
+    </a>
+    <div class="mypopup"></div>
+{% endif %}

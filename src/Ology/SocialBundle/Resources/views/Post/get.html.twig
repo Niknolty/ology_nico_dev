@@ -1,0 +1,44 @@
+<span style="display: inline-block; border: 1px solid #000000;">
+<h1 style="text-align: center;"><a href="{{ path('_post_get', {'id': post.id})}}">{{ post.title }}</a></h1>
+<h3>Posted in <a href="{{ path('_ology_get', {'id': post.id})}}">{{post.firstOlogy.name}}</a></h3>
+<h3>Written by {{post.author}} on {{post.creationDate|date("m/d/Y H:m:s")}} </h3>
+{% if post.postType.id == 3 %}
+<div style="text-align: center;">
+    <img src="{{ asset(post_medium_image_path ~ post.imageUrl) }}"  />
+</div>
+{% endif %}
+{% if post.postType.id == 4 %}
+  <iframe src="http://www.youtube.com/embed/{{ post.videoUrl }}" frameborder="0" allowfullscreen></iframe>
+{% endif %}
+{% if post.postType.id == 5 %}
+<audio controls="controls">
+  <source src="{{ asset(post_audio_path ~ post.audioUrl) }}" type="audio/ogg" />
+  Your browser does not support the audio element. Sorry.
+</audio>
+{% endif %}                                              
+    <p>{{ post.textContent|nl2br() }}</p>
+<br />
+{% if post.firstOlogy.ologylabels|length > 0 %}
+Category (label): {{ post.firstOlogy.ologylabels[0].label.name }}
+{% endif %}
+<br />
+Commented {{ post.timesCommented }} times
+</span>
+
+{% if comments is defined %}
+<br /><br /><br /><br />
+<table>
+<tr>
+    <td><b>User</b></td>
+    <td><b>Comment</b></td>
+    <td><b>Date</b></td>
+</tr>
+{% for comment in comments %}
+<tr>
+    <td>UserXXX</td>
+    <td>{{ comment.content }}</td>
+    <td>{{ comment.creationDate|date("m/d/Y h:m:s") }}</td>
+</tr>
+{% endfor %}
+</table>
+{% endif %}

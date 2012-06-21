@@ -1,0 +1,53 @@
+{% if postForm is defined %}
+	<form action="{{ path('_post_edit_id', { 'id' : post.id }) }}" method="post" {{ form_enctype(postForm) }} id="form-post">
+
+		{{ form_errors(postForm) }}
+		<div id="post-ology-title">
+			{{ form_row(postForm.title) }}
+		</div>
+
+	    <div id="post-ology-text">{{ form_row(postForm.textContent) }}</div>
+
+	    <div class="media-box-edit">
+		    <div class="attach-media">Attach Media:</div>
+		    <div class="add-image"></div>
+		    <div class="add-video"></div>
+		    <div class="add-audio"></div>
+	    </div>
+
+	    <div id="image_field">
+	        <span class="egypt-med">Select Image</span> {{ form_row(postForm.imageFile) }}
+	        <div class="cancel-edit-x">x</div>
+	    </div>
+
+	    <div id="video_field">
+	        <span class="egypt-med">Paste YouTube video link</span> {{ form_row(postForm.videoUrl) }}
+	        <div class="cancel-edit-x">x</div>
+	    </div>
+
+	    <div id="audio_field">
+	    	<span class="egypt-med">Select Audio file</span> {{ form_row(postForm.audioFile) }}
+	        <div class="cancel-edit-x">x</div>
+	    </div>
+
+	    <div id="remove-post-icon">x <br />
+			{% if post.postType.id == 3 %}
+				{{ image_tag(asset(post_medium_image_path ~ post.imageUrl)) }}
+			{% endif %}
+			{% if post.postType.id == 4 %}
+				<iframe width="560" src="http://www.youtube.com/embed/{{ post.videoUrl }}?wmode=transparent" frameborder="0" allowfullscreen></iframe>
+			{% endif %}
+			{% if post.postType.id == 5 %}
+				<audio controls="true" src="{{ asset(post_audio_path ~ post.audioUrl) }}" type="audio/mpeg" style="width:100%;">
+			  		Your browser does not support the audio element.
+				</audio>
+			{% endif %}
+		</div>
+
+		{{ form_rest(postForm) }}
+		<div id="ptype">{{ post.postTypeId }}</div>
+
+	    <div class="cancel-edit">Cancel</div> <input type="submit" value="Update" class="post-button" />
+	    
+	</form>
+{% endif %}

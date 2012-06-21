@@ -1,0 +1,11 @@
+Create text post
+
+<form action="{{ path('_post_store_text') }}" method="post" {{ form_enctype(form) }}>
+
+    {{ form_row(form.title) }}
+
+    {{ form_row(form.textContent) }}
+    {{ form_rest(form) }}
+
+    <input type="submit" value="Post" />
+</form>

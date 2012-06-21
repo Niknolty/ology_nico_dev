@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:fb="http://www.facebook.com/2008/fbml">
+    <head>
+        {% if noIndex is defined %}
+        <meta name="robots" content="noindex" />
+        {% endif %}
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="shortcut icon" href="{{ asset('bundles/ologysocial/img/ology_favicon.png') }}" />
+        <link href="{{ asset('bundles/ologysocial/css/user_tooltip.css') }}?ologyv=11" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('bundles/ologysocial/js/silver-bullet/ology.css') }}?ologyv=11" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('bundles/ologysocial/css/likes.css') }}?ologyv=11" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('bundles/ologysocial/css/reologize.css') }}?ologyv=11" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('bundles/ologysocial/css/comments.css') }}?ologyv=11" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('bundles/ologysocial/css/stash.css') }}?ologyv=11" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('bundles/ologysocial/css/follow.css') }}?ologyv=11" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('bundles/ologysocial/css/jquery-ui-1.8.20.ology.css') }}" type="text/css" rel="stylesheet" />
+        {# tips.css is overriding some ology.css so we include it only if necessary #}
+        {% if app.user is not empty and app.user.tipsList is not empty %}
+            <link href="{{ asset('bundles/ologysocial/css/tips.css') }}?ologyv=11" type="text/css" rel="stylesheet" />
+        {% endif %}
+        {% block stylesheets %}{% endblock %}
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-5940052-4']);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+
+        </script>
+        <script type="text/javascript">var switchTo5x=true;</script>
+        <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+        <script type="text/javascript">stLight.options({publisher: "a9e6fce8-401e-4d4f-8fe8-300569a0aaa5", tracking: "google"}); </script>
+        {% block fb_title %}{% endblock %}
+        {% block fb_description %}{% endblock %}
+        {% block fb_image %}{% endblock %}
+        {% block page_header %}
+        <meta name="title" content="Ology is all about passions." />
+        <meta name="description" content="Ology is a social network all about your passions.  Share yours and discover new ones today!" />
+        {% endblock %}
+    </head>
+    <body>
+    <script>
+        function goLogIn(){
+            window.location.href = "{{ path('_security_check') }}";
+            return false;
+        }
+
+        function onFbInit() {
+            if (typeof(FB) != 'undefined' && FB != null) {
+                FB.Event.subscribe('auth.statusChange', function(response) {
+                    if (response.session || response.authResponse) {
+                        setTimeout(goLogIn, 500);
+                    } else {
+                        window.location.href = "{{ path('_security_logout') }}";
+                    }
+                });
+            }
+        }
+    </script>
+    {{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
+
+    {% include 'OlogySocialBundle:FrontEnd:topmenu.html.twig' %}
+    {% block body %}{% endblock %}
+    {% include 'OlogySocialBundle:FrontEnd:footer.html.twig' %}
+    {% block javascripts %}
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+        <script src="{{ asset('bundles/ologysocial/js/silver-bullet/jquery.masonry.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('bundles/ologysocial/js/silver-bullet/jquery.reject.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('bundles/ologysocial/js/silver-bullet/jquery.isotope.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('bundles/ologysocial/js/silver-bullet/jquery.timeago.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('bundles/ologysocial/js/silver-bullet/jquery.jqDock.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('bundles/ologysocial/js/silver-bullet/jquery.linkify-1.0-min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('bundles/ologysocial/js/silver-bullet/charCount.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('bundles/ologysocial/js/silver-bullet/ology.js') }}?v=11" type="text/javascript"></script>
+        <script src="{{ asset('bundles/ologysocial/js/reologize.js') }}?v=11" type="text/javascript"></script>
+        <script src="{{ asset('bundles/ologysocial/js/user_tooltip.js') }}?v=11" type="text/javascript"></script>
+        <script src="{{ asset('bundles/ologysocial/js/silver-bullet/postscroll.js') }}" type="text/javascript"></script>
+        
+        <script type="text/javascript" src="http://platform.tumblr.com/v1/share.js"></script>
+        <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+        <script type="text/javascript">
+        (function() {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/plusone.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+        </script>
+        <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+
+        {% if app.user is not empty and app.user.tipsList is not empty %}
+        <script src="{{ asset('bundles/ologysocial/js/tips.js') }}" type="text/javascript"></script>
+        {% endif %}
+
+<!--
+            <script type="text/javascript" charset="utf-8">
+              var is_ssl = ("https:" == document.location.protocol);
+              var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+              document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+            </script>
+-->
+            <script type="text/javascript" charset="utf-8">
+              var feedback_widget_options = {};
+              feedback_widget_options.display = "overlay";  
+              feedback_widget_options.company = "ology_media";
+              feedback_widget_options.placement = "right";
+              feedback_widget_options.color = "#222";
+              feedback_widget_options.style = "idea";
+              var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+            </script>
+            
+            <!-- Begin comScore Tag -->
+            <script>
+              var _comscore = _comscore || [];
+              _comscore.push({ c1: "2", c2: "6421468" });
+              (function() {
+                var s = document.createElement("script"), el = document.getElementsByTagName("script")[0]; s.async = true;
+                s.src = (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js";
+                el.parentNode.insertBefore(s, el);
+              })();
+            </script>
+            <noscript>
+              <img src="http://b.scorecardresearch.com/p?c1=2&c2=6421468&cv=2.0&cj=1" />
+            </noscript>
+            <!-- End comScore Tag -->
+            <!-- Start Quantcast tag -->
+            <script type="text/javascript">
+            _qoptions={
+            qacct:"p-f976NMbAcG7z-"
+            };
+            </script>
+            <script type="text/javascript" src="http://edge.quantserve.com/quant.js"></script>
+            <noscript>
+            <img src="http://pixel.quantserve.com/pixel/p-f976NMbAcG7z-.gif" style="display: none;" border="0" height="1" width="1" alt="Quantcast"/>
+            </noscript>
+            <!-- End Quantcast tag -->
+            <script type="text/javascript" src="http://s.skimresources.com/js/28564X865370.skimlinks.js"></script>
+            
+            <!-- Start Alexa Certify Javascript -->
+            <script type="text/javascript" src="https://d31qbv1cthcecs.cloudfront.net/atrk.js"></script><script type="text/javascript">_atrk_opts = { atrk_acct: "/IJGf1agkf008c", domain:"ology.com"}; atrk ();</script><noscript><img src="https://d5nxst8fruw4z.cloudfront.net/atrk.gif?account=/IJGf1agkf008c" style="display:none" height="1" width="1" alt="" /></noscript>
+            <!-- End Alexa Certify Javascript -->
+            
+            <!-- Compete XL Code for ology.com -->
+            <script type="text/javascript">
+            __compete_code = '8f859bd58ccb11a42a549a5bdf6a683e';
+            /* Set control variables below this line. */ 
+            </script>
+            <script type="text/javascript" src="//c.compete.com/bootstrap/s/8f859bd58ccb11a42a549a5bdf6a683e/ology-com/bootstrap.js"></script>
+            <noscript>
+            <img width="1" height="1" src="https://ssl-ology-com-8f859b.c-col.com"/>
+            </noscript>
+    {% endblock %}
+     
+    {% block pagescripts %}
+         <script src="{{ asset('bundles/ologysocial/js/likes_display.js') }}?ologyv=11" type="text/javascript"></script>
+         <script src="{{ asset('bundles/ologysocial/js/offline_likes.js') }}?ologyv=11" type="text/javascript"></script>
+    {% endblock %}
+    </body>
+</html>

@@ -1,0 +1,60 @@
+{% extends 'OlogySocialBundle:FrontEnd:base.html.twig' %}
+{% block title %}Invite | Ology{% endblock %}
+{% block body %}
+{% if loggedIn == true %}
+	<div id='page'>
+            {% include 'OlogySocialBundle:FrontEnd:dock.html.twig' %}
+	</div>
+{% endif %}
+
+<div id="container">
+
+<div id="invite-box-main">
+    <h2>Invite Friends</h2>
+    {% if ok is defined %}
+        <div class="sent-invite">
+            Your friends have been invited. Invite some more...
+        </div>
+    {% endif %}
+    <h3>Facebook</h3>
+    <a href="{{ path('_website_invite_fb') }}">Invite your Facebook friends</a>.<br/><br/>
+    <h3>Gmail</h3>
+    <a href="{{ path('_website_invite_gmail') }}">Pick from your Gmail contacts</a>.<br/><br/>
+    <h3>Or, enter email addresses here:</h3>
+    
+    <div id="invite-form">
+    <form action="{{ path('_website_invite_send') }}" method="post" {{ form_enctype(inviteForm) }}>
+            {{ form_row(inviteForm.email1) }}
+            {{ form_row(inviteForm.email2) }}
+            {{ form_row(inviteForm.email3) }}
+            {{ form_row(inviteForm.email4) }}
+            {{ form_row(inviteForm.email5) }}
+            {{ form_row(inviteForm.email6) }}
+            <br />
+            <h3>Invite to:</h3>
+            {#{% if ologyId is defined %}#}
+                {{ form_row(inviteForm.ologyId) }}
+           {# {% endif %}#}
+            <br/>
+            
+            <h3>Include a personal message:</h3>
+            {{ form_row(inviteForm.msg) }}
+            <br />
+            <div id="invite-button" >
+                <input type="submit" value="send" class="invite-button" />
+            </div>
+    </form>
+    </div>
+</div>
+  
+</div>
+{% endblock %}
+                        
+{% block pagescripts %}
+<script type="text/javascript">
+    $('#inviteForm_ologyId').prepend(
+        $('<option></option>').val(-1).html('Entire site')
+    );
+    $("#inviteForm_ologyId").val(-1);
+</script>
+{% endblock %}

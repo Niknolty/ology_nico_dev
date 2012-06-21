@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ologize</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="{{ asset('bundles/ologysocial/js/ologize_it/ologize_it.js')}}"></script>
+        <link rel="stylesheet" href="{{ asset('bundles/ologysocial/js/ologize_it/ologize_it.css')}}" type="text/css"/>
+    </head>
+    <body>
+      
+        <div id="main">
+        <div id="image_preview">
+            <img src="{{ src }}" style=""/><br/>
+        </div>
+        <div id="form_block">
+            <form action="{{ path('_store_ologize_post') }}" method="post" {{ form_enctype(postForm) }} id="form-post" >
+
+                <div id="post-ology-title">{{ form_row(postForm.title) }}</div>
+                <div id="post-ology-text">{{ form_widget(postForm.textContent) }}</div>
+                <div id="post-ology-select">{{ form_row(postForm.firstOlogy) }}</div>
+        
+                {{ form_rest(postForm) }}
+
+                <input type="submit" value="Ologize it" class="post-button" />                
+            </form>
+        </div>
+        </div>
+    </body>
+</html>

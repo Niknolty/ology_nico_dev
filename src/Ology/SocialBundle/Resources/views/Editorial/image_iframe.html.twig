@@ -1,0 +1,10 @@
+<form action="{{ path('_editors_post_pic_store') }}" method="post" {{ form_enctype(picForm) }} id="form-pic">
+    {{ form_widget(picForm.picture) }}
+    <br /><input type="submit" value="Upload" />
+</form>
+
+<style type="text/css">
+	#pictureForm_picture{
+		font-size:0.75em
+	}
+</style>

@@ -1,0 +1,34 @@
+<div class="post">
+  <h2><a href="/ology/52">Ology Media</a></h2>
+  <div class="user-img">
+    <a href="{{ path("_website_register") }}"><img src="{{ asset('bundles/ologysocial/img/ology_favicon.png') }}" width="30" height="40" class="user-pic"></a>
+  </div>
+  <h3><a href="{{ path("_website_register") }}">Like what you see?</a></h3>
+  <div class="small">posted by <a href="/ology/52">the My.Ology Team</a></div>
+
+  <p><a href="{{ path("_website_register") }}">
+  Sign up with our easy Facebook registration and get even more.
+  Post, follow, and create content all about the things you love.
+  Click here to get started.</a></p>
+
+  <center>
+  <a href="{{ path("_website_register") }}"><img src="{{ asset('bundles/ologysocial/img/ology-logo.png') }}"></a>
+  </center>
+
+</div>
+
+{% for post in posts %}
+{% if post.isProfessional %}
+    {% include 'OlogySocialBundle:FrontEnd:pro_post_card.html.twig' with {'post': post } %}
+{% else %}
+    {% include 'OlogySocialBundle:FrontEnd:post_card.html.twig' with {'post': post } %}
+{% endif %}    
+{% endfor %}
+
+    {% if scroll is defined %}
+      {% if nextPage <= 15 %}
+        <div>
+            <a href="{{ path("_post_recent", {'offset' : nextPage, 'n' : n}) }}" id="next" class="navigation" >NEXT</a>
+        </div>
+      {% endif %}
+    {% endif %}

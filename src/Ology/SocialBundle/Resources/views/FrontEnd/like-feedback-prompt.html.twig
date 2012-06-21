@@ -1,0 +1,26 @@
+<div id="like-feedback-prompt-box">
+    <div class="like-feedback-prompt-splash">
+        <div id="like-feedback-prompt-title">
+        </div>
+        <div id="like-feedback-prompt-sentence">
+        </div>    
+    </div>
+    <div class="social_network_feedback_share">
+        {% include 'OlogySocialBundle:FrontEnd:social_network_share.html.twig'%}
+    </div>  
+    <span class="like-feedback-prompt-close">x</span>
+</div>
+
+
+{% block pagescripts %}
+<script type="text/javascript" src="http://platform.tumblr.com/v1/share.js"></script>
+<script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+{% endblock %}

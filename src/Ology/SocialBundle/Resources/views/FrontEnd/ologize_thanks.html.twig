@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html  xmlns:fb="http://www.facebook.com/2008/fbml">
+    <head>
+        <title>Thank you</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+        <script type="text/javascript" src="{{ asset('bundles/ologysocial/js/ologize_it/ologize_it.js') }}"></script>
+        <link rel="stylesheet" href="{{ asset('bundles/ologysocial/js/ologize_it/ologize_it.css') }}" type="text/css"/>
+        <meta property="og:title" content="{{ post.htmlTitle }}" />
+        <meta property="og:description" content="{{ post.summary }}" />
+        <meta property="og:image" content="{{ asset(post_small_image_path ~ post.imageUrl) }}" />
+    </head>
+    <body>
+       <div id="main">
+            <div class="text_part">
+                <div class="awesome">Awesome!</div>
+                <div class="text">You just ologized to <a href="{{ ology_link }}" id="ology_link" target="_blank" >{{ ology_name }}</a></div>
+                <div class="see_post"><a href="{{post_link}}" id="post_link" target="_blank" >See Your Post</a></div>
+            </div>
+            <div class="share_buttons_part">
+                <div class="text">Share your post:</div>
+                <div class="twitter_share">
+                    <div class="twitter_share_button"></div>
+                </div>
+                <div class="facebook_share">
+                    <div class="facebook_share_button"></div>
+                </div>
+                <div class="original_buttons">
+                    <a class="twitter-share-button" href="#" onclick='javascript:window.open("https://twitter.com/share?url={{post_link}}&text={{post.title}}","mywindow1","menubar=1,resizable=1,width=450,height=350"); return false;'>Tweet</a>
+                    {#
+                    <a href="https://twitter.com/share?url={{post_link}}&text={{post.title}}" class="twitter-share-button" data-count="none">Tweet</a>
+                    #}
+                    <a name="fb_share" type="icon_count" share_url="{{post_link}}"  class="facebook-share-button" ></a>
+                </div>
+            </div>
+       </div>
+
+       <script type="text/javascript" src="http://static.ak.fbcdn.net/connect.php/js/FB.Share"></script>
+       {#
+       <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+       #}
+    </body>
+</html>

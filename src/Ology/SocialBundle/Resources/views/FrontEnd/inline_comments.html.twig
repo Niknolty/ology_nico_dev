@@ -1,0 +1,26 @@
+<div class="inline-comments">
+{% set nbComments = '0' %}
+{% for comment in comments %}
+   {% set nbComments =  (nbComments + 1) %} 
+    <div class="post-card-comment"> <a name="comments">
+        <div class="user-img">
+            <a href="{{ path("_website_profile", {'id' : comment.author.id}) }}">
+                <img src="{{ asset(user_small_image_path ~ comment.author.imageUrl) }}">
+            </a>
+        </div>
+        <p class="commentp"><a href="{{ path("_website_profile", {'id' : comment.author.id}) }}">{{ comment.author.firstName }}</a> 
+        {% if comment.content|length <= 140 %}
+            {{ comment.content|nl2br() }}
+        {% else %}
+            {{ comment.content|truncate(140, false, "...") }} 
+        {% endif %}
+        </p>
+    </div>
+{% endfor %}
+
+{% if nbComments > 2 %}
+    <div class="hide-postcard-comments" href="{{ path("_website_post_ajax_comments", {'postId' : postId, 'slug' : postSlug}) }}">
+        hide comments
+    </div>
+{% endif %}  
+</div>

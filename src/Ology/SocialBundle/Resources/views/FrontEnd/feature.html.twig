@@ -1,0 +1,86 @@
+<div id="featured-boxes">
+    {% if proPost != NULL %}
+     <figure class="featured-box" style="background-image:url('/bundles/ologysocial/up/img/post/post_medium/{{ proPost.imageUrl }}');">
+         <figcaption>
+            <div style="text-align: center; color: white; padding-top: 80px;">
+            <div class="ology-name">
+                Posted in <a style="color: white" href="{{ path("_website_ology", {'id' : proPost.firstOlogyId, 'slug' : proPost.slug}) }}">{{ proPost.firstOlogy }}</a><br />
+            </div>
+                    
+            <a href="{{ path("_website_profile", {'id' : proPost.author.id}) }}">
+                <img src="{{ asset('bundles/ologysocial/up/img/user/user_large/' ~ proPost.author.imageUrl) }}"   />
+            </a>        
+                              
+           <div class="author-info-date">
+                by <b>
+                <a style="color: white" href="{{ path("_website_profile", {'id' : proPost.author.id}) }}">
+                    {% set firstname_length =  proPost.author.firstName|length %}
+                    {% set lastname_length =  proPost.author.lastName|length %}
+                        {% if (firstname_length + lastname_length) >= 15 %} 
+                            {{ (proPost.author.firstName~' '~proPost.author.lastName)|truncate(15, false, "...")}}
+                        {% else %}   
+                            {{proPost.author.firstName}} {{proPost.author.lastName}}
+                        {% endif %}
+                </a>
+                </b><br />
+                {% if proPost.author.editorTitle is empty %}
+                {% else %}
+                    {{ proPost.author.editorTitle }} <br />
+                {% endif %}
+                <br />
+                {{ proPost.creationDate|date("M d, Y") }}<br />
+            </div><br />
+                 <b>
+                    {% if proPost.timesCommented == 1 %}
+                        {{ proPost.timesCommented }} comment
+                    {% elseif proPost.timesCommented > 1 %}
+                        {{ proPost.timesCommented }} comments
+                    {% endif %}
+                 </b>
+            </div>
+        </figcaption>
+
+        <div class="featured-box-overlay">
+            <a href="{{ path("_website_post", {'postId' : proPost.id, 'slug' : proPost.slug}) }}">{{ proPost.title }}</a>
+        </div>
+    </figure>
+    {% endif %}
+        
+    {% for relatedPost in userPosts %}
+    <figure class="featured-box-small" style="background-image:url('/bundles/ologysocial/up/img/post/post_medium/{{ relatedPost.imageUrl }}');">
+        <figcaption>
+            <div style="text-align: center; color: white; padding-top: 12px;" >
+            <div class="ology-name">
+               Posted in <a style="color: white" href="{{ path("_website_ology", {'id' : relatedPost.FirstOlogyId, 'slug' : relatedPost.slug}) }}">{{ relatedPost.firstOlogy }}</a><br />
+            </div>
+            <div class="author-info-date">
+                by <b>
+                    <a style="color: white" href="{{ path("_website_profile", {'id' : relatedPost.author.id}) }}">
+                        {% set firstname_length =  relatedPost.author.firstName|length %}
+                        {% set lastname_length =  relatedPost.author.lastName|length %}
+                            {% if (firstname_length + lastname_length) >= 15 %} 
+                                {{ (relatedPost.author.firstName~' '~relatedPost.author.lastName)|truncate(15, false, "...")}}
+                            {% else %}   
+                                {{relatedPost.author.firstName}} {{relatedPost.author.lastName}}
+                            {% endif %}
+                    </a>
+                </b><br />
+                {{ relatedPost.creationDate|date("M d, Y") }}<br />
+            </div>
+                <b style="font-size: 10px">
+                    {% if relatedPost.timesCommented == 1 %}
+                        {{ relatedPost.timesCommented }} comment
+                    {% elseif relatedPost.timesCommented > 1 %}
+                        {{ relatedPost.timesCommented }} comments
+                    {% endif %}
+                 </b>
+            </div>
+        </figcaption>
+
+        <div class="featured-box-small-overlay">
+            <a href="{{ path("_website_post", {'postId' : relatedPost.id, 'slug' : relatedPost.slug}) }}">{{ relatedPost.title }}</a>
+        </div>
+    </figure>
+    {% endfor %}      
+    <div style="clear:both;"></div>
+</div>

@@ -1,0 +1,12 @@
+{% for post in posts %}
+<span style="display: inline-block; border: 1px solid #000000; width: 500px;">
+<h1 style="text-align: center;">{{ post.title }}</h1>
+{% if post.postType %}
+<div style="text-align: center;">
+    <img src="{{ asset(post_original_image_path ~ post.imageUrl) }}"  />
+</div>
+{% endif %}
+<p>{{post.textContent}}</p>
+</span>
+<br/><br/><br/>
+{% endfor %}

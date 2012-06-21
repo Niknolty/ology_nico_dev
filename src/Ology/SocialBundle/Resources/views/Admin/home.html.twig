@@ -1,0 +1,53 @@
+<h1>Ology Super Admin Page</h1>
+
+
+
+<h2>Cache</h2>
+<ul>
+    <li><a href="{{ path('_cache_all_posts') }}">Cache Refresh Posts, cards, recommended, most viewed</a></li>
+    <li><a href="{{ path('_cache_inv') }}">Invalidate dock/notif cached data</a></li>
+    <li><a href="{{ path('_cache_ology_stats') }}">Compute stats</a></li>
+    <li><a href="{{ path('_cache_ology_posts') }}">Compute dropdown and cards for top3 and splash</a></li>
+</ul>
+
+<h2>Email</h2>
+<ul>
+    <li><a href="{{ path('_email_missyou') }}">Send We Miss You email</a></li>
+</ul>
+
+<h2>Ologies</h2>
+<ul>
+    <li><a href="{{ path('_featured_display') }}">Featured Ologies</a></li>
+    <li><a href="{{ path('_blacklisted_display') }}">Blacklisted Ologies</a></li>
+</ul>
+
+<h2>Editorial</h2>
+<ul>
+    <li><a href="{{ path('_adm_post_publish') }}">Publish Scheduled posts</a></li>
+</ul>
+
+<h2>Users</h2>
+<ul>
+    <li><a href="{{ path('_adm_set_su', {'id' : '[REPLACEME]'}) }}">Set super user</a></li>
+    <li><a href="{{ path('_adm_set_editor', {'id' : '[REPLACEME]'}) }}">Set editor</a></li>
+    <li><a href="{{ path('_adm_delete_user', {'id' : '[REPLACEME]'}) }}">Delete user</a></li>
+    <li><a href="{{ path('_adm_disable_user', {'id' : '[REPLACEME]'}) }}">Disable user</a></li>
+</ul>
+
+<h2>Posts</h2>
+<ul>
+    <li><a href="{{ path('_mostviewed_display') }}">Set Most Viewed</a></li>
+</ul>
+<h2>Current super admins</h2>
+<ul>
+{% for admin in admins %}
+        <li>{{ admin }}</li>
+{% endfor %}
+</ul>
+
+<h2>Current Editors</h2>
+<ul>
+{% for editor in editors %}
+        <li>{{ editor }}</li>
+{% endfor %}
+</ul>

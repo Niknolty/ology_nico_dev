@@ -1,0 +1,178 @@
+{% extends 'OlogySocialBundle:FrontEnd:base.html.twig' %}
+{% block title %}Settings | Ology{% endblock %}
+{% block body %}
+
+<div id="container">
+    <div id="user-settings">
+
+    <div class="show-ologize">Ologize<br /> Button</div>
+    <div class="show-notifications">Manage Notifications</div>
+    <div class="show-account">Account<br /> Info</div>
+
+        <h2>Settings</h2>
+
+        {% if app.session.get('inRegistration') == true and user.fbid is not null %}
+            <div id="fb-associated">
+                    <p>
+                        Hey, thanks for signing up through Facebook--that was easy, right? If you had an account on here already and don't see your ologies and content, no big deal, you can merge your logins and that problem will disappear.
+                    </p>
+                    <a href="/mergeAccount">Click here to enter the email address for your original account, and that's it! You'll be all set!</a> 
+            </div>
+        {% endif %}
+
+            <form action="{{ path('_user_update') }}" method="post" {{ form_enctype(form) }} id="settings-form">
+                {{ form_errors(form) }}
+            <div class="settings-section">
+                    <div class="settings-tilte">Name:</div>
+                    First Name{{ form_row(form.firstName) }}
+                    Last Name{{ form_row(form.lastName) }}
+            </div>
+
+            <div class="settings-section">
+                    <div class="settings-tilte">3 Things I Love:</div>
+                    {{ form_row(form.top1) }}
+                    {{ form_row(form.top2) }}
+                    {{ form_row(form.top3) }}
+            </div>
+
+            <div class="settings-section">
+                    <div class="settings-tilte">Occupation:</div>
+                    {{ form_row(form.occupation) }}
+            </div>
+
+            <div class="settings-section">
+                    <div class="settings-tilte">About Me:</div>
+                    {{ form_row(form.summary) }}
+            </div>
+
+            {% if is_granted('ROLE_EDITOR') %}
+            <div class="settings-section">
+                    <div class="settings-tilte">Editorial Title:</div>
+                    {{ form_row(form.editorTitle) }}
+
+                    <div class="settings-tilte">Twitter account:</div>
+                    {{ form_row(form.editorTwitterId) }}
+
+                    <div class="settings-tilte">Main Channel:</div>
+                    {{ form_row(form.mainChannel) }}
+            </div>
+            {% endif %}
+            <div class="settings-section">
+                    <div class="settings-tilte">Websites:</div>
+                    {{ form_row(form.website1) }}
+                    {{ form_row(form.website2) }}
+                    {{ form_row(form.website3) }}
+            </div>
+
+            <div class="settings-section">
+                    <div class="settings-tilte">Sex:</div>
+                    {{ form_row(form.sex) }}
+            </div>
+
+            <div class="settings-section">
+                    <div class="settings-tilte">Birthday:</div>
+            {{ form_row(form.bdayDay) }} {{ form_row(form.bdayMonth) }}{{ form_row(form.bdayYear) }}
+            {{ form_row(form.displayBday) }} Do Not Display on my Profile
+            </div>
+
+            <div class="settings-section">
+                    <div class="settings-tilte">Location:</div>
+                    {{ form_row(form.location) }}
+            </div>
+
+            <div class="settings-section">
+                    <div class="settings-tilte">Email:</div>
+                    {{ form_row(form.email) }}
+                    {{ form_row(form.doNotEmail) }} Do not email me if I don't ask you to. Ever.
+            </div>
+
+            {% if user.twitterId is null %}
+            <div class="settings-section">
+                    <div class="settings-tilte">Change Password:</div>
+                    Change Password {{ form_row(form.changePassword) }}
+                    Confim Password{{ form_row(form.confirmChangePassword) }}
+            </div>
+            {% endif %}
+
+            <div class="settings-section">
+                    <div class="settings-tilte">Photo:</div>
+                    {% if user.fbId is not null %}
+                            <div id="refresh-fb">Pull my profile pic from Facebook</div>
+                    {% endif %}
+                    <img id="fb-pic" src="{{ asset(user_large_image_path ~ user.imageUrl ) }}">
+                    {{ form_row(form.imageFile) }}
+            </div>
+
+            <input type="submit" value="Update" class="create-ology-button"/>
+
+            </form>
+	</div>
+
+	<div id="user-notifications">
+        <div class="show-ologize">Ologize<br /> Button</div>
+        <div class="show-notifications">Manage Notifications</div>
+        <div class="show-account">Account<br /> Info</div>
+        <h2>Settings</h2>
+        {% include 'OlogySocialBundle:Tips:notifications_tip.html.twig' %}
+        <div class="settings-tilte">Notifications:</div>
+        <form action="{{ path('_user_update_notification') }}" method="post" {{ form_enctype(form) }}>
+            {{ form_rest(notificationForm) }}
+            <input type="submit" value="Update" class="create-ology-button"/>
+        </form>
+    </div>
+
+    <div id="user-ologize">
+
+        <div class="show-ologize">Ologize<br /> Button</div>
+        <div class="show-notifications">Manage Notifications</div>
+        <div class="show-account">Account<br /> Info</div>
+
+        <h2>Settings</h2>
+        <div class="settings-tilte">Ologize:</div>
+        {% include 'OlogySocialBundle:FrontEnd:ologize_settings.html.twig' %}
+    </div>
+</div>
+
+{% endblock %}
+
+{% block pagescripts %}
+{% if loggedIn %}
+<link rel="stylesheet" href="{{ asset('bundles/ologysocial/js/jquery.autocomplete-1.1.3/styles.css') }}" type="text/css"/>
+<script src="{{ asset('bundles/ologysocial/js/jquery.autocomplete-1.1.3/jquery.autocomplete.js') }}" type="text/javascript"></script>
+{% if user.FbId != NULL %}
+<script type="text/javascript">
+     $.ajax("{{ path("_website_fb_likes") }}");
+     $('#refresh-fb').click(function(){
+        $.ajax({url: "{{ path("_website_fb_pic") }}",
+                context: document.body,
+                success: function(data){
+                            $('#fb-pic').attr("src", "{{ asset(user_large_image_path) }}" + data);
+                          }
+                });
+     });
+</script>
+{% endif %}
+<script type="text/javascript">
+var a = $('#userForm_top1').autocomplete({ 
+    serviceUrl:'{{ path("_ologies_autocomplete_ajax") }}',
+    maxHeight:220,
+    width:500,
+    noCache: false,
+  });
+
+var b = $('#userForm_top2').autocomplete({ 
+    serviceUrl:'{{ path("_ologies_autocomplete_ajax") }}',
+    maxHeight:220,
+    width:500,
+    noCache: false,
+  });
+  
+var c = $('#userForm_top3').autocomplete({ 
+    serviceUrl:'{{ path("_ologies_autocomplete_ajax") }}',
+    maxHeight:220,
+    width:500,
+    noCache: false,
+  });
+</script>
+{% endif %}
+{% endblock %}

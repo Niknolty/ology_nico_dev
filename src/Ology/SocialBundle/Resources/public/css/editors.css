@@ -1,0 +1,165 @@
+.channel-ads textarea {
+    width: 300px;
+}
+#container{
+	width:900px;
+	background-color: #f1f1f1;
+	padding:20px 20px 50px 20px;
+}
+h3{
+	font-size:22px;
+	margin:0 0 20px;
+}
+label{
+	display: block;
+	font-size:14px;
+}
+input{
+	border:none;
+}
+.title, .caption, .alt, .cite-title, .cite-url, .seo-tags, .meta-title, .meta-keywords, .meta-description{
+	width:550px;
+	padding:5px;
+	background-color: #fff;
+	border:1px solid #ccc;
+	font-size:1.5em;
+	margin: 0 0 20px 0;
+}
+
+
+.movie-director, .movie-starring, .movie-date, .movie-runtime, .album-artist, .album-title, .album-label, .album-date{
+	width:550px;
+	padding:5px;
+	background-color: #fff;
+	border:1px solid #ccc;
+	font-size:1.5em;
+	margin: 0 0 20px 0;
+}
+.movie-director, .movie-runtime, .movie-date, .album-label, .album-date, #professionalPostForm_imageAltText,
+#professionalPostForm_imageCaption, #professionalPostForm_citeTitle, #professionalPostForm_citeUrl{
+	width:400px;
+}
+
+.summary{
+	width:550px;
+	height:30px;
+	padding:5px;
+	background-color: #fff;
+	border:!px solid #ccc;
+	font-size:1.5em;
+	margin: 0 0 20px 0;
+}
+.lead-image{
+	border-top:1px solid #ccc;
+	border-bottom:1px solid #ccc;
+	padding:15px 0 15px 0;
+	margin:10px 0 10px;
+}
+.seo{
+	border-top:1px solid #ccc;
+	padding:15px 0 15px 0;
+	margin:20px 0 0 0;
+}
+.cite{
+	border-bottom:1px solid #ccc;
+	padding:15px 0 15px 0;
+	margin:10px 0 0 0;
+}
+#professionalPostForm_imageFile, .cite-image{
+	margin-bottom:15px;
+}
+.upload-pic{
+	position: absolute;
+	z-index:0;
+	right:30px;
+	top:475px;
+	width:280px;
+	max-height:400px;
+	overflow: hidden;
+	overflow-y: auto;
+	border:1px solid #ccc;
+	padding:15px;
+	background-color: #fff;
+}
+#new-pic-button{
+	background-color: #cccccc;
+	padding:5px;
+	color:#222;
+}
+#new-pic-button:hover{
+	background-color: #222;
+	color:#ccc;
+	cursor: pointer;
+}
+.post-type{
+	background-color:#e7e7e7;
+	padding:10px;
+	margin: 0;
+	border-top:1px solid #ccc;
+	border-bottom:1px solid #ccc;
+}
+#submit-div, #scheduled-div{
+	margin-top:20px;
+	padding-top:15px;
+	border-top:1px solid #ccc;
+}
+#submit-div input{
+	float: left;
+}
+#save-button-editor, #schedule-button-editor, #schedule-cancel-button-editor{
+	background-color: #f1f1f1;
+	border-color: #f1f1f1;
+	color:#222;
+}
+#save-button-editor:hover, #schedule-button-editor:hover, #schedule-cancel-button-editor:hover{
+	background-color: #DDD;
+}
+.pick-ology{
+	margin: 0 0 10px 0;
+}
+#rating, #movie-stuff, #album-stuff{
+	margin: 20px 0px 0 0;
+}
+.channel {
+	display: block;
+	background-color: #DDD;
+	padding:10px;
+	font-size:14px;
+	width:180px;
+	text-align:center;
+	margin-bottom: 5px;
+}
+.channel:hover {
+	background-color: #222;
+	color:#fff;
+}
+.channel-edit{
+	float: left;
+	width:300px;
+	margin-left:100px;
+	margin-bottom:30px;
+}
+.channel-edit input[type=text]{
+	width:150px;
+	padding:5px;
+	background-color: #fff;
+	border:1px solid #ccc;
+}
+#channel-edit-submit{
+	border-top:1px solid #ccc;
+	display: block;
+	padding-top:40px;
+	width:800px;
+	height:50px;
+	clear: both;
+	margin:0 auto;
+	text-align:center;
+}
+#channel-edit-submit input{
+	float: none;
+	margin:0 auto;
+	text-align: center;
+}
+.pro-post-channel input[type=checkbox]{
+    float: left;
+}

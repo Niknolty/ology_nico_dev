@@ -1,0 +1,72 @@
+{% extends 'OlogySocialBundle:Stats:base.html.twig' %}
+{% block body %}
+<h1>Ologies</h1>
+
+<h2>Top Ologies</h2>
+<h3>By members</h3>
+<table>
+    <tr>
+        <td></td>
+        <td>name</td>
+        <td>category </td>
+        <td># users </td>
+        <td># posts </td>
+        <td># comments</td>
+    </tr>
+{% for ologyStat in ologiesStats['users'] %}
+    <tr>
+        <td>{{ loop.index }}</td>
+        <td><a href="{{ path("_website_ology", {'id' : ologyStat.ology.id}) }}">{{ ologyStat.ology.name }}</a></td>
+        <td>{{ ologyStat.ology.ologylabels[0].label.name }}</td>
+        <td>{{ ologyStat.nbMembers }}</td>
+        <td>{{ ologyStat.nbPosts }}</td>
+        <td>{{ ologyStat.nbComments }}</td>
+    </tr>
+{% endfor %}
+</table>
+
+<h3>By Posts</h3>
+<table>
+    <tr>
+        <td></td>
+        <td>name</td>
+        <td>category </td>
+        <td># users </td>
+        <td># posts </td>
+        <td># comments</td>
+    </tr>
+{% for ologyStat in ologiesStats['posts'] %}
+    <tr>
+        <td>{{ loop.index }}</td>
+        <td><a href="{{ path("_website_ology", {'id' : ologyStat.ology.id}) }}">{{ ologyStat.ology.name }}</a></td>
+        <td>{{ ologyStat.ology.ologylabels[0].label.name }}</td>
+        <td>{{ ologyStat.nbMembers }}</td>
+        <td>{{ ologyStat.nbPosts }}</td>
+        <td>{{ ologyStat.nbComments }}</td>
+    </tr>
+{% endfor %}
+</table>
+
+<h3>By Comments</h3>
+<table>
+    <tr>
+        <td></td>
+        <td>name</td>
+        <td>category </td>
+        <td># users </td>
+        <td># posts </td>
+        <td># comments</td>
+    </tr>
+{% for ologyStat in ologiesStats['comments'] %}
+    <tr>
+        <td>{{ loop.index }}</td>
+        <td><a href="{{ path("_website_ology", {'id' : ologyStat.ology.id}) }}">{{ ologyStat.ology.name }}</a></td>
+        <td>{{ ologyStat.ology.ologylabels[0].label.name }}</td>
+        <td>{{ ologyStat.nbMembers }}</td>
+        <td>{{ ologyStat.nbPosts }}</td>
+        <td>{{ ologyStat.nbComments }}</td>
+    </tr>
+{% endfor %}
+</table>
+
+{% endblock %}

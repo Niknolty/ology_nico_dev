@@ -1,0 +1,161 @@
+{% if disabledTopMenu is defined and disabledTopMenu == true %}
+    <div id="topmenu" class="disabled">
+{% else %}
+    <div id="topmenu">    
+{% endif %}
+    
+        <div id="top">
+		<a href="{{ path("_website_home") }}" id="ology-logo"></a>
+                {% if searchForm is defined %}
+                <div>
+                    <form action="{{ path('_website_search') }}" method="post" {{ form_enctype(searchForm) }}>
+                    <div id="top-search">
+                        {{ form_row(searchForm.search) }}
+                    </div>
+                    {{ form_row(searchForm.type) }}
+                    </form>
+                </div>
+                {% endif %}
+
+		<div id="top-left">
+			{% if loggedIn is defined and loggedIn == false %}
+                                {% if login_error %}	
+                                    <div>{{ login_error.message }}</div>
+                                {% endif %}
+			{% elseif user is defined %}
+                                <a href="{{ path('_website_profile', {'id' : user.id}) }}"><img src="{{ asset(user_small_image_path ~ user.imageUrl) }}"></a>
+                                <a href="{{ path('_website_profile', {'id' : user.id}) }}">Hi, {{ user.firstname}} </a>
+                                {% include 'OlogySocialBundle:Tips:profile_tip.html.twig' %}
+			{% endif %}
+		</div>
+
+		<div id="top-right">
+
+                    {% if loggedIn is not defined or loggedIn == false %}
+                    <div id="top-right2">
+			<a href="{{ path("_website_splash") }}">Home</a>
+			<a href="{{ path("_website_register") }}">Join</a>
+			<a href="{{ path("_website_faq") }}">FAQ</a>
+                        <a href="#" class="channels-link">News</a>
+                        <a href="#" class="login-link">Login</a>
+			<div class="channels-box-lo">
+                            <a href="{{ path('_website_channel', {'stub' : 'celebs'}) }}">Celebs</a>
+                            <a href="{{ path('_website_channel', {'stub' : 'fashion'}) }}">Fashion</a>
+                            <a href="{{ path('_website_channel', {'stub' : 'film'}) }}">Film</a>
+                            <a href="{{ path('_website_channel', {'stub' : 'geek'}) }}">Geek</a>
+                            <a href="{{ path('_website_channel', {'stub' : 'humor'}) }}">Humor</a>
+                            <a href="{{ path('_website_channel', {'stub' : 'music'}) }}">Music</a>
+                            <a href="{{ path('_website_channel', {'stub' : 'politics'}) }}">Politics</a>
+                            <a href="{{ path('_website_channel', {'stub' : 'sports'}) }}">Sports</a>
+                            <a href="{{ path('_website_channel', {'stub' : 'tv'}) }}">TV</a>
+                            
+                        </div>
+                        <div class="login-box">
+                            <div id="signin-box">
+                                <div class="facebook-signin">
+                                    {% include 'OlogySocialBundle:FrontEnd:facebook_signin.html.twig' %}
+                                </div>
+                                <div class="twitter-signin">
+                                    {% include 'OlogySocialBundle:FrontEnd:twitter_signin.html.twig' %}
+                                </div>
+                            </div>
+                            <div class="or-line-breakup">
+                                <img id="line" src="{{ asset('bundles/ologysocial/img/line.png') }}"/>
+                                <span id="or-word">or</span>
+                                <img id="line" src="{{ asset('bundles/ologysocial/img/line.png') }}"/>
+                            </div>
+                            <form action="{{ path('fos_user_security_check') }}" method="post" id="login-form">
+                                <input type="text" id="username" name="_username" placeholder="Email address" value="{% if last_username is defined %}{{ last_username }}{% endif %}" />
+
+                                <input type="password" id="password" name="_password" placeholder="Password"/>
+                                <div class="reset-pw"><a href="{{ path("_website_reset") }}">Forgot Password?</a></div> 
+
+                                <div id="remember-login-box">
+
+                                    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                                    <label for="remember_me" id="remember-me-label">Remember me</label>
+                                    <input type="submit" id="_submit" name="_submit" value="Login" />
+                                </div>
+                            </form>
+                            <span class="login-close">x</span> 
+			</div>
+                    </div>
+		{% else %}
+                        {% include 'OlogySocialBundle:Tips:ology_create_tip.html.twig' %}
+                        {% include 'OlogySocialBundle:Tips:news_tip.html.twig' %}
+                        {% include 'OlogySocialBundle:Tips:settings_tip.html.twig' %}
+                        {% include 'OlogySocialBundle:Tips:invite_tip.html.twig' %}
+                    
+                    	<a href="{{ path("_website_home") }}">Home</a>
+			<a href="{{ path("_website_create") }}">Create</a>
+			<a href="{{ path("_website_splash") }}">Explore</a>
+                        <a href="{{ path("_website_invite") }}">Invite</a>
+                        <a href="#" class="channels-link">News</a>
+                        
+                        {% if is_granted('ROLE_EDITOR') %}
+                        <div class="channels-box-ed">
+                        {% else %}
+                        <div class="channels-box-li">
+                        {% endif %}
+                            <a href="{{ path('_website_channel', {'stub' : 'celebs'}) }}">Celebs</a>
+                            <a href="{{ path('_website_channel', {'stub' : 'fashion'}) }}">Fashion</a>
+                            <a href="{{ path('_website_channel', {'stub' : 'film'}) }}">Film</a>
+                            <a href="{{ path('_website_channel', {'stub' : 'geek'}) }}">Geek</a>
+                            <a href="{{ path('_website_channel', {'stub' : 'humor'}) }}">Humor</a>
+                            <a href="{{ path('_website_channel', {'stub' : 'music'}) }}">Music</a>
+                            <a href="{{ path('_website_channel', {'stub' : 'politics'}) }}">Politics</a>
+                            <a href="{{ path('_website_channel', {'stub' : 'sports'}) }}">Sports</a>
+                            <a href="{{ path('_website_channel', {'stub' : 'tv'}) }}">TV</a>
+                            
+                        </div>
+                        
+                        {% if is_granted('ROLE_EDITOR') %}
+                            <a href="#" class="editor-link">Editors</a>
+                            <div class="editor-box">
+                                    <a href="{{ path('_editors_post_form') }}">New Post</a>
+                                    <a href="{{ path('_editors_post_list') }}">My articles</a>
+                                    <a href="{{ path('_editors_channel_list')}}">News admin</a>
+                            </div>
+                        <a href="#" class="account-link-editor">Account</a>
+			<div class="account-box-editor">
+                        {% else %}
+                        <a href="#" class="account-link">Account</a>
+			<div class="account-box">
+                        {% endif %}
+                                {% include 'OlogySocialBundle:Tips:faq_tip.html.twig' %}
+				<a href="{{ path("_website_settings") }}">Settings</a>
+				<a href="{{ path('_website_profile', {'id' : user.id}) }}">Profile</a>
+				<a href="{{ path("_website_faq") }}">FAQ</a>
+				<a href="{{ path('_website_manual_log_out') }}">Log Out</a>
+			</div>
+		{% endif %}
+
+		</div>
+	</div>
+</div>
+{% if loggedIn is not defined or loggedIn == false %}
+	{#<div class="circle">
+		<div class="circle-invite">
+                    <div id="text-invite">
+			<h2>Ology is all about passions.</h2>
+			<p>Show me yours and I'll show you mine.</p>
+                    </div>
+                    <div id="twitter-invite">
+                        {% include 'OlogySocialBundle:FrontEnd:twitter_signin.html.twig' %}
+                    </div>
+                    <div id="fb-invite">
+                        {% include 'OlogySocialBundle:FrontEnd:facebook_signin.html.twig' %}
+                    </div>
+		</div>
+	</div
+    <style>
+	#container-post, #container-ology, #container, .header-explore, #container-channel {
+	  margin-top:120px;
+	}
+    #menu{
+        top:28px;
+    }
+</style>#}
+{% else %}
+    {% include 'OlogySocialBundle:FrontEnd:get_started_prompt.html.twig' %}
+{% endif %}
