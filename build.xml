@@ -102,5 +102,5 @@
         </exec>
     </target>
 <!--, lint, phploc, pdepend, phpmd-ci, phpcpd, phpdox,-->
-    <target name="build" depends="prepare, phpunit, phpcb"/>
+    <target name="build" depends="prepare, lint, phploc, pdepend, phpmd-ci, phpcpd, phpdox, phpunit, phpcb"/>
 </project>
